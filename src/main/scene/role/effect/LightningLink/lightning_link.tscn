@@ -1,0 +1,75 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfn6p1sr1ilc6"]
+
+[ext_resource type="Texture2D" uid="uid://crb75oqxhcwd0" path="res://assets/MyVFX/ThunderVFX/LightingChain.png" id="1_jkrtn"]
+[ext_resource type="Script" path="res://src/main/scene/role/effect/LightningLink/lightning_link.gd" id="2_ax7hh"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="3_4fhy3"]
+
+[sub_resource type="Animation" id="Animation_l6uxb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0pqgx"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dp5h2"]
+_data = {
+"RESET": SubResource("Animation_l6uxb"),
+"idle": SubResource("Animation_0pqgx")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pk8uu"]
+
+[node name="LightningLink" type="Sprite2D"]
+z_index = 15
+texture_repeat = 2
+rotation = -1.5708
+texture = ExtResource("1_jkrtn")
+hframes = 6
+region_enabled = true
+region_rect = Rect2(0, 0, 288, 0)
+script = ExtResource("2_ax7hh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dp5h2")
+}
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("3_4fhy3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_pk8uu")
+
+[node name="HitBoxTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="hit" from="HitBox" to="." method="_on_hit_box_hit"]
+[connection signal="timeout" from="HitBoxTimer" to="." method="_on_hit_box_timer_timeout"]

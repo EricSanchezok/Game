@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://dfhpb0tbgi5c6"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_y17ha"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_7/weapon_7.gd" id="2_vjima"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_wqyr4"]
+[ext_resource type="Texture2D" uid="uid://bu2kce5xcodo0" path="res://src/main/scene/role/standard_weapons/weapon_7/icon.png" id="4_t7oyb"]
+[ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="5_7p2f4"]
+[ext_resource type="AnimationLibrary" uid="uid://c6y86cjt6ilmw" path="res://src/main/scene/role/standard_weapons/animationRes/shield_common.res" id="6_h71sd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4c4vw"]
+resource_local_to_scene = true
+shader = ExtResource("3_wqyr4")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_roj31"]
+radius = 17.0
+height = 34.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uxvo"]
+atlas = ExtResource("5_7p2f4")
+region = Rect2(400, 34, 32, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqx80"]
+atlas = ExtResource("5_7p2f4")
+region = Rect2(401, 41, 30, 2)
+
+[node name="Weapon7" instance=ExtResource("1_y17ha")]
+script = ExtResource("2_vjima")
+current_health = 0.0
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_4c4vw")
+texture = ExtResource("4_t7oyb")
+
+[node name="HitBox" parent="Graphics" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_roj31")
+
+[node name="HurtBox" parent="Graphics" index="2"]
+visible = false
+collision_layer = 8
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+rotation = 1.5708
+
+[node name="SearchBox" parent="Graphics" index="3"]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = false
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 23)
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." index="7"]
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 16.0
+offset_bottom = -21.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+texture_under = SubResource("AtlasTexture_0uxvo")
+texture_progress = SubResource("AtlasTexture_yqx80")
+texture_progress_offset = Vector2(1, 1)
+
+[node name="ShieldHitboxTimer" type="Timer" parent="." index="8"]
+wait_time = 0.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+libraries = {
+"": ExtResource("6_h71sd")
+}
+
+[connection signal="hurt" from="Graphics/HurtBox" to="." method="_on_hurt_box_hurt"]

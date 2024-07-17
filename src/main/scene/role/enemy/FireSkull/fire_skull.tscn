@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://br7lnae3wltvd"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_wnbmn"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/FireSkull/fire_skull.gd" id="2_p2vuy"]
+[ext_resource type="Texture2D" uid="uid://bpcbb1w6mbd7y" path="res://src/main/scene/role/enemy/FireSkull/A.png" id="3_qmur0"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="4_fk8hm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7d6xy"]
+radius = 17.72
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mnba5"]
+radius = 22.3607
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25gjb"]
+radius = 13.0384
+
+[node name="FireSkull" instance=ExtResource("1_wnbmn")]
+script = ExtResource("2_p2vuy")
+is_shade_like = true
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(0, -10)
+texture = ExtResource("3_qmur0")
+hframes = 6
+vframes = 5
+frame = 24
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 480)
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CircleShape2D_7d6xy")
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CircleShape2D_mnba5")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_25gjb")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"ShadeLike": ExtResource("4_fk8hm")
+}

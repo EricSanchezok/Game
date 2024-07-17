@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://bgbl4e0fuu7rj"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_a7rae"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_0/weapon_0.gd" id="2_vkfbd"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_dswcc"]
+[ext_resource type="Curve" uid="uid://cdf78ar784rtr" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/charge_speed_curve.tres" id="3_wc0xu"]
+[ext_resource type="Texture2D" uid="uid://bt5lhjhhgryce" path="res://src/main/scene/role/standard_weapons/weapon_0/icon.png" id="4_hyoea"]
+[ext_resource type="Curve" uid="uid://y5ysyumdqav8" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/attack_speed_curve.tres" id="4_l18ys"]
+[ext_resource type="Curve" uid="uid://dcn553e0s7awe" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/back_speed_curve.tres" id="5_m4snc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_icyw4"]
+resource_local_to_scene = true
+shader = ExtResource("3_dswcc")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3ujwp"]
+height = 46.0
+
+[node name="Weapon0" instance=ExtResource("1_a7rae")]
+script = ExtResource("2_vkfbd")
+charge_distance = 60.0
+control_distance = 70.0
+charge_max_speed = 300.0
+attack_max_speed = 2000.0
+charge_speed_curve = ExtResource("3_wc0xu")
+attack_speed_curve = ExtResource("4_l18ys")
+back_speed_curve = ExtResource("5_m4snc")
+stop_bullets = true
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_icyw4")
+position = Vector2(8, 0)
+rotation = 0.785398
+texture = ExtResource("4_hyoea")
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+position = Vector2(8, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_3ujwp")
+
+[node name="CenterMarker2D" parent="Graphics" index="4"]
+position = Vector2(8, 0)
+
+[node name="ReloadProgressBar" parent="." index="5"]
+position = Vector2(0, 13)

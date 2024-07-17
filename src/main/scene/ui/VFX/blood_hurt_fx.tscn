@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://81iq3rilsjg1"]
+
+[ext_resource type="Texture2D" uid="uid://bk2c5sh1rrm4c" path="res://assets/packs/Ui/Status_v1/PlayerStats/HPEdge/BloodFX/BloodFx1.png" id="1_e0r1k"]
+[ext_resource type="Texture2D" uid="uid://cu5ku88occgnw" path="res://assets/packs/Ui/Status_v1/PlayerStats/HPEdge/BloodFX/BloodFx2.png" id="2_hn5ln"]
+[ext_resource type="Texture2D" uid="uid://dro4j56b8ytaq" path="res://assets/packs/Ui/Status_v1/PlayerStats/HPEdge/BloodFX/BloodFx3.png" id="3_4dbns"]
+[ext_resource type="Texture2D" uid="uid://r5tbmjdetr1y" path="res://assets/packs/Ui/Status_v1/PlayerStats/HPEdge/BloodFX/BloodFx4.png" id="4_8e6m4"]
+[ext_resource type="Texture2D" uid="uid://d370p1pn01i5b" path="res://assets/packs/Ui/Status_v1/PlayerStats/HPEdge/BloodFX/BloodFx5.png" id="5_r0h4l"]
+[ext_resource type="Texture2D" uid="uid://dxpha1cdlsikt" path="res://assets/packs/Ui/Status_v1/PlayerStats/HPEdge/BloodFX/BloodFx6.png" id="6_4saos"]
+[ext_resource type="Script" path="res://src/main/scene/ui/VFX/Scripts/blood_hurt_fx.gd" id="7_fy8tl"]
+
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7sys0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_e0r1k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_hn5ln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4dbns")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8e6m4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r0h4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4saos")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="BloodHurtFX" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_7sys0")
+script = ExtResource("7_fy8tl")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

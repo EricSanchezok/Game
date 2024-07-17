@@ -1,0 +1,103 @@
+[gd_scene load_steps=17 format=3 uid="uid://ce0qr603anefw"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_bbi0y"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_2/weapon_2.gd" id="2_a7g2b"]
+[ext_resource type="Texture2D" uid="uid://c8umenawm6qd8" path="res://assets/MyIcon/StationIcon/StationIcons.png" id="3_chmdu"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="4_ib6pm"]
+[ext_resource type="Texture2D" uid="uid://wl6hkr3hae2e" path="res://src/main/scene/role/standard_weapons/weapon_2/icon.png" id="5_h74b6"]
+[ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="6_ov4cj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syvr4"]
+atlas = ExtResource("3_chmdu")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmdbu"]
+resource_local_to_scene = true
+shader = ExtResource("4_ib6pm")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qc4h0"]
+radius = 25.0
+height = 88.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c0pex"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_3lavp"]
+offsets = PackedFloat32Array(0, 0.125, 0.246622, 0.412162, 0.858108, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.988235, 0.698039, 0.372549, 1, 0.85098, 0.454902, 0.243137, 1, 0.756863, 0.129412, 0.027451, 1, 0.419608, 0.0509804, 0.00784314, 1, 0.419608, 0.0509804, 0.00784314, 0.470588)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rgxcn"]
+gradient = SubResource("Gradient_3lavp")
+
+[sub_resource type="Curve" id="Curve_hqssh"]
+_data = [Vector2(0, 0.292308), 0.0, 0.0, 0, 0, Vector2(0.203704, 1), 0.0, 0.0, 0, 0, Vector2(0.515432, 0.427873), -2.91333, -2.91333, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_k2g8h"]
+curve = SubResource("Curve_hqssh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sxvrs"]
+lifetime_randomness = 0.18
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 20.0
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_k2g8h")
+color_ramp = SubResource("GradientTexture1D_rgxcn")
+anim_speed_min = 0.8
+anim_speed_max = 1.0
+turbulence_enabled = true
+turbulence_noise_scale = 6.598
+turbulence_influence_max = 0.15
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f16rd"]
+atlas = ExtResource("6_ov4cj")
+region = Rect2(0, 0, 128, 16)
+
+[node name="Weapon2" instance=ExtResource("1_bbi0y")]
+script = ExtResource("2_a7g2b")
+
+[node name="StationIcon" type="Sprite2D" parent="." index="1"]
+texture = SubResource("AtlasTexture_syvr4")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_lmdbu")
+position = Vector2(4, 0)
+rotation = 0.785398
+texture = ExtResource("5_h74b6")
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+position = Vector2(56, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qc4h0")
+
+[node name="SearchBox" parent="Graphics" index="3"]
+visible = false
+
+[node name="FireGPUParticles2D" type="GPUParticles2D" parent="Graphics" index="5"]
+material = SubResource("CanvasItemMaterial_c0pex")
+position = Vector2(24, -1)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_sxvrs")
+texture = SubResource("AtlasTexture_f16rd")
+lifetime = 1.1
+randomness = 0.23
+
+[node name="ReloadProgressBar" parent="." index="5"]
+visible = false
+position = Vector2(0, 24)
+
+[node name="HitBoxTimer" type="Timer" parent="." index="8"]
+wait_time = 0.1
+
+[connection signal="timeout" from="HitBoxTimer" to="." method="_on_hit_box_timer_timeout"]

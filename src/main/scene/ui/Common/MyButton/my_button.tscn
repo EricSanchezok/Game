@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ycvhu1aoyup2"]
+
+[ext_resource type="Theme" uid="uid://dlcyl15yhjf8a" path="res://src/main/etc/theme/my_theme.tres" id="1_8bx45"]
+[ext_resource type="Script" path="res://src/main/scene/ui/Common/MyButton/my_button.gd" id="2_sro73"]
+
+[node name="MyButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_8bx45")
+script = ExtResource("2_sro73")

@@ -1,0 +1,68 @@
+[gd_scene load_steps=14 format=3 uid="uid://c037l5exxyd22"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_w35kk"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_4/weapon_4.gd" id="2_ptovn"]
+[ext_resource type="Curve" uid="uid://cdf78ar784rtr" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/charge_speed_curve.tres" id="3_7kgg4"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_46qn3"]
+[ext_resource type="Curve" uid="uid://y5ysyumdqav8" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/attack_speed_curve.tres" id="4_aoaub"]
+[ext_resource type="Texture2D" uid="uid://bvux8r5jonofq" path="res://src/main/scene/role/standard_weapons/weapon_4/icon.png" id="4_ycmsg"]
+[ext_resource type="Curve" uid="uid://dcn553e0s7awe" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/back_speed_curve.tres" id="5_x8spu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ftc3f"]
+resource_local_to_scene = true
+shader = ExtResource("3_46qn3")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m78hj"]
+radius = 11.0
+height = 50.0
+
+[sub_resource type="Animation" id="Animation_v05n1"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_34jn1"]
+resource_name = "ignite"
+length = 0.3
+
+[sub_resource type="Animation" id="Animation_iqxqy"]
+resource_name = "slake"
+length = 0.6
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gk8ft"]
+_data = {
+"RESET": SubResource("Animation_v05n1"),
+"ignite": SubResource("Animation_34jn1"),
+"slake": SubResource("Animation_iqxqy")
+}
+
+[node name="Weapon4" instance=ExtResource("1_w35kk")]
+script = ExtResource("2_ptovn")
+charge_speed_curve = ExtResource("3_7kgg4")
+attack_speed_curve = ExtResource("4_aoaub")
+back_speed_curve = ExtResource("5_x8spu")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_ftc3f")
+position = Vector2(6, 4.76837e-07)
+rotation = 0.785398
+texture = ExtResource("4_ycmsg")
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+position = Vector2(6, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_m78hj")
+
+[node name="CenterMarker2D" parent="Graphics" index="4"]
+position = Vector2(8, 0)
+
+[node name="CollisionShape2D" parent="." index="3"]
+rotation = 1.5708
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 13)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_gk8ft")
+}

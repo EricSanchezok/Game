@@ -1,0 +1,325 @@
+[gd_scene load_steps=23 format=3 uid="uid://cb15yrdgoe0ny"]
+
+[ext_resource type="PackedScene" uid="uid://x8q617q250qp" path="res://src/main/component/projectile_base.tscn" id="1_6bnd6"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_4/meteorite.gd" id="2_jtbab"]
+[ext_resource type="Texture2D" uid="uid://pyj6qgdyaewm" path="res://assets/MyVFX/ExplosionVFX/ExplosionVFXPack01/Explosion VFX 12/Explosion VFX 12(48x48).png" id="3_xho55"]
+[ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="4_i6sfn"]
+[ext_resource type="Texture2D" uid="uid://c8u70apn3tp8j" path="res://assets/MyVFX/FireVFX/fire_05/Spritesheet.png" id="4_qrqrw"]
+[ext_resource type="Texture2D" uid="uid://ddchj26i5nk3r" path="res://assets/texture/vfx/fire/SparkSprite-Sheet.png" id="5_0o34c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_42enu"]
+radius = 29.0172
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cjfol"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_85vab"]
+offsets = PackedFloat32Array(0, 0.102857, 0.182857, 0.36, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.88, 0.79552, 0.2464, 1, 0.82, 0.45141, 0.1066, 1, 0.72, 0.17904, 0.0576, 1, 0.380392, 0.0431373, 0.0431373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1p5xi"]
+gradient = SubResource("Gradient_85vab")
+
+[sub_resource type="Curve" id="Curve_ekmsn"]
+_data = [Vector2(0, 0.915385), 0.0, 0.0, 0, 0, Vector2(0.146417, 1), 0.0, 0.0, 0, 0, Vector2(0.734568, 0.888753), -1.06372, -1.06372, 0, 0, Vector2(0.996885, 0.022521), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_l03cj"]
+curve = SubResource("Curve_ekmsn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5qck7"]
+lifetime_randomness = 0.25
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 6.0
+direction = Vector3(0, -1, 0)
+spread = 30.0
+initial_velocity_min = 10.0
+initial_velocity_max = 35.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+gravity = Vector3(0, -98, 0)
+scale_min = 0.8
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_l03cj")
+color_ramp = SubResource("GradientTexture1D_1p5xi")
+anim_speed_min = 0.8
+anim_speed_max = 1.2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_801jx"]
+atlas = ExtResource("4_i6sfn")
+region = Rect2(0, 0, 128, 16)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_45hjd"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_cnjqc"]
+_data = [Vector2(0, 0.523227), 0.0, 0.0, 0, 0, Vector2(0.490741, 1), 0.0, 0.0, 0, 0, Vector2(0.987654, 0.555012), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rx62m"]
+curve = SubResource("Curve_cnjqc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lunqb"]
+lifetime_randomness = 0.24
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 3.55
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+orbit_velocity_min = -0.3
+orbit_velocity_max = 0.3
+gravity = Vector3(0, -98, 0)
+scale_min = 0.3
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_rx62m")
+anim_speed_min = 0.56
+anim_speed_max = 1.27
+
+[sub_resource type="Animation" id="Animation_dyhe8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fire:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Fire/Spark:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Graphics/HitBox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Graphics/Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Graphics/FireBall:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Graphics/FireBall:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_4fqbo"]
+resource_name = "explode"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fire:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Fire/Spark:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Graphics/HitBox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Graphics/Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Graphics/FireBall:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_eafki"]
+resource_name = "appear"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/FireBall:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a03sk"]
+_data = {
+"RESET": SubResource("Animation_dyhe8"),
+"finish": SubResource("Animation_4fqbo"),
+"idle": SubResource("Animation_eafki")
+}
+
+[node name="Meteorite" instance=ExtResource("1_6bnd6")]
+script = ExtResource("2_jtbab")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+visible = false
+position = Vector2(0, -4)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("3_xho55")
+hframes = 15
+frame = 1
+region_rect = Rect2(0, 0, 384, 48)
+
+[node name="FireBall" type="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(-16, 0)
+texture = ExtResource("4_qrqrw")
+hframes = 5
+
+[node name="HitBox" parent="Graphics" index="2"]
+monitoring = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CircleShape2D_42enu")
+
+[node name="Fire" type="GPUParticles2D" parent="." index="3"]
+visible = false
+material = SubResource("CanvasItemMaterial_cjfol")
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_5qck7")
+texture = SubResource("AtlasTexture_801jx")
+lifetime = 0.7
+speed_scale = 0.7
+explosiveness = 0.09
+randomness = 0.27
+
+[node name="Spark" type="GPUParticles2D" parent="Fire" index="0"]
+visible = false
+material = SubResource("CanvasItemMaterial_45hjd")
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_lunqb")
+texture = ExtResource("5_0o34c")
+lifetime = 0.7
+explosiveness = 0.13
+randomness = 0.26
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_a03sk")
+}
+speed_scale = 1.5
+
+[connection signal="reach_target" from="." to="." method="_on_reach_target"]

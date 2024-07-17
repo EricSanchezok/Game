@@ -1,0 +1,172 @@
+[gd_scene load_steps=21 format=3 uid="uid://bnfiu0r8cu1jw"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_a2uxj"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_jwwhh"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_27/weapon_27.gd" id="2_u8gt7"]
+[ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_e155x"]
+[ext_resource type="Texture2D" uid="uid://bpu7os2c2g6og" path="res://src/main/scene/role/standard_weapons/weapon_27/icon02.png" id="4_efx0k"]
+[ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_fbt3j"]
+[ext_resource type="Texture2D" uid="uid://dvdho0ptbkrg3" path="res://src/main/scene/role/standard_weapons/weapon_27/icon01.png" id="5_sua2b"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="6_k84kd"]
+[ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="9_o2g1a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0ivf"]
+resource_local_to_scene = true
+shader = ExtResource("2_jwwhh")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e2dx6"]
+shader = ExtResource("2_jwwhh")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_knbxu"]
+radius = 7.0
+height = 60.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0m83w"]
+radius = 14.0
+height = 36.0
+
+[sub_resource type="Animation" id="Animation_0mmg5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Shield:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sa6vv"]
+resource_name = "appear"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Shield:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pc0g6"]
+resource_name = "hurt"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Shield:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.07, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8qfl4"]
+resource_name = "recovering"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Shield:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7hkmy"]
+_data = {
+"RESET": SubResource("Animation_0mmg5"),
+"appear": SubResource("Animation_sa6vv"),
+"hurt": SubResource("Animation_pc0g6"),
+"recovering": SubResource("Animation_8qfl4")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uvhah"]
+atlas = ExtResource("9_o2g1a")
+region = Rect2(400, 34, 32, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ic7mw"]
+atlas = ExtResource("9_o2g1a")
+region = Rect2(401, 41, 30, 2)
+
+[node name="Weapon27" instance=ExtResource("1_a2uxj")]
+script = ExtResource("2_u8gt7")
+current_health = 0.0
+charge_speed_curve = ExtResource("3_e155x")
+attack_speed_curve = ExtResource("4_fbt3j")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_d0ivf")
+rotation = 0.785398
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("4_efx0k")
+
+[node name="Shield" type="Sprite2D" parent="Graphics" index="1"]
+material = SubResource("ShaderMaterial_e2dx6")
+rotation = 1.5708
+texture = ExtResource("5_sua2b")
+
+[node name="HitBox" parent="Graphics" index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_knbxu")
+
+[node name="ShieldHitBox" type="Area2D" parent="Graphics" index="7"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("6_k84kd")
+slave_mode = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/ShieldHitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0m83w")
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 17)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_7hkmy")
+}
+
+[node name="ShieldHitboxTimer" type="Timer" parent="." index="8"]
+wait_time = 0.1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." index="9"]
+offset_left = -16.0
+offset_top = -25.0
+offset_right = 16.0
+offset_bottom = -21.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+texture_under = SubResource("AtlasTexture_uvhah")
+texture_progress = SubResource("AtlasTexture_ic7mw")
+texture_progress_offset = Vector2(1, 1)
+
+[connection signal="hit" from="Graphics/ShieldHitBox" to="." method="_on_shield_hit_box_hit"]
+[connection signal="timeout" from="ShieldHitboxTimer" to="." method="_on_shield_hitbox_timer_timeout"]

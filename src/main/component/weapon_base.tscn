@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://dn23km7rk18nk"]
+
+[ext_resource type="Script" path="res://src/main/component/Scripts/weapon_base.gd" id="1_ro216"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="2_odq2c"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_n002w"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hurt_box.gd" id="3_obb52"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/state_machine.gd" id="4_qkwuw"]
+[ext_resource type="PackedScene" uid="uid://bf3g130ar4w62" path="res://src/main/scene/ui/Common/ReloadBar/reload_progress_bar.tscn" id="6_h404v"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_k7mjh"]
+properties/0/path = NodePath("Graphics/HitBox:monitoring")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("Graphics/HurtBox:monitorable")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Graphics:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_q6eud"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1wgnu"]
+resource_local_to_scene = true
+shader = ExtResource("3_n002w")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="WeaponBase" type="CharacterBody2D" groups=["WeaponBase"]]
+z_index = 16
+collision_layer = 0
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_ro216")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_k7mjh")
+
+[node name="WeaponStatsMultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_q6eud")
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphics"]
+material = SubResource("ShaderMaterial_1wgnu")
+
+[node name="HitBox" type="Area2D" parent="Graphics"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("2_odq2c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/HitBox"]
+debug_color = Color(0.970343, 0, 0.455358, 0.42)
+
+[node name="HurtBox" type="Area2D" parent="Graphics"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("3_obb52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/HurtBox"]
+debug_color = Color(0, 0.643345, 0.301713, 0.42)
+
+[node name="SearchBox" type="Area2D" parent="Graphics"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/SearchBox"]
+debug_color = Color(0.60867, 0.539673, 0, 0.42)
+
+[node name="CenterMarker2D" type="Marker2D" parent="Graphics"]
+
+[node name="ShootMarker2D" type="Marker2D" parent="Graphics"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="ReloadProgressBar" parent="." instance=ExtResource("6_h404v")]
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("4_qkwuw")
+
+[node name="TimerEffect" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="damage_success" from="." to="." method="_on_damage_success"]
+[connection signal="kill_success" from="." to="." method="_on_kill_success"]
+[connection signal="hit" from="Graphics/HitBox" to="." method="_on_hit_box_hit"]
+[connection signal="body_entered" from="Graphics/SearchBox" to="." method="_on_search_box_body_entered"]
+[connection signal="body_exited" from="Graphics/SearchBox" to="." method="_on_search_box_body_exited"]

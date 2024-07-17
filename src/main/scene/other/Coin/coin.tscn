@@ -1,0 +1,116 @@
+[gd_scene load_steps=10 format=3 uid="uid://4e4r10wcy4h2"]
+
+[ext_resource type="Script" path="res://src/main/scene/other/Coin/coin.gd" id="1_45wfe"]
+[ext_resource type="Texture2D" uid="uid://krgjishb3exg" path="res://assets/MyIcon/Coin/Coin.png" id="2_2o2xe"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5stav"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("Shadow:position")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s0mo"]
+atlas = ExtResource("2_2o2xe")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_boikl"]
+radius = 8.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_lfwon"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_0dp8y"]
+resource_name = "default"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_43xqb"]
+_data = {
+"RESET": SubResource("Animation_lfwon"),
+"default": SubResource("Animation_0dp8y")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjah3"]
+atlas = ExtResource("2_2o2xe")
+region = Rect2(40, 40, 16, 16)
+
+[node name="Coin" type="Area2D"]
+z_index = 19
+collision_layer = 128
+collision_mask = 64
+script = ExtResource("1_45wfe")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5stav")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -21.0
+offset_top = -17.0
+offset_right = 19.0
+offset_bottom = 23.0
+color = Color(0, 0, 0, 1)
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.588235)
+position = Vector2(0, 6)
+texture = SubResource("AtlasTexture_0s0mo")
+region_enabled = true
+region_rect = Rect2(0, 32, 32, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2o2xe")
+hframes = 3
+frame = 1
+region_enabled = true
+region_rect = Rect2(0, 0, 96, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_boikl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_43xqb")
+}
+
+[node name="EnergySprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0.47451, 1, 1)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_xjah3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(0.7, 0.7)
+color = Color(0.235294, 1, 1, 1)
+energy = 0.8
+texture_scale = 0.04
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

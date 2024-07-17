@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=3 uid="uid://c2oxp40n64ha5"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_2a34d"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/TriangleShade/triangle_shade.gd" id="2_5ceg0"]
+[ext_resource type="Texture2D" uid="uid://f5qwqh3aqbss" path="res://src/main/scene/role/enemy/TriangleShade/A.png" id="3_k453v"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="4_48tfn"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2jpjw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x5m13"]
+radius = 15.0
+height = 42.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7oamu"]
+radius = 7.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_e0feh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+
+[sub_resource type="Animation" id="Animation_agg5x"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8642h"]
+_data = {
+"RESET": SubResource("Animation_e0feh"),
+"attack": SubResource("Animation_agg5x")
+}
+
+[node name="TriangleShade" instance=ExtResource("1_2a34d")]
+script = ExtResource("2_5ceg0")
+is_shade_like = true
+enemy_type = 0
+shoot_path_id = 0
+shoot_distance = 150.0
+shoot_wait_time = 1.0
+shoot_speed = 70.0
+shoot_life = 5.0
+
+[node name="Shadow" parent="Graphics" index="0"]
+position = Vector2(0, 12)
+scale = Vector2(1.65646, 1.47967)
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(1, -18)
+texture = ExtResource("3_k453v")
+hframes = 6
+vframes = 5
+frame = 13
+region_enabled = true
+region_rect = Rect2(0, 0, 384, 320)
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_2jpjw")
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CapsuleShape2D_x5m13")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CapsuleShape2D_7oamu")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_8642h"),
+"ShadeLike": ExtResource("4_48tfn")
+}

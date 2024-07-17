@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://duvjh5kk2yw3g"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_rxo3a"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_1bxiy"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_24/weapon_24.gd" id="2_1qcth"]
+[ext_resource type="Curve" uid="uid://cdf78ar784rtr" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/charge_speed_curve.tres" id="3_clqat"]
+[ext_resource type="Curve" uid="uid://y5ysyumdqav8" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/attack_speed_curve.tres" id="4_bcd6w"]
+[ext_resource type="Texture2D" uid="uid://7dk8setis7jj" path="res://src/main/scene/role/standard_weapons/weapon_24/icon.png" id="4_je70j"]
+[ext_resource type="Curve" uid="uid://dcn553e0s7awe" path="res://src/main/scene/role/standard_weapons/CommonRes/Sword/back_speed_curve.tres" id="5_t1hwd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7kxl"]
+resource_local_to_scene = true
+shader = ExtResource("2_1bxiy")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4msh7"]
+radius = 7.0
+height = 42.0
+
+[node name="Weapon24" instance=ExtResource("1_rxo3a")]
+script = ExtResource("2_1qcth")
+charge_speed_curve = ExtResource("3_clqat")
+attack_speed_curve = ExtResource("4_bcd6w")
+back_speed_curve = ExtResource("5_t1hwd")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_r7kxl")
+position = Vector2(6, 0)
+rotation = 0.785398
+texture = ExtResource("4_je70j")
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+position = Vector2(6, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4msh7")
+
+[node name="ReloadProgressBar" parent="." index="5"]
+position = Vector2(0, 14)

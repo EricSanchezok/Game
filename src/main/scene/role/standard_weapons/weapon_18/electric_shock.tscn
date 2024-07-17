@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://mvfiuyyabl0a"]
+
+[ext_resource type="PackedScene" uid="uid://x8q617q250qp" path="res://src/main/component/projectile_base.tscn" id="1_n03wd"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_18/electric_shock.gd" id="2_d4730"]
+[ext_resource type="Texture2D" uid="uid://birgg8e7nopj1" path="res://assets/MyVFX/ThunderVFX/thunder_04/Lightning.png" id="3_23c0j"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xbxwb"]
+radius = 14.0
+height = 38.0
+
+[sub_resource type="Animation" id="Animation_08gua"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics/HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_xdgqj"]
+resource_name = "finish"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics/HitBox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nc44v"]
+_data = {
+"RESET": SubResource("Animation_08gua"),
+"finish": SubResource("Animation_xdgqj")
+}
+
+[node name="ElectricShock" instance=ExtResource("1_n03wd")]
+script = ExtResource("2_d4730")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+position = Vector2(0, -51)
+texture = ExtResource("3_23c0j")
+hframes = 10
+
+[node name="HitBox" parent="Graphics" index="1"]
+monitoring = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xbxwb")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_nc44v")
+}

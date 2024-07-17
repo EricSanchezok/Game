@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0b607pvb51k3"]
+
+[ext_resource type="PackedScene" uid="uid://x8q617q250qp" path="res://src/main/component/projectile_base.tscn" id="1_mk7c1"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_25/stone_ball.gd" id="2_8xgle"]
+[ext_resource type="Texture2D" uid="uid://puxfgfix7s62" path="res://assets/MyVFX/BattleVFX/EnergyBall/sprite_sheets_96x96/vfx-Sheet.png" id="3_bd5pg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ha1a4"]
+radius = 14.0
+height = 36.0
+
+[sub_resource type="Animation" id="Animation_jm6vb"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_sggap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ncawg"]
+resource_name = "init"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_frnih"]
+_data = {
+"RESET": SubResource("Animation_sggap"),
+"idle": SubResource("Animation_jm6vb"),
+"init": SubResource("Animation_ncawg")
+}
+
+[node name="StoneBall" instance=ExtResource("1_mk7c1")]
+script = ExtResource("2_8xgle")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+position = Vector2(-16, 0)
+texture = ExtResource("3_bd5pg")
+hframes = 10
+region_enabled = true
+region_rect = Rect2(0, 288, 960, 96)
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ha1a4")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_frnih")
+}

@@ -1,0 +1,124 @@
+[gd_scene load_steps=13 format=3 uid="uid://c6yi8n40i7hcb"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_3q7dc"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/CatMonster/cat_monster.gd" id="2_vy25o"]
+[ext_resource type="Texture2D" uid="uid://b5v82aaxmgk3t" path="res://src/main/scene/role/enemy/CatMonster/A.png" id="3_q7xia"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="4_2kx4p"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyo6d"]
+radius = 12.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnsic"]
+radius = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ulg81"]
+height = 24.0
+
+[sub_resource type="Animation" id="Animation_ch44p"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_uksno"]
+resource_name = "dash"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_un7pj"]
+resource_name = "end_dash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(5, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_s4o00"]
+resource_name = "pre_dash"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 2)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_dash_before_timer"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fnq1i"]
+_data = {
+"RESET": SubResource("Animation_ch44p"),
+"dash": SubResource("Animation_uksno"),
+"end_dash": SubResource("Animation_un7pj"),
+"pre_dash": SubResource("Animation_s4o00")
+}
+
+[node name="CatMonster" instance=ExtResource("1_3q7dc")]
+script = ExtResource("2_vy25o")
+is_shade_like = true
+enemy_type = 0
+dash_preparation_distance = 80.0
+dash_speed_multiplier = 5.0
+dash_before_time = 0.2
+dash_wait_time = 1.0
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(0, -20)
+texture = ExtResource("3_q7xia")
+hframes = 6
+vframes = 5
+frame = 21
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_jyo6d")
+
+[node name="HurtBox" parent="Graphics" index="3"]
+visible = true
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CircleShape2D_dnsic")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CapsuleShape2D_ulg81")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_fnq1i"),
+"ShadeLike": ExtResource("4_2kx4p")
+}

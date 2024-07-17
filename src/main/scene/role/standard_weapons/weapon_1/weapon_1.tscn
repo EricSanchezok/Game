@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://84lf63brmjpe"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_80s7b"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/burning_edge.gdshader" id="2_4xamb"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_1/weapon_1.gd" id="2_c51un"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_72nmj"]
+[ext_resource type="Texture2D" uid="uid://c04txidcpvpqw" path="res://src/main/scene/role/standard_weapons/weapon_1/icon.png" id="4_yvjth"]
+[ext_resource type="AnimationLibrary" uid="uid://bpudpxsnejobg" path="res://src/main/scene/role/standard_weapons/animationRes/book_floating.res" id="5_ytsey"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cun1q"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r1mt3"]
+seamless = true
+noise = SubResource("FastNoiseLite_cun1q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0rhci"]
+shader = ExtResource("2_4xamb")
+shader_parameter/noise_speed = 1.0
+shader_parameter/noise_size = 0.3
+shader_parameter/edge_color = Color(0.607843, 0.101961, 0.0392157, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_r1mt3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8bxv1"]
+resource_local_to_scene = true
+shader = ExtResource("3_72nmj")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="Weapon1" instance=ExtResource("1_80s7b")]
+script = ExtResource("2_c51un")
+scroll = false
+is_book_like = false
+
+[node name="Graphics" parent="." index="2"]
+material = SubResource("ShaderMaterial_0rhci")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_8bxv1")
+use_parent_material = true
+texture = ExtResource("4_yvjth")
+
+[node name="SearchBox" parent="Graphics" index="3"]
+visible = false
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 19)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": ExtResource("5_ytsey")
+}

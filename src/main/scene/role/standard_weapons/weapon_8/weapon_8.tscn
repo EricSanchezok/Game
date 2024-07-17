@@ -1,0 +1,52 @@
+[gd_scene load_steps=11 format=3 uid="uid://dnlp16t62m1al"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_j78du"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_8/weapon_8.gd" id="2_qrpv0"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_ctg2r"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/burning_edge.gdshader" id="3_tt8og"]
+[ext_resource type="Texture2D" uid="uid://dun567efgqc5w" path="res://src/main/scene/role/standard_weapons/weapon_8/icon.png" id="5_3qhe5"]
+[ext_resource type="AnimationLibrary" uid="uid://bhs31boyfv2rv" path="res://src/main/scene/role/standard_weapons/animationRes/staff_shoot.res" id="6_im8qe"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t45ff"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0dwlg"]
+seamless = true
+noise = SubResource("FastNoiseLite_t45ff")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6d67p"]
+shader = ExtResource("3_tt8og")
+shader_parameter/noise_speed = 0.7
+shader_parameter/noise_size = 0.2
+shader_parameter/edge_color = Color(0.518138, 0.915003, 0.899714, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_0dwlg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7w708"]
+resource_local_to_scene = true
+shader = ExtResource("3_ctg2r")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="Weapon8" instance=ExtResource("1_j78du")]
+script = ExtResource("2_qrpv0")
+shoot_flag = true
+
+[node name="Graphics" parent="." index="2"]
+material = SubResource("ShaderMaterial_6d67p")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_7w708")
+position = Vector2(0, -9)
+rotation = -0.785398
+texture = ExtResource("5_3qhe5")
+
+[node name="ShootMarker2D" parent="Graphics" index="5"]
+position = Vector2(0, -32)
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 14)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": ExtResource("6_im8qe")
+}

@@ -1,0 +1,60 @@
+[gd_scene load_steps=13 format=3 uid="uid://ck8og6icm8hkq"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_qjkrv"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_3gsgm"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_21/weapon_21.gd" id="2_vbnhx"]
+[ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_hknqm"]
+[ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_28trd"]
+[ext_resource type="Texture2D" uid="uid://6i58d45f0b4r" path="res://src/main/scene/role/standard_weapons/weapon_21/icon.png" id="4_ojc1b"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/burning_edge.gdshader" id="5_fp1gx"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_g00bw"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oxu56"]
+seamless = true
+noise = SubResource("FastNoiseLite_g00bw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgcdm"]
+shader = ExtResource("5_fp1gx")
+shader_parameter/noise_speed = 1.0
+shader_parameter/noise_size = 0.3
+shader_parameter/edge_color = Color(0.937255, 0.847059, 0.631373, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_oxu56")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62hgf"]
+resource_local_to_scene = true
+shader = ExtResource("2_3gsgm")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5c1wg"]
+radius = 7.0
+height = 46.0
+
+[node name="Weapon21" instance=ExtResource("1_qjkrv")]
+script = ExtResource("2_vbnhx")
+charge_speed_curve = ExtResource("3_hknqm")
+attack_speed_curve = ExtResource("4_28trd")
+stop_bullets = true
+
+[node name="Graphics" parent="." index="3"]
+material = SubResource("ShaderMaterial_kgcdm")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_62hgf")
+use_parent_material = true
+rotation = 0.785398
+texture = ExtResource("4_ojc1b")
+
+[node name="HitBox" parent="Graphics" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5c1wg")
+
+[node name="ReloadProgressBar" parent="." index="5"]
+position = Vector2(0, 13)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]

@@ -1,0 +1,244 @@
+[gd_scene load_steps=24 format=3 uid="uid://bb5wcg43p8dpj"]
+
+[ext_resource type="Script" path="res://src/main/scene/role/effect/BurningSummons/burning_summons.gd" id="1_bcpay"]
+[ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="2_1kpd1"]
+[ext_resource type="Texture2D" uid="uid://ddchj26i5nk3r" path="res://assets/texture/vfx/fire/SparkSprite-Sheet.png" id="3_cgdht"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="4_88mcy"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_boyvg"]
+properties/0/path = NodePath("RHitBox:monitoring")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("CHitBox:monitoring")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath(".:position")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l36ja"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_ia60r"]
+offsets = PackedFloat32Array(0, 0.0612245, 0.207483, 0.326531, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.88, 0.79552, 0.2464, 1, 0.82, 0.45141, 0.1066, 1, 0.72, 0.17904, 0.0576, 1, 0.380392, 0.0431373, 0.0431373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1p5xi"]
+gradient = SubResource("Gradient_ia60r")
+
+[sub_resource type="Curve" id="Curve_yy3tp"]
+_data = [Vector2(0, 0.463636), 0.0, 0.0, 0, 0, Vector2(0.198864, 1), 0.0, 0.0, 0, 0, Vector2(0.996885, 0.022521), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_l03cj"]
+curve = SubResource("Curve_yy3tp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3af7a"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 5, 1)
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+gravity = Vector3(0, -98, 0)
+scale_min = 0.5
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_l03cj")
+color_ramp = SubResource("GradientTexture1D_1p5xi")
+anim_speed_min = 0.62
+anim_speed_max = 1.16
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7kw1"]
+atlas = ExtResource("2_1kpd1")
+region = Rect2(0, 0, 128, 16)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kfmcf"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_581uy"]
+_data = [Vector2(0, 0.523227), 0.0, 0.0, 0, 0, Vector2(0.490741, 1), 0.0, 0.0, 0, 0, Vector2(0.987654, 0.555012), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rx62m"]
+curve = SubResource("Curve_581uy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1i4iq"]
+lifetime_randomness = 0.24
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 5.0
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, -98, 0)
+scale_min = 0.3
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_rx62m")
+anim_speed_min = 0.56
+anim_speed_max = 1.27
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tbdfx"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 5.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+gravity = Vector3(0, -98, 0)
+scale_min = 0.5
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_l03cj")
+color_ramp = SubResource("GradientTexture1D_1p5xi")
+anim_speed_min = 0.62
+anim_speed_max = 1.16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mresi"]
+size = Vector2(10, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l28bi"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_ed5qd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0r4qy"]
+resource_name = "appear"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_w7kog"]
+resource_name = "disappear"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8tj6j"]
+_data = {
+"RESET": SubResource("Animation_ed5qd"),
+"appear": SubResource("Animation_0r4qy"),
+"disappear": SubResource("Animation_w7kog")
+}
+
+[node name="BurningSummons" type="CharacterBody2D"]
+script = ExtResource("1_bcpay")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_boyvg")
+
+[node name="R_BurningPathGPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_l36ja")
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_3af7a")
+texture = SubResource("AtlasTexture_w7kw1")
+lifetime = 0.5
+speed_scale = 0.3
+explosiveness = 0.1
+randomness = 0.27
+
+[node name="R_SparkGPUParticles2D" type="GPUParticles2D" parent="R_BurningPathGPUParticles2D"]
+material = SubResource("CanvasItemMaterial_kfmcf")
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_1i4iq")
+texture = ExtResource("3_cgdht")
+lifetime = 0.7
+explosiveness = 0.13
+randomness = 0.26
+
+[node name="C_BurningPathGPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_l36ja")
+amount = 25
+process_material = SubResource("ParticleProcessMaterial_tbdfx")
+texture = SubResource("AtlasTexture_w7kw1")
+lifetime = 0.5
+speed_scale = 0.3
+explosiveness = 0.1
+randomness = 0.27
+
+[node name="C_SparkGPUParticles2D" type="GPUParticles2D" parent="C_BurningPathGPUParticles2D"]
+material = SubResource("CanvasItemMaterial_kfmcf")
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_1i4iq")
+texture = ExtResource("3_cgdht")
+lifetime = 0.7
+explosiveness = 0.13
+randomness = 0.26
+
+[node name="RHitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+script = ExtResource("4_88mcy")
+
+[node name="RectangleShape2D" type="CollisionShape2D" parent="RHitBox"]
+shape = SubResource("RectangleShape2D_mresi")
+
+[node name="CHitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitoring = false
+script = ExtResource("4_88mcy")
+
+[node name="CircleShape2D" type="CollisionShape2D" parent="CHitBox"]
+shape = SubResource("CircleShape2D_l28bi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8tj6j")
+}
+
+[node name="HitBoxTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="LifeTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="HitBoxTimer" to="." method="_on_hit_box_timer_timeout"]
+[connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]

@@ -1,0 +1,149 @@
+[gd_scene load_steps=11 format=3 uid="uid://dfuqyia8xwx10"]
+
+[ext_resource type="Script" path="res://src/main/scene/ui/StatusScreen/status_screen.gd" id="1_bclti"]
+[ext_resource type="Theme" uid="uid://dlcyl15yhjf8a" path="res://src/main/etc/theme/my_theme.tres" id="1_y1qbs"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/liquid_fill.gdshader" id="2_gs4k6"]
+[ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="5_0qmdb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wpny5"]
+shader = ExtResource("2_gs4k6")
+shader_parameter/backFillColour = Color(0.62, 1, 1, 1)
+shader_parameter/frontFillInnerColour = Color(0.35, 1, 1, 1)
+shader_parameter/frontFillOuterColour = Color(0, 0.35, 1, 1)
+shader_parameter/ringColour = Color(0, 0, 0, 1)
+shader_parameter/fresnelColour = Color(0, 0.88, 1, 1)
+shader_parameter/innerRingGlowColour = Color(0, 1, 1, 1)
+shader_parameter/fillcolour = Color(1, 1, 1, 1)
+shader_parameter/ringWidth = 0.15
+shader_parameter/innerCircleRadiusOffset = 0.0
+shader_parameter/fill_per = 0.0
+shader_parameter/resolution = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lamg2"]
+region = Rect2(10, 10, 12, 12)
+
+[sub_resource type="Animation" id="Animation_4bi25"]
+resource_name = "CoinJump"
+length = 0.15
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Coin:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.12, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(585, 286), Vector2(585, 275), Vector2(585, 288), Vector2(585, 286)]
+}
+
+[sub_resource type="Animation" id="Animation_icco3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Coin:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(585, 286)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4dgv4"]
+_data = {
+"CoinJump": SubResource("Animation_4bi25"),
+"RESET": SubResource("Animation_icco3")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atsd1"]
+atlas = ExtResource("5_0qmdb")
+region = Rect2(694, 15, 290, 26)
+
+[node name="StatusScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_y1qbs")
+script = ExtResource("1_bclti")
+
+[node name="Energy" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_wpny5")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 585.0
+offset_top = -56.0
+offset_right = 633.0
+offset_bottom = -8.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Coin" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_left = 585.0
+offset_top = 286.0
+offset_right = 601.0
+offset_bottom = 302.0
+texture = SubResource("AtlasTexture_lamg2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoinCount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 283.0
+offset_right = 633.0
+offset_bottom = 302.0
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4dgv4")
+}
+
+[node name="TopDec" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -145.0
+offset_top = 20.0
+offset_right = 145.0
+offset_bottom = 46.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_atsd1")
+
+[node name="TimeLeft" type="Label" parent="TopDec"]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_top = -6.0
+offset_right = 31.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_y1qbs")
+theme_override_font_sizes/font_size = 30
+text = "30.5"
+horizontal_alignment = 1
+vertical_alignment = 1

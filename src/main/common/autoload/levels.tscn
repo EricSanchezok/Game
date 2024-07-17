@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://vta47qyc57n1"]
+
+[ext_resource type="Script" path="res://src/main/common/autoload/levels.gd" id="1_8sulu"]
+[ext_resource type="PackedScene" uid="uid://bu4qkguaw7xus" path="res://src/main/scene/role/player/ANiu/a_niu.tscn" id="2_7r141"]
+
+[node name="Levels" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_8sulu")
+playerScene = ExtResource("2_7r141")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")

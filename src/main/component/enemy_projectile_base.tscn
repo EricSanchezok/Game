@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy4g3xpefcrl8"]
+
+[ext_resource type="Script" path="res://src/main/component/Scripts/enemy_projectile_base.gd" id="1_kt8jo"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="2_3nd04"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/hurt_box.gd" id="3_bklhh"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5aqrm"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:scale")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="EnemyShootBase" type="CharacterBody2D"]
+z_index = 19
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("1_kt8jo")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_5aqrm")
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphics"]
+
+[node name="HitBox" type="Area2D" parent="Graphics"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("2_3nd04")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/HitBox"]
+
+[node name="HurtBox" type="Area2D" parent="Graphics"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_bklhh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/HurtBox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="hurt" from="Graphics/HurtBox" to="." method="_on_hurt_box_hurt"]

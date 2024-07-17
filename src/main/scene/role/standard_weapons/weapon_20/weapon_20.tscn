@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5axoaucpi34r"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_jvl1k"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_20/weapon_20.gd" id="2_p3tel"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_365ja"]
+[ext_resource type="Texture2D" uid="uid://c8umenawm6qd8" path="res://assets/MyIcon/StationIcon/StationIcons.png" id="3_vqri2"]
+[ext_resource type="Texture2D" uid="uid://bevadv0sc5blf" path="res://src/main/scene/role/standard_weapons/weapon_20/icon.png" id="4_pjpc8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3qk7"]
+atlas = ExtResource("3_vqri2")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xwlb"]
+resource_local_to_scene = true
+shader = ExtResource("3_365ja")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="Weapon20" instance=ExtResource("1_jvl1k")]
+script = ExtResource("2_p3tel")
+
+[node name="StationIcon" type="Sprite2D" parent="Graphics" index="0"]
+texture = SubResource("AtlasTexture_g3qk7")
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+material = SubResource("ShaderMaterial_5xwlb")
+position = Vector2(0, -4)
+rotation = -0.785398
+texture = ExtResource("4_pjpc8")
+
+[node name="ReloadProgressBar" parent="." index="5"]
+position = Vector2(0, 23)
+
+[connection signal="weapon_stats_update" from="WeaponStats" to="." method="_on_weapon_stats_weapon_stats_update"]

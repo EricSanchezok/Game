@@ -1,0 +1,50 @@
+[gd_scene load_steps=11 format=3 uid="uid://cemdyb8011odb"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_qpw51"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_18/weapon_18.gd" id="2_bkkqu"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_xanif"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/burning_edge.gdshader" id="3_q5a4f"]
+[ext_resource type="Texture2D" uid="uid://r8d1dveouvo1" path="res://src/main/scene/role/standard_weapons/weapon_18/icon.png" id="4_b5m8n"]
+[ext_resource type="AnimationLibrary" uid="uid://bpudpxsnejobg" path="res://src/main/scene/role/standard_weapons/animationRes/book_floating.res" id="5_8p48j"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_aqgcv"]
+frequency = 0.005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_a57de"]
+seamless = true
+noise = SubResource("FastNoiseLite_aqgcv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tc4i"]
+shader = ExtResource("3_q5a4f")
+shader_parameter/noise_speed = 0.7
+shader_parameter/noise_size = 0.2
+shader_parameter/edge_color = Color(0.941176, 0.858824, 0.254902, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_a57de")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hy57x"]
+resource_local_to_scene = true
+shader = ExtResource("2_xanif")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="Weapon18" instance=ExtResource("1_qpw51")]
+script = ExtResource("2_bkkqu")
+summon_wait_time = 0.5
+scroll = true
+is_book_like = true
+
+[node name="Graphics" parent="." index="3"]
+material = SubResource("ShaderMaterial_1tc4i")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_hy57x")
+position = Vector2(0, -1)
+texture = ExtResource("4_b5m8n")
+
+[node name="ReloadProgressBar" parent="." index="5"]
+position = Vector2(0, 15)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+libraries = {
+"book_floating": ExtResource("5_8p48j")
+}

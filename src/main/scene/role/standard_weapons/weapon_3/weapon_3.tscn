@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://hbt5g7e4acd5"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_8f1vf"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_3/weapon_3.gd" id="2_q6qsl"]
+[ext_resource type="Curve" uid="uid://bhci42j567tmg" path="res://src/main/scene/role/standard_weapons/CommonRes/Axe/charge_speed_curve.tres" id="3_u3qpi"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_yq7mk"]
+[ext_resource type="Curve" uid="uid://bd8huwmhnx2ix" path="res://src/main/scene/role/standard_weapons/CommonRes/Axe/attack_speed_curve.tres" id="4_1cfdc"]
+[ext_resource type="Texture2D" uid="uid://ch828l1cfxoeo" path="res://src/main/scene/role/standard_weapons/weapon_3/icon.png" id="4_83pfj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjeev"]
+resource_local_to_scene = true
+shader = ExtResource("3_yq7mk")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_khxl0"]
+radius = 15.0333
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fpxck"]
+radius = 23.7697
+
+[node name="Weapon3" instance=ExtResource("1_8f1vf")]
+script = ExtResource("2_q6qsl")
+charge_distance = 50.0
+charge_max_speed = 200.0
+attack_max_speed = 1000.0
+charge_speed_curve = ExtResource("3_u3qpi")
+attack_speed_curve = ExtResource("4_1cfdc")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_qjeev")
+rotation = 0.785398
+texture = ExtResource("4_83pfj")
+
+[node name="HitBox" parent="Graphics" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+position = Vector2(8, 0)
+shape = SubResource("CircleShape2D_khxl0")
+
+[node name="HurtBox" parent="Graphics" index="2"]
+visible = false
+
+[node name="SearchBox" parent="Graphics" index="3"]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = false
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 24)
+
+[node name="AreaPickUp" type="Area2D" parent="." index="7"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPickUp" index="0"]
+shape = SubResource("CircleShape2D_fpxck")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]

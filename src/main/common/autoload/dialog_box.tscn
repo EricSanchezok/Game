@@ -1,0 +1,178 @@
+[gd_scene load_steps=14 format=3 uid="uid://gfnlx8qg7spk"]
+
+[ext_resource type="Script" path="res://src/main/common/autoload/dialog_box.gd" id="1_ak3pr"]
+[ext_resource type="Theme" uid="uid://dlcyl15yhjf8a" path="res://src/main/etc/theme/my_theme.tres" id="2_o7i55"]
+[ext_resource type="Texture2D" uid="uid://dpfqadv50on5w" path="res://src/main/scene/role/npc/Avatars/MiraLink.tres" id="4_5h1ut"]
+[ext_resource type="PackedScene" uid="uid://ycvhu1aoyup2" path="res://src/main/scene/ui/Common/MyButton/my_button.tscn" id="5_xaty8"]
+[ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="6_jwnk1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gromm"]
+atlas = ExtResource("6_jwnk1")
+region = Rect2(49, 97, 30, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hu7yt"]
+content_margin_left = 110.0
+content_margin_right = 30.0
+texture = SubResource("AtlasTexture_gromm")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hq18"]
+atlas = ExtResource("6_jwnk1")
+region = Rect2(149.457, 36, 5.54288, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk6yw"]
+atlas = ExtResource("6_jwnk1")
+region = Rect2(145, 65, 46, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u11he"]
+texture = SubResource("AtlasTexture_mk6yw")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="Animation" id="Animation_kjha6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Content/NextIndicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(584, 53)]
+}
+
+[sub_resource type="Animation" id="Animation_mdh80"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Content/NextIndicator:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(584, 53), Vector2(584, 48)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s3whj"]
+_data = {
+"RESET": SubResource("Animation_kjha6"),
+"idle": SubResource("Animation_mdh80")
+}
+
+[node name="DialogBox" type="CanvasLayer"]
+script = ExtResource("1_ak3pr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 20
+
+[node name="Content" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme = ExtResource("2_o7i55")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 8
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxTexture_hu7yt")
+text = "I love uI love uI love uI love uI love uI love uI love uI love uI love 123123"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Avatar" type="TextureRect" parent="MarginContainer/Content"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = -27.0
+offset_right = 90.0
+offset_bottom = 73.0
+texture = ExtResource("4_5h1ut")
+stretch_mode = 5
+
+[node name="NextIndicator" type="TextureRect" parent="MarginContainer/Content"]
+layout_mode = 0
+offset_left = 584.0
+offset_top = 53.0
+offset_right = 594.0
+offset_bottom = 65.0
+rotation = 1.5708
+texture = SubResource("AtlasTexture_7hq18")
+stretch_mode = 5
+
+[node name="OptionsContainer" type="HBoxContainer" parent="MarginContainer/Content"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -120.0
+offset_right = 20.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 60
+
+[node name="MyButton1" parent="MarginContainer/Content/OptionsContainer" instance=ExtResource("5_xaty8")]
+layout_mode = 2
+
+[node name="MyButton2" parent="MarginContainer/Content/OptionsContainer" instance=ExtResource("5_xaty8")]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/Content"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -128.0
+offset_right = 150.0
+offset_bottom = -93.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_u11he")
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="ConfirmMyButton" parent="MarginContainer/Content" instance=ExtResource("5_xaty8")]
+layout_mode = 0
+offset_left = 468.0
+offset_top = -49.0
+offset_right = 476.0
+offset_bottom = -41.0
+text = "Confirm"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s3whj")
+}
+
+[connection signal="pressed" from="MarginContainer/Content/OptionsContainer/MyButton1" to="." method="_on_my_button_1_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/OptionsContainer/MyButton2" to="." method="_on_my_button_2_pressed"]
+[connection signal="text_changed" from="MarginContainer/Content/TextEdit" to="." method="_on_text_edit_text_changed"]
+[connection signal="pressed" from="MarginContainer/Content/ConfirmMyButton" to="." method="_on_confirm_my_button_pressed"]

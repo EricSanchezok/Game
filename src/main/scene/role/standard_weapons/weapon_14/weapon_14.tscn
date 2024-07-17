@@ -1,0 +1,151 @@
+[gd_scene load_steps=10 format=3 uid="uid://70rtwn0iudpn"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_05ybr"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_14/weapon_14.gd" id="2_kn4m1"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_l1r18"]
+[ext_resource type="Texture2D" uid="uid://cbeffqi1bsg03" path="res://src/main/scene/role/standard_weapons/weapon_14/icon.png" id="4_2riuh"]
+[ext_resource type="Texture2D" uid="uid://2523a3i8er3d" path="res://assets/MyVFX/BattleVFX/BulletVFXPack01/Bullets 12/Spritesheets/Bullet Muzzle 12.png" id="5_723sr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p7jw"]
+resource_local_to_scene = true
+shader = ExtResource("3_l1r18")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="Animation" id="Animation_eetch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/MuzzleFlash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:shoot_flag")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/MuzzleFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Graphics/Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o3n0i"]
+resource_name = "shoot"
+length = 0.2
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/MuzzleFlash:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.08, 0.1, 0.12, 0.14, 0.16),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:shoot_flag")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/MuzzleFlash:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Graphics/Sprite2D:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2rac2"]
+_data = {
+"RESET": SubResource("Animation_eetch"),
+"shoot": SubResource("Animation_o3n0i")
+}
+
+[node name="Weapon14" instance=ExtResource("1_05ybr")]
+script = ExtResource("2_kn4m1")
+kill_rate = 0.01
+aim = true
+shoot_flag = true
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_8p7jw")
+rotation = 0.785398
+texture = ExtResource("4_2riuh")
+
+[node name="MuzzleFlash" type="Sprite2D" parent="Graphics" index="1"]
+visible = false
+position = Vector2(29.136, 0)
+texture = ExtResource("5_723sr")
+hframes = 7
+
+[node name="ShootMarker2D" parent="Graphics" index="6"]
+position = Vector2(22, 0)
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_2rac2")
+}

@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://l6lc8laggmtw"]
+
+[ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="1_dlpkw"]
+[ext_resource type="Script" path="res://src/main/scene/ui/Common/HealthBar/health_bar.gd" id="2_x85jl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kes5e"]
+atlas = ExtResource("1_dlpkw")
+region = Rect2(401, 41, 30, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xru7x"]
+atlas = ExtResource("1_dlpkw")
+region = Rect2(400, 34, 32, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10vxc"]
+atlas = ExtResource("1_dlpkw")
+region = Rect2(401, 45, 30, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnkty"]
+atlas = ExtResource("1_dlpkw")
+region = Rect2(401, 49, 30, 2)
+
+[node name="HealthBar" type="TextureProgressBar"]
+offset_right = 30.0
+offset_bottom = 2.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.0
+value = 1.0
+texture_progress = SubResource("AtlasTexture_kes5e")
+texture_progress_offset = Vector2(1, 1)
+script = ExtResource("2_x85jl")
+
+[node name="EasedHealthBar" type="TextureProgressBar" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 4.0
+size_flags_vertical = 6
+max_value = 1.0
+step = 0.0
+value = 1.0
+texture_over = SubResource("AtlasTexture_xru7x")
+texture_progress = SubResource("AtlasTexture_10vxc")
+texture_progress_offset = Vector2(1, 1)
+
+[node name="ShieldBar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+max_value = 1.0
+step = 0.0
+fill_mode = 1
+texture_progress = SubResource("AtlasTexture_xnkty")
+texture_progress_offset = Vector2(1, 1)

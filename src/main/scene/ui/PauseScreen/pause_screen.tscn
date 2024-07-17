@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh2ukdh3ht4v5"]
+
+[ext_resource type="Theme" uid="uid://dlcyl15yhjf8a" path="res://src/main/etc/theme/my_theme.tres" id="1_4r0ny"]
+[ext_resource type="Script" path="res://src/main/scene/ui/PauseScreen/pause_screen.gd" id="2_ktkib"]
+[ext_resource type="PackedScene" uid="uid://ycvhu1aoyup2" path="res://src/main/scene/ui/Common/MyButton/my_button.tscn" id="3_gvmm4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xlsqm"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tp7gf"]
+
+[node name="PauseScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_4r0ny")
+script = ExtResource("2_ktkib")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xlsqm")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.0
+offset_top = -48.5
+offset_right = 46.0
+offset_bottom = 48.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_tp7gf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SettingsButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_gvmm4")]
+layout_mode = 2
+text = "Settings"
+
+[node name="BackToCampButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_gvmm4")]
+layout_mode = 2
+text = "BackToCamp"
+
+[node name="QuitGameButton" parent="PanelContainer/VBoxContainer" instance=ExtResource("3_gvmm4")]
+layout_mode = 2
+text = "QuitGame"

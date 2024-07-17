@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwlij6odl7ij3"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_mtf5d"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_4qnnk"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_15/weapon_15.gd" id="2_bpupg"]
+[ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_jwpvu"]
+[ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_c7m0v"]
+[ext_resource type="Texture2D" uid="uid://c4fl2wjw4ma8k" path="res://src/main/scene/role/standard_weapons/weapon_15/icon.png" id="4_vukfk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bp44t"]
+resource_local_to_scene = true
+shader = ExtResource("2_4qnnk")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wqm8u"]
+radius = 7.0
+height = 48.0
+
+[sub_resource type="Animation" id="Animation_8omk7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k7jtj"]
+resource_name = "charge"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Graphics:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-10, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mhyd"]
+_data = {
+"RESET": SubResource("Animation_8omk7"),
+"charge": SubResource("Animation_k7jtj")
+}
+
+[node name="Weapon15" instance=ExtResource("1_mtf5d")]
+script = ExtResource("2_bpupg")
+charge_speed_curve = ExtResource("3_jwpvu")
+attack_speed_curve = ExtResource("4_c7m0v")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_bp44t")
+rotation = 0.785398
+texture = ExtResource("4_vukfk")
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wqm8u")
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 12)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"": SubResource("AnimationLibrary_7mhyd")
+}

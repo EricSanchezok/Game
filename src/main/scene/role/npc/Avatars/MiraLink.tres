@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dpfqadv50on5w"]
+
+[ext_resource type="Texture2D" uid="uid://cpbohrjfv4bbr" path="res://src/main/scene/role/npc/MiraLink/MiraLink.png" id="1_qbbtr"]
+
+[resource]
+atlas = ExtResource("1_qbbtr")
+region = Rect2(0, 0, 14, 20)

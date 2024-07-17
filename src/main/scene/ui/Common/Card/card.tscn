@@ -1,0 +1,171 @@
+[gd_scene load_steps=14 format=3 uid="uid://dwki6sfql4fg4"]
+
+[ext_resource type="Script" path="res://src/main/scene/ui/Common/Card/card.gd" id="1_ibji2"]
+[ext_resource type="Texture2D" uid="uid://dkq6o1ej6qxsa" path="res://assets/MyIcon/WeaponCard/WeaponCard-Sheet.png" id="1_td0k8"]
+[ext_resource type="Theme" uid="uid://dlcyl15yhjf8a" path="res://src/main/etc/theme/my_theme.tres" id="4_l05s5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f1cdg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olsr6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obynk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_caqi4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0lppd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1qor"]
+atlas = ExtResource("1_td0k8")
+region = Rect2(0, 64, 64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pwuc3"]
+
+[sub_resource type="Animation" id="Animation_fkby4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardDetail:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardDetail:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_241gr"]
+resource_name = "show_detail"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CardDetail:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CardDetail:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_odtjn"]
+_data = {
+"RESET": SubResource("Animation_fkby4"),
+"show_detail": SubResource("Animation_241gr")
+}
+
+[node name="Card" type="Button"]
+z_index = 5
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_f1cdg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_olsr6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_obynk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_caqi4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0lppd")
+script = ExtResource("1_ibji2")
+
+[node name="CardDetail" type="Panel" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+offset_left = -24.0
+offset_top = 36.0
+offset_right = 24.0
+offset_bottom = 146.0
+mouse_filter = 2
+
+[node name="CardTexture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_f1qor")
+
+[node name="WeaponIcon" type="TextureRect" parent="CardTexture"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 43.0
+offset_bottom = 41.0
+pivot_offset = Vector2(16, 16)
+stretch_mode = 5
+
+[node name="Price" type="Label" parent="CardTexture"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 40.0
+theme = ExtResource("4_l05s5")
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.419608)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = -1
+theme_override_constants/outline_size = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/line_spacing = -3
+theme_override_font_sizes/font_size = 14
+text = "127"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="BondHbox" type="HBoxContainer" parent="CardTexture"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 42.0
+offset_right = 53.0
+offset_bottom = 58.0
+pivot_offset = Vector2(21, 0)
+theme_override_constants/separation = -3
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_pwuc3")
+
+[node name="ShowDetailTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_odtjn")
+}
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="timeout" from="ShowDetailTimer" to="." method="_on_show_detail_timer_timeout"]

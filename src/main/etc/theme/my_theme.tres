@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dlcyl15yhjf8a"]
+
+[ext_resource type="FontFile" uid="uid://diasjcwu4ecyh" path="res://src/main/etc/font/magofonts/mago1.ttf" id="1_c7xpm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q4klv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ui7c4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v02nl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obq0q"]
+
+[resource]
+default_font = ExtResource("1_c7xpm")
+default_font_size = 24
+Button/colors/font_color = Color(0.831373, 0.831373, 0.831373, 0.784314)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_q4klv")
+Button/styles/hover = SubResource("StyleBoxEmpty_ui7c4")
+Button/styles/normal = SubResource("StyleBoxEmpty_v02nl")
+Button/styles/pressed = SubResource("StyleBoxEmpty_obq0q")

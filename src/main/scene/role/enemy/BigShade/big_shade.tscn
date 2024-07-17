@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://cncotpxogwp0k"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_51ywa"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/BigShade/big_shade.gd" id="2_03iwk"]
+[ext_resource type="Texture2D" uid="uid://cjams70gjpu4l" path="res://src/main/scene/role/enemy/BigShade/A.png" id="3_cvaqs"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="4_c3vtf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6albb"]
+radius = 17.0
+height = 46.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r46r8"]
+radius = 22.0
+height = 56.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8haed"]
+height = 32.0
+
+[node name="BigShade" instance=ExtResource("1_51ywa")]
+script = ExtResource("2_03iwk")
+is_shade_like = true
+
+[node name="Shadow" parent="Graphics" index="0"]
+position = Vector2(0, 18)
+scale = Vector2(3.06222, 2.93602)
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(0, -25)
+texture = ExtResource("3_cvaqs")
+hframes = 6
+vframes = 5
+region_enabled = true
+region_rect = Rect2(0, 0, 576, 480)
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_6albb")
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CapsuleShape2D_r46r8")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CapsuleShape2D_8haed")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"ShadeLike": ExtResource("4_c3vtf")
+}

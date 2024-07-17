@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://d33s80cyh5a88"]
+
+[ext_resource type="PackedScene" uid="uid://cy4g3xpefcrl8" path="res://src/main/component/enemy_projectile_base.tscn" id="1_4m4vb"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/Bullets/Scripts/big_normal_bullet.gd" id="2_4v1b8"]
+[ext_resource type="Texture2D" uid="uid://brc4i65u43ody" path="res://assets/MyIcon/EnemyBullets/bullets.png" id="2_gsn53"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqk1r"]
+atlas = ExtResource("2_gsn53")
+region = Rect2(0, 16, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ws5wh"]
+radius = 16.2788
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gyde8"]
+radius = 17.4642
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_codi4"]
+radius = 14.1421
+
+[node name="BigNormalBullet" instance=ExtResource("1_4m4vb")]
+script = ExtResource("2_4v1b8")
+can_be_stopped = false
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+texture = SubResource("AtlasTexture_qqk1r")
+
+[node name="HitBox" parent="Graphics" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CircleShape2D_ws5wh")
+
+[node name="HurtBox" parent="Graphics" index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CircleShape2D_gyde8")
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false
+shape = SubResource("CircleShape2D_codi4")

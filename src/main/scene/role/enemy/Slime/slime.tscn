@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsfvqp48fabqt"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_8es7e"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/Slime/slime.gd" id="2_knu34"]
+[ext_resource type="Texture2D" uid="uid://dvidoull2c3gs" path="res://src/main/scene/role/enemy/Slime/A.png" id="3_neuom"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="4_c28xm"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c3gnj"]
+radius = 12.0
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k1hjs"]
+radius = 16.0312
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h8xjl"]
+radius = 8.0
+
+[node name="Slime" instance=ExtResource("1_8es7e")]
+script = ExtResource("2_knu34")
+is_shade_like = true
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(0, -23)
+texture = ExtResource("3_neuom")
+hframes = 6
+vframes = 5
+frame = 23
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_c3gnj")
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CircleShape2D_k1hjs")
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = true
+shape = SubResource("CircleShape2D_h8xjl")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"ShadeLike": ExtResource("4_c28xm")
+}

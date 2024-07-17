@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsfispc3uff1k"]
+
+[ext_resource type="Texture2D" uid="uid://dsiux3j2dfeek" path="res://assets/MyIcon/TypeIcon/TypeIcon.png" id="1_58rmw"]
+[ext_resource type="Script" path="res://src/main/scene/ui/Common/TraitTexture/trait_texture.gd" id="2_eglw1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vuv8"]
+atlas = ExtResource("1_58rmw")
+region = Rect2(0, 0, 16, 16)
+
+[node name="BondTexture" type="TextureRect"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = SubResource("AtlasTexture_8vuv8")
+script = ExtResource("2_eglw1")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwtfhxsdsragg"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_0wwgp"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/Scripts/unicorn_shade.gd" id="2_wqdk6"]
+[ext_resource type="Texture2D" uid="uid://cmg6vhv1ev4fa" path="res://assets/packs/16X16/Rogue Adventure World 2.6.0/Monsters/Sprites Scaled 2x/Enemy_011_A.png" id="3_h0rd3"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="4_dx6k5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4m8e6"]
+radius = 9.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_db8lx"]
+radius = 11.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drj1j"]
+radius = 6.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_571ad"]
+length = 0.001
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ek72v"]
+_data = {
+"RESET": SubResource("Animation_571ad")
+}
+
+[node name="UnicornShade" instance=ExtResource("1_0wwgp")]
+script = ExtResource("2_wqdk6")
+enemy_type = 0
+is_shade_like = true
+
+[node name="Shadow" parent="Graphics" index="0"]
+position = Vector2(1.19209e-07, 10)
+scale = Vector2(1.62505, 1.68879)
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(0, -20)
+texture = ExtResource("3_h0rd3")
+hframes = 6
+vframes = 5
+region_enabled = true
+region_rect = Rect2(0, 0, 384, 320)
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_4m8e6")
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CapsuleShape2D_db8lx")
+
+[node name="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CapsuleShape2D_drj1j")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": SubResource("AnimationLibrary_ek72v"),
+"ShadeLike": ExtResource("4_dx6k5")
+}

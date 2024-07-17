@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=3 uid="uid://nfujykif0qe2"]
+
+[ext_resource type="PackedScene" uid="uid://daty4aphomuh4" path="res://src/main/component/enemy_base.tscn" id="1_s778s"]
+[ext_resource type="Script" path="res://src/main/scene/role/enemy/OneEyed/one_eyed.gd" id="2_h5r4c"]
+[ext_resource type="AnimationLibrary" uid="uid://crerav3l1hwm0" path="res://src/main/scene/role/enemy/animationRes/ShadeLike.res" id="3_k8k1d"]
+[ext_resource type="Texture2D" uid="uid://n26q83kphvey" path="res://src/main/scene/role/enemy/OneEyed/A.png" id="3_pi4ft"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gehjg"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgjs5"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6gfo3"]
+
+[sub_resource type="Animation" id="Animation_ofs2p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_l4etq"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphics/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"shoot"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hs03g"]
+_data = {
+"RESET": SubResource("Animation_ofs2p"),
+"attack": SubResource("Animation_l4etq")
+}
+
+[node name="OneEyed" instance=ExtResource("1_s778s")]
+script = ExtResource("2_h5r4c")
+is_shade_like = true
+
+[node name="Shadow" parent="Graphics" index="0"]
+position = Vector2(0, 10)
+
+[node name="Sprite2D" parent="Graphics" index="1"]
+position = Vector2(1, -20)
+texture = ExtResource("3_pi4ft")
+hframes = 6
+vframes = 5
+region_enabled = true
+region_rect = Rect2(0, 0, 384, 320)
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CircleShape2D_gehjg")
+
+[node name="CollisionShape2D" parent="Graphics/HurtBox" index="0"]
+shape = SubResource("CircleShape2D_vgjs5")
+
+[node name="FreezeAnimatedSprite2D" parent="Graphics/VFX" index="2"]
+frame = 0
+frame_progress = -1.11022e-16
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_6gfo3")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_hs03g"),
+"ShadeLike": ExtResource("3_k8k1d")
+}

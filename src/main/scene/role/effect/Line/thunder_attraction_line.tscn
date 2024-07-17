@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0yvofm4ekvyh"]
+
+[ext_resource type="Texture2D" uid="uid://bnj05hih28d6i" path="res://assets/MyIcon/Lines/ThunderAttractionLine.png" id="1_6yfoa"]
+[ext_resource type="Script" path="res://src/main/scene/role/effect/Line/thunder_attraction_line.gd" id="2_j0pvf"]
+
+[node name="ThunderAttractionLine" type="Sprite2D"]
+z_index = 30
+texture_repeat = 2
+position = Vector2(0, 0.5)
+texture = ExtResource("1_6yfoa")
+region_enabled = true
+region_rect = Rect2(0, 0, 0, 32)
+script = ExtResource("2_j0pvf")

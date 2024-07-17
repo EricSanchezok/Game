@@ -1,0 +1,14 @@
+# Godot 4.0相关文件
+.godot/
+*.tmp
+
+# Vscode相关文件
+.vscode/
+.history/
+.idea/
+
+# 资产文件
+src/main/assets/
+
+# 日志文件
+*.log

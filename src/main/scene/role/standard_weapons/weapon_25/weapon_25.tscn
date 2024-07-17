@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjnqgmdhkypt"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_31crg"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_4p0nj"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_25/weapon_25.gd" id="2_08y2s"]
+[ext_resource type="Texture2D" uid="uid://ui5tpwqeuusx" path="res://src/main/scene/role/standard_weapons/weapon_25/icon.png" id="4_yl8in"]
+[ext_resource type="AnimationLibrary" uid="uid://bhs31boyfv2rv" path="res://src/main/scene/role/standard_weapons/animationRes/staff_shoot.res" id="5_mhkf6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2i8wd"]
+resource_local_to_scene = true
+shader = ExtResource("2_4p0nj")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="Weapon25" instance=ExtResource("1_31crg")]
+script = ExtResource("2_08y2s")
+shoot_flag = true
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_2i8wd")
+position = Vector2(0, -13)
+rotation = -0.785398
+texture = ExtResource("4_yl8in")
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 13)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+libraries = {
+"staff_shoot": ExtResource("5_mhkf6")
+}
