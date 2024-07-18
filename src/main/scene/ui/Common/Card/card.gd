@@ -1,9 +1,9 @@
 class_name Card
 extends Button
 
-const BOND_TEXTURE = preload("res://src/main/scene/ui/bond_texture.tscn")
+const TRAIT_TEXTURE = preload("res://src/main/scene/ui/Common/TraitTexture/trait_texture.tscn")
 
-@onready var bond_hbox: HBoxContainer = $CardTexture/BondHbox
+@onready var trait_hbox: HBoxContainer = $CardTexture/TraitHbox
 @onready var weapon_icon: TextureRect = $CardTexture/WeaponIcon
 @onready var price: Label = $CardTexture/Price
 @onready var card_texture: TextureRect = $CardTexture
@@ -12,9 +12,9 @@ const BOND_TEXTURE = preload("res://src/main/scene/ui/bond_texture.tscn")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # 生成时传递的参数
+var my_player: PlayerBase
 var weapon_id: int
-var my_types: Array
-var my_elements: Array
+var my_traits: Array
 var my_icon_path: String
 var my_price: int
 var my_star_rating: int
@@ -28,8 +28,8 @@ var purchased: bool = false
 var merged: bool = false
 		
 var card_screen: Control
-var current_area: Control
-var target_areas: Array[Control]
+var current_area: CardArea
+var target_areas: Array[CardArea]
 
 var following_mouse: bool = false:
 	set(v):
@@ -49,18 +49,13 @@ enum AreaType{
 }
 
 func _ready() -> void:
+	my_traits = WeaponsManager.get_traits(weapon_id)
 	card_texture.texture = card_texture.texture.duplicate()
 	#-------------------初始化武器类型和武器种族的图标-------------------#
-	for _type in my_types:
-		var bond_texture = BOND_TEXTURE.instantiate()
-		bond_texture.my_mode = "TYPE"
-		bond_texture.my_type = _type
-		bond_hbox.add_child(bond_texture)
-	for _element in my_elements:
-		var bond_texture = BOND_TEXTURE.instantiate()
-		bond_texture.my_type = "ELEMENT"
-		bond_texture.my_element = _element
-		bond_hbox.add_child(bond_texture)
+	for _trait in my_traits:
+		var trait_texture = TRAIT_TEXTURE.instantiate()
+		trait_texture.my_trait = _trait
+		trait_hbox.add_child(trait_texture)
 	#-------------------初始化武器图标-------------------#
 	weapon_icon.texture = load(my_icon_path)
 	#-------------------初始化武器价格和背景-------------------#
@@ -100,12 +95,7 @@ func animate_scale(is_expand: bool) -> void:
 	else:
 		tween_scale.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
 
-func animate_to_area(area: Control, time: float = 0.2) -> void:
-	area.add_card(self)
-	if current_area:
-		current_area.remove_card(self)
-	current_area = area
-
+func animate_to_area(area: CardArea, time: float = 0.2) -> void:
 	var target_position = get_area_position(area)
 
 	if tween_move and tween_move.is_running():
@@ -119,6 +109,21 @@ func animate_to_area(area: Control, time: float = 0.2) -> void:
 	await tween_move.finished
 	
 	can_move = true
+	
+	match area.area_type:
+		AreaType.INVENTORY:
+			if current_area and current_area.area_type == AreaType.EQUIPMENT:
+				print("取消装备 ", current_area.index)
+				my_player.unregister_weapon.emit(my_player.multiplayer_id, current_area.index)
+		AreaType.EQUIPMENT:
+			my_player.register_weapon.emit(my_player.multiplayer_id, weapon_id, current_area.index)
+			print("装备 ", current_area.index)
+			
+	area.add_card(self)
+	if current_area:
+		current_area.remove_card(self)
+	current_area = area
+
 
 func animate_to_card(target_card: Card, time: float = 0.2) -> void:
 	var target_position = target_card.global_position
@@ -161,13 +166,13 @@ func absorb_card(card: Card) -> void:
 func upgrade_weapon_level() -> void:
 	my_level += 1
 
-func get_area_position(area: Control) -> Vector2:
+func get_area_position(area: CardArea) -> Vector2:
 	if area.area_type == AreaType.EQUIPMENT and area.index >= 5:
 		return area.global_position - area.size/2
 	else:
 		return area.global_position + area.size/2
 	
-func handle_area(area: Control) -> void:
+func handle_area(area: CardArea) -> void:
 	match area.area_type:
 		AreaType.INVENTORY:
 			if not area.is_free:
@@ -190,7 +195,6 @@ func is_purchased() -> void:
 	hide_detail()
 
 func is_equal(card: Card) -> bool:
-	# print("my_id:", weapon_id, "card_id:", card.weapon_id, "my_level:", my_level, "card_level:", card.my_level)
 	return weapon_id == card.weapon_id and my_level == card.my_level
 	
 func to_free() -> void:
@@ -224,7 +228,6 @@ func _on_gui_input(event: InputEvent) -> void:
 	if not event is InputEventMouseButton: return
 	if event.button_index != MOUSE_BUTTON_LEFT: return
 	
-
 	if event.is_pressed(): # 按下鼠标时
 		z_index = 100
 		following_mouse = true
@@ -250,10 +253,12 @@ func _on_button_down() -> void:
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	target_areas.append(area.owner)
+	if area.owner is CardArea:
+		target_areas.append(area.owner)
 	
 func _on_area_2d_area_exited(area: Area2D) -> void:
-	target_areas.erase(area.owner)
+	if area.owner is CardArea:
+		target_areas.erase(area.owner)
 
 
 func _on_show_detail_timer_timeout() -> void:

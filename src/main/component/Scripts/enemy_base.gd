@@ -1,7 +1,7 @@
 class_name EnemyBase
 extends CharacterBody2D
 
-const DAMAGE_NUMBERS = preload("res://src/main/scene/ui/damage_number.tscn")
+const DAMAGE_NUMBER = preload("res://src/main/scene/ui/Common/DamageNumber/damage_number.tscn")
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 导入模块 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -421,7 +421,7 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 
 func create_damage_numbers(current_damage: Damage) -> void:
 	if current_damage.phy_amount != 0:
-		var damage_number = DAMAGE_NUMBERS.instantiate()
+		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
 		damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
 		damage_number.gravity = Vector2(0, 2.0)
@@ -431,7 +431,7 @@ func create_damage_numbers(current_damage: Damage) -> void:
 		damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
 	if current_damage.mag_amount != 0:
-		var damage_number = DAMAGE_NUMBERS.instantiate()
+		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
 		damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
 		damage_number.gravity = Vector2(0, 2.0)

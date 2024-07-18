@@ -1,6 +1,6 @@
 extends Node
 
-const POP_UP_MESSAGE = preload("res://src/main/scene/ui/pop_up_message.tscn")
+const POP_UP_MESSAGE = preload("res://src/main/scene/ui/Common/PopUpMessage/pop_up_message.tscn")
 
 func _ready() -> void:
 	pass

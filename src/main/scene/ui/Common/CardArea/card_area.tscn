@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://2um0kcmm08t1"]
+
+[ext_resource type="Script" path="res://src/main/scene/ui/Common/CardArea/card_area.gd" id="1_erskp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjmwm"]
+size = Vector2(42, 42)
+
+[node name="CardArea" type="Control"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+script = ExtResource("1_erskp")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(21, 21)
+shape = SubResource("RectangleShape2D_fjmwm")

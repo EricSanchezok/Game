@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var invincible_timer: Timer = $InvincibleTimer ## 无敌计时器节点
 
 @onready var pause_screen: Control = $CanvasLayer/PauseScreen
+@onready var cards_screen: Control = $CanvasLayer/CardsScreen
 
 
 enum AttrType {
@@ -107,8 +108,6 @@ signal recalculate_attribute(attr: String, value: float) ## 某个属性被重�
 signal update_attributes(attr: String, source: Variant, type: AttrType, value: float) ## 激发这个信号来更新玩家的参数
 
 func _ready() -> void:
-	# print("My id is ", multiplayer_id, ", name: ", name, ", my autority is ", is_multiplayer_authority())
-
 	if not is_multiplayer_authority():
 		camera_2d.enabled = false
 		
@@ -311,6 +310,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shop"):
 		if not Game.is_game_start():
 			return
+		print("1")
+		cards_screen.switch()
 
 	if event.is_action_pressed("interact") and interacting_with:
 		interacting_with.back().interact(self)

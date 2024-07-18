@@ -1,7 +1,6 @@
 extends Control
 
-const CARD = preload("res://src/main/scene/ui/card.tscn")
-
+const CARD = preload("res://src/main/scene/ui/Common/Card/card.tscn")
 @onready var inventory_panel: PanelContainer = $InventoryPanel
 @onready var equipment_panel: PanelContainer = $EquipmentPanel
 @onready var equipment_panel_2: PanelContainer = $EquipmentPanel2
@@ -37,26 +36,17 @@ var outshop_cards: Array[Card]
 
 func _ready() -> void:
 	hide()
-	await Levels.ready
-	update_player(Levels.players[Tools.my_id()])
+	my_player = owner
+	my_player.player_level_changed.connect(_on_player_level_changed)
+	
 	inventory_areas = $InventoryPanel/HBoxContainer.get_children()
 	equipment_areas = $EquipmentPanel/HBoxContainer.get_children()
 	for area in $EquipmentPanel2/HBoxContainer.get_children():
 		equipment_areas.push_back(area)
 	
 func _process(_delta: float) -> void:
-	if not my_player:
-		if Levels.players.has(Tools.my_id()):
-			update_player(Levels.players[Tools.my_id()])
-			print("重新获取玩家：", Tools.my_id())
-		return
 	if my_player.draw_result_queue.size() == draw_amount:
 		spawn_cards(my_player.draw_result_queue, draw_amount)
-		
-func update_player(player: PlayerBase) -> void:
-	my_player = player
-	update_star_probs(player.player_level)
-	player.player_level_changed.connect(_on_player_level_changed)
 
 func update_star_probs(player_level: int) -> void:
 	player_level_label.text = str(player_level)
@@ -111,12 +101,8 @@ func spawn_cards(result: Array, amount: int) -> void:
 		var instance: Card = CARD.instantiate()
 		instance.global_position = card_spawn_marker_2d.global_position
 		instance.card_screen = self
-
-		instance.weapon_id = weapon_pool_item["id"]
-		for _class in weapon_pool_item["weapon_class"]:
-			instance.my_classes.append(_class)
-		for _origin in weapon_pool_item["weapon_origin"]:
-			instance.my_origins.append(_origin)
+		instance.my_player = my_player
+		instance.weapon_id = weapon_pool_item["weapon_id"]
 		instance.my_icon_path = weapon_pool_item["icon_path"]
 		instance.my_star_rating = weapon_pool_item["star_rating"]
 		instance.my_price = weapon_pool_item["price"]
@@ -231,6 +217,12 @@ func hide_screen() -> void:
 	animation_player.play_backwards("show_screen")
 	await animation_player.animation_finished
 	hide()
+	
+func switch() -> void:
+	if animation_player.is_playing():
+		return
+	if visible: hide_screen()
+	else: show_screen()
 
 func _on_player_level_changed(player_level: int) -> void:
 	update_star_probs(player_level)

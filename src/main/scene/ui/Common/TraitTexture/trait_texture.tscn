@@ -7,7 +7,7 @@
 atlas = ExtResource("1_58rmw")
 region = Rect2(0, 0, 16, 16)
 
-[node name="BondTexture" type="TextureRect"]
+[node name="TraitTexture" type="TextureRect"]
 custom_minimum_size = Vector2(16, 16)
 offset_right = 16.0
 offset_bottom = 16.0

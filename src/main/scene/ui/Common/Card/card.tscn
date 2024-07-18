@@ -138,7 +138,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 1
 
-[node name="BondHbox" type="HBoxContainer" parent="CardTexture"]
+[node name="TraitHbox" type="HBoxContainer" parent="CardTexture"]
 layout_mode = 0
 offset_left = 11.0
 offset_top = 42.0

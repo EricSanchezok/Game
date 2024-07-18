@@ -8,15 +8,21 @@ var players_weapons = {} # 玩家武器字典
 
 var draw_request_queue = [] # 抽取请求队列
 
-signal new_draw_request # 有抽取请求
-signal init_finish # 初始化完成
-
 func _ready():
 	# 加载武器基础数据
 	load_weapon_data_base("res://src/main/WeaponDataBase.xlsx")
 	Game.start_game.connect(_on_start_game)
 
-	new_draw_request.connect(_on_new_draw_request)
+	set_process(is_multiplayer_authority())
+
+	
+func _process(delta: float) -> void:
+	while draw_request_queue.size() > 0:
+		var request = draw_request_queue.pop_front()
+		var player_id = request["player_id"]
+		var player_level = request["player_level"]
+		var weapon_pool_item = draw_weapon(player_level)
+		add_draw_result.rpc(player_id, weapon_pool_item)
 	
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 功能函数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 func upgrade_weapon(player: PlayerBase, slot_index: int, level: int) -> void:
@@ -53,7 +59,6 @@ func request_draw_weapon(player_id: int, player_level: int) -> void:
 		"player_level": player_level
 	}
 	draw_request_queue.append(request)
-	new_draw_request.emit()
 
 func draw_weapon(player_level: int) -> Dictionary:
 	'''
@@ -64,22 +69,22 @@ func draw_weapon(player_level: int) -> Dictionary:
 	'''
 	# 根据玩家等级确定星级概率
 	var star_probs = map_level_to_star_probs(player_level)
-
 	# 过滤可抽取的武器
 	var available_weapons = []
 	for item in weapon_pool:
-		if item.current_quantity > 0 and star_probs.has(item.star_rating):
+		if item["current_quantity"] > 0 and star_probs.has(item["star_rating"]):
 			available_weapons.append(item)
 
 	# 如果没有可抽取的武器，返回null
 	if available_weapons.size() == 0:
+		printerr("no available weapons!")
 		return {}
 
 	# 根据星级概率抽取武器
 	var total_prob = 0.0
 	var cumulative_probs = []
 	for item in available_weapons:
-		var prob = star_probs[item.star_rating]
+		var prob = star_probs[item["star_rating"]]
 		total_prob += prob
 		cumulative_probs.append(total_prob)
 
@@ -154,18 +159,18 @@ func create_weapon_pool() -> void:
 
 	for weapon_data in weapon_data_base:
 		var weapon_pool_item = {}
-		weapon_pool_item["weapon_id"] = weapon_data["weapon_id"]
+		weapon_pool_item["weapon_id"] = int(weapon_data["weapon_id"])
 		weapon_pool_item["weapon_name"] = weapon_data["weapon_name"]
 		weapon_pool_item["resource_path"] = weapon_data["resource_path"]
 		weapon_pool_item["icon_path"] = weapon_data["icon_path"]
 		
-		weapon_pool_item["star_rating"] = weapon_data["star_rating"]
+		weapon_pool_item["star_rating"] = int(weapon_data["star_rating"])
 		weapon_pool_item["price"] = weapon_data["price"]
 
 		var details = allocate_weapon_details(weapon_pool_item["price"])
 		
-		weapon_pool_item["max_quantity"] = details["quantity"] if weapon_data["max_quantity"] == -1 else weapon_data["max_quantity"]
-		weapon_pool_item["current_quantity"] = weapon_pool_item["max_quantity"]
+		weapon_pool_item["max_quantity"] = int(details["quantity"]) if weapon_data["max_quantity"] == -1 else int(weapon_data["max_quantity"])
+		weapon_pool_item["current_quantity"] = int(weapon_pool_item["max_quantity"])
 
 		weapon_pool.append(weapon_pool_item)
 
@@ -235,8 +240,6 @@ func is_weapon_unique(player_id: int, weapon: WeaponBase) -> bool:
 	:param weapon: 武器
 	:return: 是否唯一
 	'''
-	#print("weapon_id: ", weapon.weapon_id)
-	#print("weapons: ", players_weapons[player_id])
 	for _weapon in players_weapons[player_id]:
 		if _weapon == weapon:
 			continue
@@ -270,20 +273,6 @@ func allocate_weapon_details(price: float) -> Dictionary:
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 回调函数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-func _on_new_draw_request() -> void:
-	if not is_multiplayer_authority():
-		return
-		
-	while draw_request_queue.size() > 0:
-		var request = draw_request_queue.pop_front()
-		var player_id = request["player_id"]
-		var player_level = request["player_level"]
-		var weapon_pool_item = draw_weapon(player_level)
-		
-		add_draw_result.rpc(player_id, weapon_pool_item)
-
-	# Tools.print_weapon_pool_counter(weapon_pool)
-
 func _on_start_game(level: Node2D) -> void:
 	# 初始化玩家武器字典
 	players_weapons.clear()
@@ -295,8 +284,6 @@ func _on_start_game(level: Node2D) -> void:
 	create_weapon_pool()
 
 	draw_request_queue.clear()
-
-	init_finish.emit()
 
 
 func _on_player_register_weapon(player_id: int, weapon_id: int, slot_id: int) -> void:
