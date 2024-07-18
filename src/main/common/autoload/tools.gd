@@ -142,7 +142,7 @@ func get_weapon(player_id: int, slot_id: int) -> WeaponBase:
 	return null
 
 func get_random_station_position() -> Vector2:
-	return Game.current_level.get_node("StationAreas").get_random_position()
+	return get_tree().current_scene.get_node("StationAreas").get_random_position()
 	
 func get_random_enemy() -> EnemyBase:
 	if EnemiesManager.enemies.size() > 0:

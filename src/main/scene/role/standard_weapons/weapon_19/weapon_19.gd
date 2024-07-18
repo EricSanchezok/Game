@@ -21,7 +21,7 @@ func add_gathering_thunder() -> void:
 	
 	instance.target_pos = global_position
 
-	Levels.activated_level.add_child(instance, true)
+	Game.add_object(instance)
 	
 func _on_hit_box_hit(hurtbox: Variant) -> void:
 	super(hurtbox)

@@ -31,7 +31,6 @@ func do_enter_trigger() -> void:
 		return
 		
 	recovery_cooldown()
-	
 	# var instance = WEAPON_20.instantiate()
 	var instance: WeaponBase = (load("res://src/main/scene/role/standard_weapons/weapon_20/weapon_20.tscn") as PackedScene).instantiate()
 	instance.is_main = false
@@ -40,7 +39,7 @@ func do_enter_trigger() -> void:
 	instance.weapon_id = weapon_id
 	instance.slot_id = slot_id
 	
-	Levels.activated_level.add_child(instance, true)
+	Game.add_object(instance)
 	
 	scale_up()
 	
@@ -61,7 +60,7 @@ func do_enter_trigger() -> void:
 	weapons.append(instance)
 	links.append(link_instance)
 	
-	Levels.activated_level.add_child(link_instance, true)
+	Game.add_object(instance)
 	
 	spawn_finish = true
 

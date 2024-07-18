@@ -28,7 +28,5 @@ position = Vector2(0, -4)
 rotation = -0.785398
 texture = ExtResource("4_pjpc8")
 
-[node name="ReloadProgressBar" parent="." index="5"]
+[node name="ReloadProgressBar" parent="." index="4"]
 position = Vector2(0, 23)
-
-[connection signal="weapon_stats_update" from="WeaponStats" to="." method="_on_weapon_stats_weapon_stats_update"]

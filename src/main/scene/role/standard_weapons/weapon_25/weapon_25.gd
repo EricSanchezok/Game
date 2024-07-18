@@ -27,4 +27,4 @@ func add_bullet() -> void:
 			
 			instance.target = target_enemy
 
-			Levels.activated_level.add_child(instance, true)
+			Game.add_object(instance)

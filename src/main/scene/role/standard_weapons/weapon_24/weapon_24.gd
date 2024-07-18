@@ -9,8 +9,6 @@ var last_damage_ratio: float = 0.0
 
 func _ready() -> void:
 	super()
-	
-	recalculate_attribute.connect(_on_recalculate_attribute)
 		
 	stop_bullets = true
 	can_update_speed = false

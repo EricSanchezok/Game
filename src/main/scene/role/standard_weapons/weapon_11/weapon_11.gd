@@ -71,8 +71,8 @@ func add_ice_pick(index: int) -> void:
 	instance.manual_start = true
 	
 	ice_picks.append(instance)
-
-	Levels.activated_level.add_child(instance, true)
+	
+	Game.add_object(instance)
 
 
 func _on_freeze_success(enemy: EnemyBase) -> void:

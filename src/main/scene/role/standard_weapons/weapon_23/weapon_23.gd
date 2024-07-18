@@ -37,7 +37,7 @@ func spawn_area(pos: Vector2) -> void:
 	instance.pen_rate_increment = pen_rate_increment
 	instance.enemy_bullet_speed_multiplier = enemy_bullet_speed_multiplier
 	
-	Levels.activated_level.add_child(instance, true)
+	Game.add_object(instance)
 
 func get_spawn_position() -> Vector2:
 	var angle = randf_range(0, 2 * PI)

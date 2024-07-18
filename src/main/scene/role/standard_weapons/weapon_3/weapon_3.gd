@@ -39,4 +39,4 @@ func add_burning_area() -> void:
 	instance.c_radius = burning_radius * (1 + attributes["SPAWN_SIZE"])
 	instance.life_time = attributes["EFF_DUR"]
 	
-	Levels.activated_level.add_child(instance, true)
+	Game.add_object(instance)

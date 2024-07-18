@@ -36,7 +36,7 @@ func do_tick_moving(delta: float) -> void:
 		if not lines.has(enemy):
 			var line = THUNDER_ATTRACTION_LINE.instantiate()
 			lines[enemy] = line
-			Levels.activated_level.add_child(line, true)
+			Game.add_object(line)
 			update_line(line, enemy)
 		else:
 			var line = lines[enemy]

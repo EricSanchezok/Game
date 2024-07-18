@@ -54,8 +54,8 @@ func add_lighting_chain() -> void:
 	instance.current_enemy = hit_enemy
 	instance.damage_current = true
 	instance.former_enemies = []
-
-	Levels.activated_level.add_child(instance, true)
+	
+	Game.add_object(instance)
 
 func _on_hit_box_timer_timeout() -> void:
 	collision_shape_2d.disabled = true if not collision_shape_2d.disabled else false

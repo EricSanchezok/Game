@@ -11,7 +11,7 @@ var pen_rate_increment: float
 var enemy_bullet_speed_multiplier: float
 
 var in_area_players: Array[PlayerBase]
-var in_area_bullets: Array[EnemyShootBase]
+var in_area_bullets: Array[EnemyProjectileBase]
 
 func _ready() -> void:
 	attributes = weapon.attributes.duplicate(true)
@@ -38,7 +38,7 @@ func _on_body_entered(body: Node2D) -> void:
 
 		in_area_players.append(body)
 	
-	elif body is EnemyShootBase:
+	elif body is EnemyProjectileBase:
 		body.speed *= enemy_bullet_speed_multiplier
 		
 		in_area_bullets.append(body)
@@ -50,7 +50,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 		in_area_players.erase(body)
 		
-	elif body is EnemyShootBase:
+	elif body is EnemyProjectileBase:
 		body.speed /= enemy_bullet_speed_multiplier
 		
 		in_area_bullets.erase(body)

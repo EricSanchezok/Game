@@ -40,7 +40,7 @@ func add_bullet() -> void:
 		instance.target = target
 		instance.global_position = target.global_position
 		
-		Levels.activated_level.add_child(instance, true)
+		Game.add_object(instance)
 
 func recovery_summon_time() -> void:
 	current_time_left = summon_wait_time

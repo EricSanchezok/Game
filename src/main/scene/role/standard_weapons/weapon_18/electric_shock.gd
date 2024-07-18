@@ -43,7 +43,7 @@ func add_lighting_chain() -> void:
 	instance.damage_current = true
 	instance.former_enemies = []
 
-	Levels.activated_level.add_child(instance, true)
+	Game.add_object(instance)
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "finish":

@@ -22,4 +22,4 @@ func add_meteorite() -> void:
 	instance.init_rotation = 0.0
 	instance.init_position = Vector2.ZERO
 	
-	Levels.activated_level.add_child(instance, true)
+	Game.add_object(instance)
