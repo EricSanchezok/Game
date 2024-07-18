@@ -110,14 +110,18 @@ func animate_to_area(area: CardArea, time: float = 0.2) -> void:
 	
 	can_move = true
 	
+	if current_area:
+		match current_area.area_type:
+			AreaType.INVENTORY:
+				pass
+			AreaType.EQUIPMENT:
+				my_player.unregister_weapon.emit(my_player.multiplayer_id, current_area.index)
+	
 	match area.area_type:
 		AreaType.INVENTORY:
-			if current_area and current_area.area_type == AreaType.EQUIPMENT:
-				print("取消装备 ", current_area.index)
-				my_player.unregister_weapon.emit(my_player.multiplayer_id, current_area.index)
+			pass
 		AreaType.EQUIPMENT:
-			my_player.register_weapon.emit(my_player.multiplayer_id, weapon_id, current_area.index)
-			print("装备 ", current_area.index)
+			my_player.register_weapon.emit(my_player.multiplayer_id, weapon_id, area.index)
 			
 	area.add_card(self)
 	if current_area:

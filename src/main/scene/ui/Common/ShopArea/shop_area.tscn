@@ -1,40 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://dv66wrqma2aob"]
+[gd_scene load_steps=5 format=3 uid="uid://cyi7sbayx2h38"]
 
 [ext_resource type="Script" path="res://src/main/scene/ui/Common/ShopArea/shop_area.gd" id="1_gktkw"]
+[ext_resource type="PackedScene" uid="uid://2um0kcmm08t1" path="res://src/main/scene/ui/Common/CardArea/card_area.tscn" id="1_yuk58"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86ydf"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rsbc"]
+size = Vector2(270, 64)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2781"]
 bg_color = Color(0.75, 0.2625, 0.2625, 0.592157)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nnctv"]
-size = Vector2(270, 64)
-
-[node name="ShopArea" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-mouse_filter = 2
+[node name="ShopArea" instance=ExtResource("1_yuk58")]
 script = ExtResource("1_gktkw")
-area_type = 3
 
-[node name="Panel" type="Panel" parent="."]
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(135, 32)
+shape = SubResource("RectangleShape2D_3rsbc")
+
+[node name="Panel" type="Panel" parent="." index="1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_86ydf")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 256
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(135, 32)
-shape = SubResource("RectangleShape2D_nnctv")
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_u2781")

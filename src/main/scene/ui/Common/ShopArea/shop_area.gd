@@ -1,12 +1,11 @@
-extends Control
+extends CardArea
 
 @onready var panel: Panel = $Panel
-
-@export var area_type: Card.AreaType
 
 var tween_show: Tween
 
 func _ready() -> void:
+	super()
 	panel.hide()
 	panel.modulate.a = 0.0
 	

@@ -1,6 +1,9 @@
 extends Control
 
 const CARD = preload("res://src/main/scene/ui/Common/Card/card.tscn")
+const INVENTORY_AREA = preload("res://src/main/scene/ui/Common/InventoryArea/inventory_area.tscn")
+const EQUIPMENT_AREA = preload("res://src/main/scene/ui/Common/EquipmentArea/equipment_area.tscn")
+
 @onready var inventory_panel: PanelContainer = $InventoryPanel
 @onready var equipment_panel: PanelContainer = $EquipmentPanel
 @onready var equipment_panel_2: PanelContainer = $EquipmentPanel2
@@ -38,11 +41,12 @@ func _ready() -> void:
 	hide()
 	my_player = owner
 	my_player.player_level_changed.connect(_on_player_level_changed)
-	
+
 	inventory_areas = $InventoryPanel/HBoxContainer.get_children()
-	equipment_areas = $EquipmentPanel/HBoxContainer.get_children()
-	for area in $EquipmentPanel2/HBoxContainer.get_children():
-		equipment_areas.push_back(area)
+	var e1 = $EquipmentPanel/HBoxContainer.get_children()
+	var e2 = $EquipmentPanel2/HBoxContainer.get_children()
+	e2.reverse()
+	equipment_areas = e1 + e2
 	
 func _process(_delta: float) -> void:
 	if my_player.draw_result_queue.size() == draw_amount:

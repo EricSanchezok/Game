@@ -2,8 +2,6 @@ extends PlayerBase
 
 @onready var coin_generator: CoinGenerator = $CoinGenerator
 
-
-
 func _ready() -> void:
 	super()
 
