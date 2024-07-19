@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://benob7e63a10q"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_3pogt"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_28/weapon_28.gd" id="2_bit5m"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_r1rar"]
+[ext_resource type="Texture2D" uid="uid://c3c6bruel30u7" path="res://src/main/scene/role/standard_weapons/weapon_28/icon.png" id="4_l5l2g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eh6rd"]
+resource_local_to_scene = true
+shader = ExtResource("2_r1rar")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[node name="Weapon28" instance=ExtResource("1_3pogt")]
+script = ExtResource("2_bit5m")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_eh6rd")
+rotation = 0.785398
+texture = ExtResource("4_l5l2g")
+
+[node name="ShootMarker2D" parent="Graphics" index="5"]
+position = Vector2(2, 0)
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 25)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]

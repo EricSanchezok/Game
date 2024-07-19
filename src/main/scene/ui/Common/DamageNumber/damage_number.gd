@@ -2,7 +2,7 @@ extends Marker2D
 
 var text:
 	set(v):
-		$Label.text = str(String("%.1f" % v))
+		$Label.text = str(String("%.3f" % v))
 		text = v
 
 var velocity: Vector2

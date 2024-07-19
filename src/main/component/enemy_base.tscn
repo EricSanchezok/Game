@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://daty4aphomuh4"]
+[gd_scene load_steps=83 format=3 uid="uid://daty4aphomuh4"]
 
 [ext_resource type="Script" path="res://src/main/component/Scripts/enemy_base.gd" id="1_xv1kt"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="2_yfjr8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c0wxvsd3brt42" path="res://assets/MyVFX/ExplosionVFX/ExplosionVFXPack01/Explosion VFX 29/Explosion VFX 29(16x16).png" id="7_1kuyq"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/coin_generator.gd" id="8_127xv"]
 [ext_resource type="Texture2D" uid="uid://dtxrkhop27b6x" path="res://assets/MyVFX/IceVFX/ice_04/ice_a.png" id="8_yolki"]
+[ext_resource type="Theme" uid="uid://xh24p3316arj" path="res://src/main/etc/theme/screen_thema.tres" id="9_xamqg"]
 [ext_resource type="Texture2D" uid="uid://c6wsiutw24l1s" path="res://assets/MyVFX/RockVFX/rockpack_01/sprite_sheets_96x96/vfx-Sheet.png" id="10_ivr3p"]
 [ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="10_tx0x8"]
 
@@ -39,9 +40,6 @@ point_count = 2
 [sub_resource type="Gradient" id="Gradient_2svgl"]
 offsets = PackedFloat32Array(0, 0.495215, 0.990431)
 colors = PackedColorArray(0.67451, 0.247059, 0.235294, 1, 0.67451, 0.247059, 0.235294, 1, 0.67451, 0.247059, 0.235294, 0.407843)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w55mr"]
-load_path = "res://.godot/imported/Coin.png-6d6918c6a0c38ae577bdf1ed0a32d8ab.ctex"
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t1cfp"]
 particles_animation = true
@@ -509,6 +507,9 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w55mr"]
+load_path = "res://.godot/imported/Coin.png-6d6918c6a0c38ae577bdf1ed0a32d8ab.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_o8l4w"]
 atlas = ExtResource("10_tx0x8")
 region = Rect2(400, 34, 32, 4)
@@ -535,6 +536,45 @@ width = 32.0
 width_curve = SubResource("Curve_ceag8")
 default_color = Color(0.67451, 0.247059, 0.235294, 0.576471)
 gradient = SubResource("Gradient_2svgl")
+
+[node name="VFX" type="Node2D" parent="."]
+
+[node name="BurnGPUParticles2D" type="GPUParticles2D" parent="VFX"]
+material = SubResource("CanvasItemMaterial_t1cfp")
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_jiql5")
+texture = SubResource("AtlasTexture_6fosy")
+lifetime = 0.7
+explosiveness = 0.1
+randomness = 0.2
+
+[node name="MiniExplosionAnimatedSprite2D" type="AnimatedSprite2D" parent="VFX"]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_g3xr8")
+animation = &"explode"
+
+[node name="FreezeAnimatedSprite2D" type="AnimatedSprite2D" parent="VFX"]
+position = Vector2(2, 0)
+sprite_frames = SubResource("SpriteFrames_468na")
+animation = &"unfreeze"
+frame = 8
+frame_progress = 1.0
+
+[node name="FragileAnimatedSprite2D" type="AnimatedSprite2D" parent="VFX"]
+position = Vector2(0, -22)
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_rm0hd")
+animation = &"on"
+
+[node name="PosionLabel" type="Label" parent="VFX"]
+offset_top = -34.0
+offset_right = 40.0
+offset_bottom = -6.0
+theme = ExtResource("9_xamqg")
+theme_override_colors/font_color = Color(0.516667, 1, 0, 1)
+text = "2"
+horizontal_alignment = 1
 
 [node name="Graphics" type="Node2D" parent="."]
 
@@ -573,36 +613,6 @@ debug_color = Color(0, 0.643137, 0.301961, 0.419608)
 [node name="AppearMarker" type="Sprite2D" parent="Graphics"]
 visible = false
 texture = ExtResource("4_co8ll")
-
-[node name="VFX" type="Node2D" parent="Graphics"]
-
-[node name="BurnGPUParticles2D" type="GPUParticles2D" parent="Graphics/VFX"]
-material = SubResource("CanvasItemMaterial_t1cfp")
-emitting = false
-amount = 10
-process_material = SubResource("ParticleProcessMaterial_jiql5")
-texture = SubResource("AtlasTexture_6fosy")
-lifetime = 0.7
-explosiveness = 0.1
-randomness = 0.2
-
-[node name="MiniExplosionAnimatedSprite2D" type="AnimatedSprite2D" parent="Graphics/VFX"]
-position = Vector2(0, -5)
-sprite_frames = SubResource("SpriteFrames_g3xr8")
-animation = &"explode"
-
-[node name="FreezeAnimatedSprite2D" type="AnimatedSprite2D" parent="Graphics/VFX"]
-position = Vector2(2, 0)
-sprite_frames = SubResource("SpriteFrames_468na")
-animation = &"unfreeze"
-frame = 8
-frame_progress = 1.0
-
-[node name="FragileAnimatedSprite2D" type="AnimatedSprite2D" parent="Graphics/VFX"]
-position = Vector2(0, -22)
-scale = Vector2(0.4, 0.4)
-sprite_frames = SubResource("SpriteFrames_rm0hd")
-animation = &"on"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

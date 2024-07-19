@@ -17,12 +17,16 @@ const DAMAGE_NUMBER = preload("res://src/main/scene/ui/Common/DamageNumber/damag
 @onready var shoot_marker: Marker2D = $Graphics/ShootMarker
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 导入特效模块 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-@onready var burn_gpu_particles_2d: GPUParticles2D = $Graphics/VFX/BurnGPUParticles2D
-@onready var freeze_animated_sprite_2d: AnimatedSprite2D = $Graphics/VFX/FreezeAnimatedSprite2D
-@onready var mini_explosion_animated_sprite_2d: AnimatedSprite2D = $Graphics/VFX/MiniExplosionAnimatedSprite2D
-@onready var fragile_animated_sprite_2d: AnimatedSprite2D = $Graphics/VFX/FragileAnimatedSprite2D
+@onready var burn_gpu_particles_2d: GPUParticles2D = $VFX/BurnGPUParticles2D
+@onready var mini_explosion_animated_sprite_2d: AnimatedSprite2D = $VFX/MiniExplosionAnimatedSprite2D
+@onready var freeze_animated_sprite_2d: AnimatedSprite2D = $VFX/FreezeAnimatedSprite2D
+@onready var fragile_animated_sprite_2d: AnimatedSprite2D = $VFX/FragileAnimatedSprite2D
+@onready var posion_label: Label = $VFX/PosionLabel
+
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 常规变量定义 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+var POISON_DAMAGE_INTERVAL = 0.5
+
 enum AttrType {
 	FIXED, MULT
 }
@@ -100,7 +104,15 @@ class effect:
 		is_slow = v
 var _apply_slow: bool = false
 
-@export var is_poision = false
+@export var is_poision = false:
+	set(v):
+		if is_poision == v:
+			return
+		if Tools.switch_on(v, is_poision):
+			posion_label.show()
+		elif Tools.switch_off(v, is_poision):
+			posion_label.hide()
+		is_poision = v
 		
 @export var is_freeze = false: ## 是否冻结，如果在 is_freeze 为 [param true] 期间死亡，则会被置为 [param false]，并且会执行 enter_die 函数
 	set(v):
@@ -143,6 +155,7 @@ func _ready() -> void:
 		
 	freeze_animated_sprite_2d.hide()
 	fragile_animated_sprite_2d.hide()
+	posion_label.hide()
 	
 	update_attributes.connect(_on_update_attributes)
 		
@@ -238,20 +251,29 @@ func apply_effects(delta: float) -> void:
 	if is_slow:
 		if not _apply_slow:
 			update_attributes.emit("MOV_SPD", effect_queue[Effect.SLOW][0].source_weapon, AttrType.MULT, -effect_queue[Effect.SLOW][0].value)
-			#enemy_stats.movement_speed_multiplier -= effect_queue[Effect.SLOW][0].value
 			animation_player.speed_scale -= effect_queue[Effect.SLOW][0].value
 			_apply_slow = true
 	else:
 		pass
 
 	if is_poision:
-		effect_queue[Effect.POISION][0].other += delta
-		if effect_queue[Effect.POISION][0].other >= 1.0:  # 每秒应用一次中毒伤害
+		posion_label.text = str(int(effect_queue[Effect.POISION][0].value))
+		
+		effect_queue[Effect.POISION][0].other -= delta
+		if effect_queue[Effect.POISION][0].other <= 0.0:
+			effect_queue[Effect.POISION][0].other = POISON_DAMAGE_INTERVAL
+		
 			var damage = Damage.new()
 			damage.source_weapon = effect_queue[Effect.POISION][0].source_weapon
-			damage.mag_amount = effect_queue[Effect.POISION][0].value
+			damage.direct_object = damage.source_weapon
+			
+			damage.is_critical = false
+			damage.phy_amount = 0.0
+			damage.mag_amount = damage.source_weapon.attributes["POISON_DAMAGE"] * effect_queue[Effect.POISION][0].value
+			damage.knockback = 0.0
+			
 			pending_damages.append(damage)
-			effect_queue[Effect.POISION][0].other -= 1.0  # 重置计时器
+		
 	else:
 		pass
 
@@ -272,7 +294,6 @@ func apply_damages() -> void:
 	var max_knockback_damage: Damage = Damage.new()
 	for damage in pending_damages:
 		update_attributes.emit("HP", damage.source_weapon, AttrType.FIXED, -damage.phy_amount + damage.mag_amount)
-		#enemy_stats.current_health -= damage.phy_amount + damage.mag_amount
 		
 		# 触发吸血
 		if damage.direct_object.attributes["LIFE_STEAL"] > 0.0:
@@ -391,22 +412,22 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 				is_freeze = true
 
 	## >>>>>>>>>>>>>>>>>>>> 处理中毒 >>>>>>>>>>>>>>>>>>>>
-	#var new_poison_layers = direct_object.weapon_stats.attributes[WeaponAttrManager.Attr.POISON_LAY]
-	#var max_poison_layers = direct_object.weapon_stats.attributes[WeaponAttrManager.Attr.MAX_POISON]
-	#if new_poison_layers > 0:
-		#if not is_poision:
-			#var _effect = effect.new()
-			#_effect.value = new_poison_layers
-			#_effect.duration = 5
-			#_effect.source_weapon = source_weapon
-			#
-			#_effect.other = 0.0
-			#effect_queue[Effect.POISION].append(_effect)
-#
-			#is_poision = true
-		#else :
-			#effect_queue[Effect.POISION][0].value = min(effect_queue[Effect.POISION][0].value + new_poison_layers, max_poison_layers)
+	var new_poison_layers = direct_object.attributes["POISON_LAY"]
+	var max_poison_layers = direct_object.attributes["MAX_POISON"]
+	if new_poison_layers > 0:
+		if not is_poision:
+			var _effect = effect.new()
+			_effect.value = new_poison_layers
+			_effect.duration = 5
+			_effect.source_weapon = source_weapon
+			
+			_effect.other = POISON_DAMAGE_INTERVAL
+			effect_queue[Effect.POISION].append(_effect)
 
+			is_poision = true
+		else :
+			effect_queue[Effect.POISION][0].value = min(effect_queue[Effect.POISION][0].value + new_poison_layers, max_poison_layers)
+			effect_queue[Effect.POISION][0].duration = 5
 
 	if not is_fragile and not fragile_animated_sprite_2d.is_playing():
 		if "fragile_ratio" in source_weapon:

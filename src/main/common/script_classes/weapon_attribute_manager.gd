@@ -16,7 +16,7 @@ var trait_attributes = {
 	"FROST": ["DECEL_DUR", "SLOW_RATE", "FREEZE_RATE"],
 	"LIGHTING": ["LCH_DMG", "LCH_COUNT"],
 	"EARTH": [],
-	"TOXIN": ["POISON_LAY", "MAX_POISON"],
+	"TOXIN": ["POISON_LAY", "MAX_POISON", "POISON_DAMAGE"],
 	"NATURE": ["NAT_GROW"],
 	"DIVINITY": ["DIV_STR"],
 	"DEMON": [],

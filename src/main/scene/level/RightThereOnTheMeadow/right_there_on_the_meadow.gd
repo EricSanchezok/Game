@@ -5,11 +5,11 @@ func _ready() -> void:
 
 func _on_test_timer_1_timeout() -> void:
 	pass
-	#EnemiesManager.register_enemy("Shade", "A", 1, 1.0)
+	EnemiesManager.register_enemy("Shade", "A", 1, 1.0)
 
 func _on_test_timer_2_timeout() -> void:
 	pass
-	#Game.players[1].register_weapon.emit(1, 20, 0)
+	Game.players[1].register_weapon.emit(1, 28, 0)
 	#Game.players[1].register_weapon.emit(1, 21, 1)
 	#Game.players[1].register_weapon.emit(1, 22, 2)
 	#Game.players[1].register_weapon.emit(1, 23, 3)
