@@ -45,20 +45,19 @@ enum AreaType{
 	INVENTORY,
 	EQUIPMENT,
 	SHOP,
-	
 }
 
 func _ready() -> void:
 	my_traits = WeaponsManager.get_traits(weapon_id)
 	card_texture.texture = card_texture.texture.duplicate()
-	#-------------------初始化武器类型和武器种族的图标-------------------#
+
 	for _trait in my_traits:
 		var trait_texture = TRAIT_TEXTURE.instantiate()
 		trait_texture.my_trait = _trait
 		trait_hbox.add_child(trait_texture)
-	#-------------------初始化武器图标-------------------#
+
 	weapon_icon.texture = load(my_icon_path)
-	#-------------------初始化武器价格和背景-------------------#
+
 	price.text = str(my_price)
 	var rect2 = Rect2(64*(my_star_rating-1), 64, 64, 64)
 	card_texture.texture.region = rect2
@@ -96,6 +95,8 @@ func animate_scale(is_expand: bool) -> void:
 		tween_scale.tween_property(self, "scale", Vector2(1.0, 1.0), 0.2)
 
 func animate_to_area(area: CardArea, time: float = 0.2) -> void:
+	area.add_card(self)
+
 	var target_position = get_area_position(area)
 
 	if tween_move and tween_move.is_running():
@@ -123,11 +124,10 @@ func animate_to_area(area: CardArea, time: float = 0.2) -> void:
 		AreaType.EQUIPMENT:
 			my_player.register_weapon.emit(my_player.multiplayer_id, weapon_id, area.index)
 			
-	area.add_card(self)
+	
 	if current_area:
 		current_area.remove_card(self)
 	current_area = area
-
 
 func animate_to_card(target_card: Card, time: float = 0.2) -> void:
 	var target_position = target_card.global_position
@@ -239,7 +239,6 @@ func _on_gui_input(event: InputEvent) -> void:
 	else: # 松开鼠标时
 		z_index = 0
 		following_mouse = false
-	
 		animate_scale(false)
 		
 		if target_areas:
@@ -248,13 +247,10 @@ func _on_gui_input(event: InputEvent) -> void:
 			if current_area:
 				animate_to_area(current_area)
 
-
 func _on_button_down() -> void:
 	if purchased:
 		return
-
 	be_purchased.emit(self)
-
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.owner is CardArea:
@@ -263,7 +259,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.owner is CardArea:
 		target_areas.erase(area.owner)
-
 
 func _on_show_detail_timer_timeout() -> void:
 	show_detail()

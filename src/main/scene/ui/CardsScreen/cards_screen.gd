@@ -136,7 +136,7 @@ func get_final_pos(index: int) -> Vector2:
 	var x = shop_area.position.x + (index + 0.5) * width
 	return Vector2(x, y)
 
-func get_free_inventory_area() -> Control:
+func get_free_inventory_area() -> CardArea:
 	for area in inventory_areas:
 		if area.is_free:
 			return area
@@ -240,6 +240,8 @@ func _on_update_level_button_pressed() -> void:
 
 func _on_card_be_sold(card: Card) -> void:
 	my_player.coin_count += card.my_price
+	if card in outshop_cards:
+		outshop_cards.erase(card)
 
 func _on_card_be_purchased(card: Card) -> void:
 	my_player.coin_count -= card.my_price
@@ -250,9 +252,12 @@ func _on_card_be_purchased(card: Card) -> void:
 	if merge_check(card):
 		var merge_target = get_merge_target(card)
 		do_merge(merge_target, card)
+		card.is_purchased()
+		
 	else:
 		var free_inventory_area = get_free_inventory_area()
 		if free_inventory_area:
+			free_inventory_area.is_free = false
 			card.animate_to_area(free_inventory_area, 0.5)
 			card.animate_scale(false)
 			card.is_purchased()

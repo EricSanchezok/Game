@@ -6,6 +6,7 @@ var tween_show: Tween
 
 func _ready() -> void:
 	super()
+	area_type = Card.AreaType.SHOP
 	panel.hide()
 	panel.modulate.a = 0.0
 	
