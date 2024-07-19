@@ -412,9 +412,9 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 				is_freeze = true
 
 	## >>>>>>>>>>>>>>>>>>>> 处理中毒 >>>>>>>>>>>>>>>>>>>>
-	var new_poison_layers = direct_object.attributes["POISON_LAY"]
-	var max_poison_layers = direct_object.attributes["MAX_POISON"]
-	if new_poison_layers > 0:
+	if direct_object.attributes.has("POISON_LAY"):
+		var new_poison_layers = direct_object.attributes["POISON_LAY"]
+		var max_poison_layers = direct_object.attributes["MAX_POISON"]
 		if not is_poision:
 			var _effect = effect.new()
 			_effect.value = new_poison_layers

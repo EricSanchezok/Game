@@ -508,7 +508,6 @@ animations = [{
 }]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w55mr"]
-load_path = "res://.godot/imported/Coin.png-6d6918c6a0c38ae577bdf1ed0a32d8ab.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o8l4w"]
 atlas = ExtResource("10_tx0x8")

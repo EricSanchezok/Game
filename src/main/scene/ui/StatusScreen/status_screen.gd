@@ -7,6 +7,7 @@ extends Control
 
 var my_player: PlayerBase
 var max_energy: float
+var fight_timer: Timer
 
 func _ready() -> void:
 	my_player = owner
@@ -19,9 +20,13 @@ func _ready() -> void:
 		show()
 	else:
 		hide()
-	
+
+func _process(delta) -> void:
+	if fight_timer:
+		set_time_left(fight_timer.time_left)
+
 func set_time_left(time: float) -> void:
-	time_left.text = str(time)
+	time_left.text = str(String("%.1f" % time))
 
 func show_screen() -> void:
 	show()
@@ -38,4 +43,5 @@ func _on_energy_count_changed(value: float) -> void:
 	var percentage := value / max_energy
 	energy.material.set_shader_parameter("fill_per", percentage)
 	
-	
+
+

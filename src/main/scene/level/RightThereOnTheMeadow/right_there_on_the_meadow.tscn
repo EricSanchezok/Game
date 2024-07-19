@@ -67,5 +67,14 @@ autostart = true
 one_shot = true
 autostart = true
 
+[node name="LevelWaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FightTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
 [connection signal="timeout" from="TestTimer1" to="." method="_on_test_timer_1_timeout"]
 [connection signal="timeout" from="TestTimer2" to="." method="_on_test_timer_2_timeout"]
+[connection signal="timeout" from="LevelWaitTimer" to="." method="_on_level_wait_timer_timeout"]
+[connection signal="timeout" from="FightTimer" to="." method="_on_fight_timer_timeout"]

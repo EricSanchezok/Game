@@ -10,9 +10,11 @@ extends CharacterBody2D
 @onready var hurt_box: HurtBox = $Graphics/HurtBox ## 受伤盒节点
 @onready var hurt_box_collision_shape_2d: CollisionShape2D = $Graphics/HurtBox/CollisionShape2D ## 受伤盒碰撞体节点
 @onready var invincible_timer: Timer = $InvincibleTimer ## 无敌计时器节点
+@onready var state_machine: StateMachine = $StateMachine
 
 @onready var pause_screen: Control = $CanvasLayer/PauseScreen
 @onready var cards_screen: Control = $CanvasLayer/CardsScreen
+@onready var status_screen: Control = $CanvasLayer/StatusScreen
 
 
 enum AttrType {

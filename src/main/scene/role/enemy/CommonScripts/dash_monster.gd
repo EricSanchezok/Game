@@ -69,7 +69,7 @@ func tick_physics(state: State, delta: float) -> void:
 	if is_freeze:
 		velocity *= effect_queue[Effect.FREEZE][0].value
 
-	move_and_collide(velocity*delta)
+	move_and_slide()
 
 func get_next_state(state: State) -> int:
 	if must_do_nothing():

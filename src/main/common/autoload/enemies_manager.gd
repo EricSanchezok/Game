@@ -23,26 +23,28 @@ func _process(delta: float) -> void:
 	for spawn_info in spawn_queue:
 		spawn_info["time_left"] -= delta
 		if spawn_info["time_left"] <= 0:
-			spawn_info["time_left"] = spawn_info["duration"] #重置时间
+			for i in range(spawn_info["number"]):
 
-			var instance: EnemyBase = get_enemy(spawn_info["enemy_name"]).instantiate()
-			instance.enemy_type = spawn_info["enemy_type"]
-			instance.progress = spawn_info["progress"]
-	
-			instance.global_position = enemy_areas.get_random_position()
-			instance.enemy_die.connect(_on_enemy_die)
-	
-			enemies.append(instance)
+				var instance: EnemyBase = get_enemy(spawn_info["enemy_name"]).instantiate()
+				instance.enemy_type = spawn_info["enemy_type"]
+				instance.progress = spawn_info["progress"]
+		
+				instance.global_position = enemy_areas.get_random_position()
+				instance.enemy_die.connect(_on_enemy_die)
+		
+				enemies.append(instance)
+				
+				Game.add_object(instance)
+			spawn_info["time_left"] = spawn_info["duration"] #重置时间
 			
-			Game.add_object(instance)
-			
-func register_enemy(enemy_name: String, enemy_type: String, progress: int, duration: float) -> void:
+func register_enemy(enemy_name: String, enemy_type: String, progress: int, duration: float, number: int) -> void:
 	var spawn_info = {
 		"enemy_name": enemy_name,
 		"enemy_type": enemy_type,
 		"progress": progress,
 		"duration": duration,
 		"time_left": duration,
+		"number": number,
 	}
 	spawn_queue.append(spawn_info)
 	

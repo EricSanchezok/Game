@@ -1,4 +1,4 @@
-extends EnemyShootBase
+extends EnemyProjectileBase
 
 func _ready() -> void:
 	if not is_multiplayer_authority():

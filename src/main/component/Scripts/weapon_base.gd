@@ -77,11 +77,7 @@ var attack_cooldown_time: float:
 var self_kill_count: int = 0 ## 击杀数
 var self_damage_count: float = 0 ## 造成的伤害数
 
-var is_lock: bool = false: ## 是否锁定武器，如果为 true 则武器将会锁定 state_machine，不会执行任何逻辑
-	set(v):
-		is_lock = v
-		if not is_node_ready(): await ready
-		state_machine.is_lock = v
+
 		
 @export var shoot_flag: bool = false: ## 发射投射物的标志，设置为 [param true] 时，会触发 shoot 函数，该函数可在武器脚本中自定义，shoot_flag 不用手动置为 false
 	set(v):

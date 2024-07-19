@@ -6,6 +6,7 @@ var players = {}
 
 signal start_game(level: Node2D)
 signal leave_game(level: Node2D)
+signal respawn_all_players_finished
 
 func _ready() -> void:
 	start_game.connect(_on_start_game)
@@ -41,6 +42,7 @@ func add_player(multiplayer_id: int) -> void:
 func respawn_all_players() -> void:
 	for multiplayer_id in players.keys():
 		add_player(multiplayer_id)
+	respawn_all_players_finished.emit()
 
 func add_object(obj: Variant) -> void:
 	get_tree().current_scene.add_child(obj, true)

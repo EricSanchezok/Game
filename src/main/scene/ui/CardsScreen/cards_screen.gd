@@ -25,6 +25,8 @@ const EQUIPMENT_AREA = preload("res://src/main/scene/ui/Common/EquipmentArea/equ
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var card_spawn_marker_2d: Marker2D = $CardSpawnMarker2D
 
+@onready var end_button = $EndButton
+
 var tween_show: Tween
 
 var my_player: PlayerBase
@@ -263,3 +265,7 @@ func _on_card_be_purchased(card: Card) -> void:
 			card.is_purchased()
 
 			outshop_cards.append(card)
+
+
+func _on_end_button_pressed():
+	hide_screen()

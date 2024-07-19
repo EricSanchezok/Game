@@ -73,7 +73,8 @@ func draw_weapon(player_level: int) -> Dictionary:
 	var available_weapons = []
 	for item in weapon_pool:
 		if item["current_quantity"] > 0 and star_probs.has(item["star_rating"]):
-			available_weapons.append(item)
+			if is_weapon_locked(item["weapon_id"]):
+				available_weapons.append(item)
 
 	# 如果没有可抽取的武器，返回null
 	if available_weapons.size() == 0:
@@ -271,6 +272,13 @@ func allocate_weapon_details(price: float) -> Dictionary:
 
 	return details
 
+# 判断武器是否被锁定的函数
+func is_weapon_locked(weapon_id: int) -> bool:
+	if GlobalVars.weapon_locks.has(weapon_id):
+		return GlobalVars.weapon_locks[weapon_id]
+	else:
+		print("Invalid weapon ID:", weapon_id)
+		return false # 如果武器ID无效，返回false
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 回调函数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 func _on_start_game(level: Node2D) -> void:
