@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d1wd8psvcb3r2" path="res://assets/MyIcon/EnemySpawnMarker/Marker.png" id="4_co8ll"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/state_machine.gd" id="4_m830w"]
 [ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="6_6venk"]
+[ext_resource type="Theme" uid="uid://dlcyl15yhjf8a" path="res://src/main/etc/theme/my_theme.tres" id="6_j4caw"]
 [ext_resource type="Texture2D" uid="uid://c0wxvsd3brt42" path="res://assets/MyVFX/ExplosionVFX/ExplosionVFXPack01/Explosion VFX 29/Explosion VFX 29(16x16).png" id="7_1kuyq"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/coin_generator.gd" id="8_127xv"]
 [ext_resource type="Texture2D" uid="uid://dtxrkhop27b6x" path="res://assets/MyVFX/IceVFX/ice_04/ice_a.png" id="8_yolki"]
-[ext_resource type="Theme" uid="uid://xh24p3316arj" path="res://src/main/etc/theme/screen_thema.tres" id="9_xamqg"]
 [ext_resource type="Texture2D" uid="uid://c6wsiutw24l1s" path="res://assets/MyVFX/RockVFX/rockpack_01/sprite_sheets_96x96/vfx-Sheet.png" id="10_ivr3p"]
 [ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="10_tx0x8"]
 
@@ -570,7 +570,7 @@ animation = &"on"
 offset_top = -34.0
 offset_right = 40.0
 offset_bottom = -6.0
-theme = ExtResource("9_xamqg")
+theme = ExtResource("6_j4caw")
 theme_override_colors/font_color = Color(0.516667, 1, 0, 1)
 text = "2"
 horizontal_alignment = 1

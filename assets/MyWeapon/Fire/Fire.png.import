@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvux8r5jonofq"
-path="res://.godot/imported/icon.png-e6ffec976650d9ee35610c0ea60dd43f.ctex"
+uid="uid://da2i5m6aarqb6"
+path="res://.godot/imported/Fire.png-e8daddaaa71c16e123d2aa0d07b92001.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/main/scene/role/standard_weapons/weapon_4/icon.png"
-dest_files=["res://.godot/imported/icon.png-e6ffec976650d9ee35610c0ea60dd43f.ctex"]
+source_file="res://assets/MyWeapon/Fire/Fire.png"
+dest_files=["res://.godot/imported/Fire.png-e8daddaaa71c16e123d2aa0d07b92001.ctex"]
 
 [params]
 

@@ -3,7 +3,6 @@ extends Node2D
 @onready var level_wait_timer: Timer = $LevelWaitTimer
 @onready var fight_timer: Timer = $FightTimer
 
-
 var current_level: int = 0:
 	set(v):
 		current_level = v
@@ -21,18 +20,17 @@ var current_level: int = 0:
 func _ready() -> void:
 	Game.respawn_all_players_finished.connect(_on_respawn_all_players_finished)
 	
-
 func _on_test_timer_1_timeout() -> void:
 	pass
 
 func _on_test_timer_2_timeout() -> void:
 	pass
-	Game.players[1].register_weapon.emit(1, 28, 0)
-	#Game.players[1].register_weapon.emit(1, 21, 1)
-	#Game.players[1].register_weapon.emit(1, 22, 2)
-	#Game.players[1].register_weapon.emit(1, 23, 3)
-	#Game.players[1].register_weapon.emit(1, 24, 4)
-	#Game.players[1].register_weapon.emit(1, 25, 5)
+	Game.players[1].register_weapon.emit(1, 0, 0)
+	Game.players[1].register_weapon.emit(1, 1, 1)
+	Game.players[1].register_weapon.emit(1, 2, 2)
+	Game.players[1].register_weapon.emit(1, 3, 3)
+	Game.players[1].register_weapon.emit(1, 4, 4)
+	Game.players[1].register_weapon.emit(1, 5, 5)
 	#Game.players[1].register_weapon.emit(1, 26, 6)
 	#Game.players[1].register_weapon.emit(1, 27, 7)
 	
