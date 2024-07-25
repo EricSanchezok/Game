@@ -15,7 +15,7 @@ func _on_critical_success(enemy: EnemyBase) -> void:
 				
 		damage.is_critical = false
 		damage.phy_amount = 0.0
-		damage.mag_amount = enemy.effect_queue[enemy.Effect.POISION][0].value * enemy.effect_queue[enemy.Effect.POISION][0].source_weapon.attributes["POISON_DAMAGE"] * int(enemy.effect_queue[enemy.Effect.POISION][0].duration) * attributes["PHY_ATK"]
+		damage.mag_amount = enemy.effect_queue[enemy.Effect.POISION][0].value * enemy.effect_queue[enemy.Effect.POISION][0].source_weapon.attributes["POISON_DAMAGE"] * int(enemy.effect_queue[enemy.Effect.POISION][0].duration) * attributes["CRIT_DMG"]
 		damage.knockback = 0.0
 		damage.other = "poision"
 				

@@ -1,10 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqn84aulk0jif"]
+[gd_scene load_steps=12 format=3 uid="uid://bqn84aulk0jif"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_x22as"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_40obn"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_17/weapon_17.gd" id="2_rinb2"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/burning_edge.gdshader" id="3_4e8q7"]
-[ext_resource type="Texture2D" uid="uid://bwycl37qwyxy3" path="res://src/main/scene/role/standard_weapons/weapon_17/icon.png" id="4_t4adj"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="5_4imn5"]
 [ext_resource type="AnimationLibrary" uid="uid://bhs31boyfv2rv" path="res://src/main/scene/role/standard_weapons/animationRes/staff_shoot.res" id="5_pq8sb"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_7psg4"]
@@ -27,6 +27,10 @@ shader = ExtResource("2_40obn")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex4nd"]
+atlas = ExtResource("5_4imn5")
+region = Rect2(32, 96, 32, 32)
+
 [node name="Weapon17" instance=ExtResource("1_x22as")]
 script = ExtResource("2_rinb2")
 shoot_flag = true
@@ -38,7 +42,7 @@ material = SubResource("ShaderMaterial_gpsys")
 material = SubResource("ShaderMaterial_rgx5q")
 position = Vector2(0, -11)
 rotation = -0.785398
-texture = ExtResource("4_t4adj")
+texture = SubResource("AtlasTexture_ex4nd")
 
 [node name="ShootMarker2D" parent="Graphics" index="5"]
 position = Vector2(0, -23)

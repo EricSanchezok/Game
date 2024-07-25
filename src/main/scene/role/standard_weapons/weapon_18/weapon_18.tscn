@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cemdyb8011odb"]
+[gd_scene load_steps=12 format=3 uid="uid://cemdyb8011odb"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_qpw51"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_18/weapon_18.gd" id="2_bkkqu"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_xanif"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/burning_edge.gdshader" id="3_q5a4f"]
-[ext_resource type="Texture2D" uid="uid://r8d1dveouvo1" path="res://src/main/scene/role/standard_weapons/weapon_18/icon.png" id="4_b5m8n"]
 [ext_resource type="AnimationLibrary" uid="uid://bpudpxsnejobg" path="res://src/main/scene/role/standard_weapons/animationRes/book_floating.res" id="5_8p48j"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="5_elxp6"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_aqgcv"]
 frequency = 0.005
@@ -27,24 +27,28 @@ shader = ExtResource("2_xanif")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3y2rr"]
+atlas = ExtResource("5_elxp6")
+region = Rect2(32, 128, 32, 32)
+
 [node name="Weapon18" instance=ExtResource("1_qpw51")]
 script = ExtResource("2_bkkqu")
 summon_wait_time = 0.5
 scroll = true
 is_book_like = true
 
-[node name="Graphics" parent="." index="3"]
+[node name="Graphics" parent="." index="2"]
 material = SubResource("ShaderMaterial_1tc4i")
 
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_hy57x")
 position = Vector2(0, -1)
-texture = ExtResource("4_b5m8n")
+texture = SubResource("AtlasTexture_3y2rr")
 
-[node name="ReloadProgressBar" parent="." index="5"]
+[node name="ReloadProgressBar" parent="." index="4"]
 position = Vector2(0, 15)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
 "book_floating": ExtResource("5_8p48j")
 }

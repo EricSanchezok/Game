@@ -11,4 +11,4 @@ func level_up(level: int) -> void:
 func _on_hit_box_hit(hurtbox: Variant) -> void:
 	super(hurtbox)
 	
-	hurtbox.owner.is_posion_life_steal = true
+	hit_enemy.is_posion_life_steal = true

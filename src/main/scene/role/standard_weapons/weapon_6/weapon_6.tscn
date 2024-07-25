@@ -133,7 +133,7 @@ rotation = 0.785398
 texture = SubResource("AtlasTexture_ne3yd")
 
 [node name="ShootMarker2D" parent="Graphics" index="5"]
-position = Vector2(36, 0.00013032)
+position = Vector2(29, 0.00010498)
 
 [node name="MuzzleFlash" type="Sprite2D" parent="." index="4"]
 visible = false

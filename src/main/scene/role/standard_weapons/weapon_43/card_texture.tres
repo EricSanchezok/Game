@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bm64e1kc3mohg"]
+
+[ext_resource type="Texture2D" uid="uid://cykghn8rvwhcs" path="res://assets/MyWeapon/Divinity/Divinity.png" id="1_7c7a6"]
+
+[resource]
+atlas = ExtResource("1_7c7a6")
+region = Rect2(32, 128, 32, 32)

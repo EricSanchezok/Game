@@ -225,7 +225,6 @@ func update_effects(delta: float) -> void:
 						if _effect != effect_queue[Effect.SLOW][0]:
 							continue
 						update_attributes.emit("MOV_SPD", effect_queue[Effect.SLOW][0].source_weapon, AttrType.MULT, effect_queue[Effect.SLOW][0].value)
-						#enemy_stats.movement_speed_multiplier += effect_queue[Effect.SLOW][0].value
 						animation_player.speed_scale += effect_queue[Effect.SLOW][0].value
 						_apply_slow = false
 						
@@ -251,7 +250,7 @@ func update_effects(delta: float) -> void:
 		
 	if effect_queue[Effect.FRAGILE].size() <= 0:
 		is_fragile = false
-
+		
 func apply_effects(delta: float) -> void:
 	# >>>>>>>>>>>>>>>>>>>> 每一帧的结算效果 >>>>>>>>>>>>>>>>>>>>
 	if is_slow:
@@ -268,22 +267,8 @@ func apply_effects(delta: float) -> void:
 		effect_queue[Effect.POISION][0].other -= delta
 		if effect_queue[Effect.POISION][0].other <= 0.0:
 			effect_queue[Effect.POISION][0].other = POISON_DAMAGE_INTERVAL
-		
-			var damage = Damage.new()
-			damage.source_weapon = effect_queue[Effect.POISION][0].source_weapon
-			damage.direct_object = damage.source_weapon
+			immediately_toxin_damage()
 			
-			damage.is_critical = false
-			damage.phy_amount = 0.0
-			damage.mag_amount = damage.source_weapon.attributes["POISON_DAMAGE"] * effect_queue[Effect.POISION][0].value
-			damage.knockback = 0.0
-			damage.other = "poision"
-			
-			pending_damages.append(damage)
-			
-			if is_posion_life_steal:
-				damage.source_weapon.player.update_attributes.emit("HP", "POISON_LIFE_STEAL", AttrType.FIXED, damage.mag_amount)
-				is_posion_life_steal = false
 	else:
 		pass
 	if is_freeze:
@@ -433,22 +418,8 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 			effect_queue[Effect.POISION].append(_effect)
 
 			is_poision = true
+			immediately_toxin_damage()
 			
-			var damage = Damage.new()
-			damage.source_weapon = effect_queue[Effect.POISION][0].source_weapon
-			damage.direct_object = damage.source_weapon
-			
-			damage.is_critical = false
-			damage.phy_amount = 0.0
-			damage.mag_amount = damage.source_weapon.attributes["POISON_DAMAGE"] * effect_queue[Effect.POISION][0].value
-			damage.knockback = 0.0
-			damage.other = "poision"
-			
-			pending_damages.append(damage)
-			
-			if is_posion_life_steal:
-				damage.source_weapon.player.update_attributes.emit("HP", "POISON_LIFE_STEAL", AttrType.FIXED, damage.mag_amount)
-				is_posion_life_steal = false
 		else :
 			effect_queue[Effect.POISION][0].value = min(effect_queue[Effect.POISION][0].value + new_poison_layers, max_poison_layers)
 			effect_queue[Effect.POISION][0].duration = 5
@@ -465,35 +436,21 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 			effect_queue[Effect.FRAGILE].append(_effect)
 			is_fragile = true
 
-	
-
 func create_damage_numbers(current_damage: Damage) -> void:
 	if current_damage.phy_amount != 0:
 		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
 		damage_number.damage = current_damage
-		#damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
-		#damage_number.gravity = Vector2(0, 2.0)
-		#damage_number.mass = 200
-		#damage_number.text = current_damage.phy_amount
 		damage_number.type = "phy"
-		#damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
-		#print(damage_number.type,damage_number.text)
+
 	if current_damage.mag_amount != 0:
 		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
 		damage_number.damage = current_damage
-		#damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
-		#damage_number.gravity = Vector2(0, 2.0)
-		#damage_number.mass = 200
-		#damage_number.text = current_damage.mag_amount
 		damage_number.type = "mag"
-		#damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
-		#print(damage_number.type,damage_number.text)
 	
-
 func init_attributes() -> void:
 	for key in base_attributes.keys():
 		attributes[key] = base_attributes[key]
@@ -585,6 +542,23 @@ func calculate_velocity_to_target(delta: float) -> void:
 	var dir := (target_position - pos).normalized()
 	velocity = velocity.move_toward(dir * attributes["MOV_SPD"], attributes["ACCEL"] * delta) 
 	direction = Direction.LEFT if dir.x < 0 else Direction.RIGHT
+	
+func immediately_toxin_damage() -> void:
+	var damage = Damage.new()
+	damage.source_weapon = effect_queue[Effect.POISION][0].source_weapon
+	damage.direct_object = damage.source_weapon
+	
+	damage.is_critical = false
+	damage.phy_amount = 0.0
+	damage.mag_amount = damage.source_weapon.attributes["POISON_DAMAGE"] * effect_queue[Effect.POISION][0].value
+	damage.knockback = 0.0
+	damage.other = "poision"
+	
+	pending_damages.append(damage)
+	
+	if is_posion_life_steal:
+		damage.source_weapon.player.update_attributes.emit("HP", "POISON_LIFE_STEAL", AttrType.FIXED, damage.mag_amount)
+		is_posion_life_steal = false
 	
 func toward_target_player() -> void:
 	var dir := (target.global_position - global_position).normalized()

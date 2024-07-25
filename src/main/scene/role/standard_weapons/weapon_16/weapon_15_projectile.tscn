@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bguewen6q68il"]
+[gd_scene load_steps=10 format=3 uid="uid://bguewen6q68il"]
 
 [ext_resource type="PackedScene" uid="uid://x8q617q250qp" path="res://src/main/component/projectile_base.tscn" id="1_oa1ta"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_16/weapon_15_projectile.gd" id="2_n2kgm"]
-[ext_resource type="Texture2D" uid="uid://c4fl2wjw4ma8k" path="res://src/main/scene/role/standard_weapons/weapon_15/icon.png" id="3_kpgg0"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="3_5wxrk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxjko"]
+atlas = ExtResource("3_5wxrk")
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i8jku"]
 load_path = "res://.godot/imported/Bullet Hit 02 2.png-d2bd54cf4ffda8bccc5576f4acacc38f.ctex"
@@ -151,7 +155,7 @@ is_dir_mode = true
 
 [node name="Sprite2D" parent="Graphics" index="0"]
 rotation = 0.785398
-texture = ExtResource("3_kpgg0")
+texture = SubResource("AtlasTexture_mxjko")
 
 [node name="Hit" type="Sprite2D" parent="Graphics" index="1"]
 visible = false

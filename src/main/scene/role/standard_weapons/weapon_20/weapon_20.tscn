@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5axoaucpi34r"]
+[gd_scene load_steps=9 format=3 uid="uid://c5axoaucpi34r"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_jvl1k"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_20/weapon_20.gd" id="2_p3tel"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_365ja"]
 [ext_resource type="Texture2D" uid="uid://c8umenawm6qd8" path="res://assets/MyIcon/StationIcon/StationIcons.png" id="3_vqri2"]
-[ext_resource type="Texture2D" uid="uid://bevadv0sc5blf" path="res://src/main/scene/role/standard_weapons/weapon_20/icon.png" id="4_pjpc8"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="5_i8ac5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g3qk7"]
 atlas = ExtResource("3_vqri2")
@@ -16,6 +16,10 @@ shader = ExtResource("3_365ja")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2vam"]
+atlas = ExtResource("5_i8ac5")
+region = Rect2(32, 192, 32, 32)
+
 [node name="Weapon20" instance=ExtResource("1_jvl1k")]
 script = ExtResource("2_p3tel")
 
@@ -26,7 +30,7 @@ texture = SubResource("AtlasTexture_g3qk7")
 material = SubResource("ShaderMaterial_5xwlb")
 position = Vector2(0, -4)
 rotation = -0.785398
-texture = ExtResource("4_pjpc8")
+texture = SubResource("AtlasTexture_h2vam")
 
 [node name="ReloadProgressBar" parent="." index="4"]
 position = Vector2(0, 23)

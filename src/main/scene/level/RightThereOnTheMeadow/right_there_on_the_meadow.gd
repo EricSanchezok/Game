@@ -25,8 +25,8 @@ func _on_test_timer_1_timeout() -> void:
 
 func _on_test_timer_2_timeout() -> void:
 	pass
-	Game.players[1].register_weapon.emit(1, 27, 0)
-	#Game.players[1].register_weapon.emit(1, 12, 1)
+	Game.players[1].register_weapon.emit(1, 23, 0)
+	Game.players[1].register_weapon.emit(1, 1, 1)
 	#Game.players[1].register_weapon.emit(1, 12, 2)
 	#Game.players[1].register_weapon.emit(1, 17, 3)
 	#Game.players[1].register_weapon.emit(1, 33, 4)

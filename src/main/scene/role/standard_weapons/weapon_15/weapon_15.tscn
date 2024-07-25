@@ -1,17 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwlij6odl7ij3"]
+[gd_scene load_steps=13 format=3 uid="uid://bwlij6odl7ij3"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_mtf5d"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_4qnnk"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_15/weapon_15.gd" id="2_bpupg"]
 [ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_jwpvu"]
 [ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_c7m0v"]
-[ext_resource type="Texture2D" uid="uid://c4fl2wjw4ma8k" path="res://src/main/scene/role/standard_weapons/weapon_15/icon.png" id="4_vukfk"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="6_rh7jc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bp44t"]
 resource_local_to_scene = true
 shader = ExtResource("2_4qnnk")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_veiyv"]
+atlas = ExtResource("6_rh7jc")
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wqm8u"]
 radius = 7.0
@@ -86,7 +90,7 @@ attack_speed_curve = ExtResource("4_c7m0v")
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_bp44t")
 rotation = 0.785398
-texture = ExtResource("4_vukfk")
+texture = SubResource("AtlasTexture_veiyv")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 rotation = 1.5708

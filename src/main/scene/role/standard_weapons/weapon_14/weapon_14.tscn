@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://70rtwn0iudpn"]
+[gd_scene load_steps=11 format=3 uid="uid://70rtwn0iudpn"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_05ybr"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_14/weapon_14.gd" id="2_kn4m1"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_l1r18"]
-[ext_resource type="Texture2D" uid="uid://cbeffqi1bsg03" path="res://src/main/scene/role/standard_weapons/weapon_14/icon.png" id="4_2riuh"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="4_bntbj"]
 [ext_resource type="Texture2D" uid="uid://2523a3i8er3d" path="res://assets/MyVFX/BattleVFX/BulletVFXPack01/Bullets 12/Spritesheets/Bullet Muzzle 12.png" id="5_723sr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8p7jw"]
@@ -11,6 +11,10 @@ resource_local_to_scene = true
 shader = ExtResource("3_l1r18")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb5t1"]
+atlas = ExtResource("4_bntbj")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="Animation" id="Animation_eetch"]
 length = 0.001
@@ -132,7 +136,7 @@ shoot_flag = true
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_8p7jw")
 rotation = 0.785398
-texture = ExtResource("4_2riuh")
+texture = SubResource("AtlasTexture_kb5t1")
 
 [node name="MuzzleFlash" type="Sprite2D" parent="Graphics" index="1"]
 visible = false

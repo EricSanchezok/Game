@@ -1,15 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://b05oohjynmbsf"]
+[gd_scene load_steps=11 format=3 uid="uid://b05oohjynmbsf"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_h0cra"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_16/weapon_16.gd" id="2_e1csx"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_tmaab"]
-[ext_resource type="Texture2D" uid="uid://ffaafbh3i6sx" path="res://src/main/scene/role/standard_weapons/weapon_16/icon.png" id="4_mbx1s"]
+[ext_resource type="Texture2D" uid="uid://bckjvst8d8cta" path="res://assets/MyWeapon/Lighting/Lighting.png" id="4_00x4j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12mfo"]
 resource_local_to_scene = true
 shader = ExtResource("2_tmaab")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kumst"]
+atlas = ExtResource("4_00x4j")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="Animation" id="Animation_10qwu"]
 length = 0.001
@@ -35,7 +39,7 @@ script = ExtResource("2_e1csx")
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_12mfo")
 rotation = 0.785398
-texture = ExtResource("4_mbx1s")
+texture = SubResource("AtlasTexture_kumst")
 
 [node name="ReloadProgressBar" parent="." index="4"]
 position = Vector2(0, 25)

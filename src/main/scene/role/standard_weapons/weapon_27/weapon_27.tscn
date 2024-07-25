@@ -1,13 +1,12 @@
-[gd_scene load_steps=21 format=3 uid="uid://bnfiu0r8cu1jw"]
+[gd_scene load_steps=22 format=3 uid="uid://bnfiu0r8cu1jw"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_a2uxj"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_jwwhh"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_27/weapon_27.gd" id="2_u8gt7"]
 [ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_e155x"]
-[ext_resource type="Texture2D" uid="uid://bpu7os2c2g6og" path="res://src/main/scene/role/standard_weapons/weapon_27/icon02.png" id="4_efx0k"]
 [ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_fbt3j"]
-[ext_resource type="Texture2D" uid="uid://dvdho0ptbkrg3" path="res://src/main/scene/role/standard_weapons/weapon_27/icon01.png" id="5_sua2b"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="6_k84kd"]
+[ext_resource type="Texture2D" uid="uid://crdk1ytlhv1iu" path="res://assets/MyWeapon/Earth/Earth.png" id="6_nk4of"]
 [ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="9_o2g1a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d0ivf"]
@@ -16,10 +15,18 @@ shader = ExtResource("2_jwwhh")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xc6o"]
+atlas = ExtResource("6_nk4of")
+region = Rect2(32, 224, 32, 32)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e2dx6"]
 shader = ExtResource("2_jwwhh")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kfc7"]
+atlas = ExtResource("6_nk4of")
+region = Rect2(32, 192, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_knbxu"]
 radius = 7.0
@@ -121,12 +128,12 @@ attack_speed_curve = ExtResource("4_fbt3j")
 material = SubResource("ShaderMaterial_d0ivf")
 rotation = 0.785398
 scale = Vector2(1.3, 1.3)
-texture = ExtResource("4_efx0k")
+texture = SubResource("AtlasTexture_5xc6o")
 
 [node name="Shield" type="Sprite2D" parent="Graphics" index="1"]
 material = SubResource("ShaderMaterial_e2dx6")
 rotation = 1.5708
-texture = ExtResource("5_sua2b")
+texture = SubResource("AtlasTexture_0kfc7")
 
 [node name="HitBox" parent="Graphics" index="2"]
 visible = false

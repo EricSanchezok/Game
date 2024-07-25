@@ -1,16 +1,67 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0d5pe5eoju6f"]
+[gd_scene load_steps=10 format=3 uid="uid://bunbreh767ped"]
 
 [ext_resource type="PackedScene" uid="uid://x8q617q250qp" path="res://src/main/component/projectile_base.tscn" id="1_f45tb"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_30/weapon_30_bullet.gd" id="2_jfqsh"]
-[ext_resource type="Texture2D" uid="uid://4qtbqcdi6hd0" path="res://src/main/scene/role/standard_weapons/weapon_30/Icon_4_59.png" id="3_1684b"]
+[ext_resource type="Texture2D" uid="uid://tm1mqj7dfbox" path="res://assets/MyWeapon/Toxin/Toxin.png" id="3_o1a7x"]
 [ext_resource type="Texture2D" uid="uid://p3fjtsvkqy3f" path="res://assets/MyVFX/HitVFX/hit_01_g.png" id="4_v1gsw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_123i5"]
-atlas = ExtResource("3_1684b")
-region = Rect2(16, 16, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_40esd"]
+atlas = ExtResource("3_o1a7x")
+region = Rect2(32, 96, 32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y1dt5"]
 radius = 9.05539
+
+[sub_resource type="Animation" id="Animation_2o8fl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explode:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Explode:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Graphics/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Graphics/HitBox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_2kvxp"]
 resource_name = "finish"
@@ -79,57 +130,6 @@ tracks/4/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_2o8fl"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Explode:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Explode:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Graphics/Sprite2D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Graphics/HitBox:monitoring")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ebf1"]
 _data = {
 "RESET": SubResource("Animation_2o8fl"),
@@ -141,7 +141,7 @@ script = ExtResource("2_jfqsh")
 
 [node name="Sprite2D" parent="Graphics" index="0"]
 rotation = 0.785398
-texture = SubResource("AtlasTexture_123i5")
+texture = SubResource("AtlasTexture_40esd")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 shape = SubResource("CircleShape2D_y1dt5")

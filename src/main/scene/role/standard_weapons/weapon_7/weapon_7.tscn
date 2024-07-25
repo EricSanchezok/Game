@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfhpb0tbgi5c6"]
+[gd_scene load_steps=12 format=3 uid="uid://dfhpb0tbgi5c6"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_y17ha"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_7/weapon_7.gd" id="2_vjima"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_wqyr4"]
-[ext_resource type="Texture2D" uid="uid://bu2kce5xcodo0" path="res://src/main/scene/role/standard_weapons/weapon_7/icon.png" id="4_t7oyb"]
+[ext_resource type="Texture2D" uid="uid://c265qoou2d34g" path="res://assets/MyWeapon/Frost/Frost.png" id="4_wub73"]
 [ext_resource type="Texture2D" uid="uid://cusnn4gvd5ev5" path="res://assets/MyUi/GUI-Sheet.png" id="5_7p2f4"]
 [ext_resource type="AnimationLibrary" uid="uid://c6y86cjt6ilmw" path="res://src/main/scene/role/standard_weapons/animationRes/shield_common.res" id="6_h71sd"]
 
@@ -12,6 +12,10 @@ resource_local_to_scene = true
 shader = ExtResource("3_wqyr4")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yi13f"]
+atlas = ExtResource("4_wub73")
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_roj31"]
 radius = 17.0
@@ -31,7 +35,7 @@ current_health = 0.0
 
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_4c4vw")
-texture = ExtResource("4_t7oyb")
+texture = SubResource("AtlasTexture_yi13f")
 
 [node name="HitBox" parent="Graphics" index="1"]
 visible = false

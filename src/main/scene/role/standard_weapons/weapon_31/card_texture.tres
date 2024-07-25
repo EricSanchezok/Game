@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cgw4ualcxbt84"]
+
+[ext_resource type="Texture2D" uid="uid://tm1mqj7dfbox" path="res://assets/MyWeapon/Toxin/Toxin.png" id="1_mf4ca"]
+
+[resource]
+atlas = ExtResource("1_mf4ca")
+region = Rect2(32, 128, 32, 32)

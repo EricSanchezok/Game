@@ -1,15 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://hvavnkoa7xt8"]
+[gd_scene load_steps=8 format=3 uid="uid://hvavnkoa7xt8"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_ulnax"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_12/weapon_12.gd" id="2_gal7b"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_y8htx"]
-[ext_resource type="Texture2D" uid="uid://b15tlwg1rgp7k" path="res://src/main/scene/role/standard_weapons/weapon_12/icon.png" id="4_3l7u3"]
+[ext_resource type="Texture2D" uid="uid://c265qoou2d34g" path="res://assets/MyWeapon/Frost/Frost.png" id="4_sy6ha"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qutlt"]
 resource_local_to_scene = true
 shader = ExtResource("3_y8htx")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v0rd"]
+atlas = ExtResource("4_sy6ha")
+region = Rect2(32, 160, 32, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gpgl4"]
 radius = 16.1245
@@ -24,7 +28,7 @@ scale_increment = 0.1
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_qutlt")
 rotation = 0.785398
-texture = ExtResource("4_3l7u3")
+texture = SubResource("AtlasTexture_6v0rd")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 shape = SubResource("CircleShape2D_gpgl4")

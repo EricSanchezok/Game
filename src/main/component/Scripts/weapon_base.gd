@@ -78,7 +78,6 @@ var self_kill_count: int = 0 ## 击杀数
 var self_damage_count: float = 0 ## 造成的伤害数
 
 
-		
 @export var shoot_flag: bool = false: ## 发射投射物的标志，设置为 [param true] 时，会触发 shoot 函数，该函数可在武器脚本中自定义，shoot_flag 不用手动置为 false
 	set(v):
 		if not is_inside_tree():

@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dpcalevstynyf"]
+[gd_scene load_steps=11 format=3 uid="uid://jb1tm0gp5utt"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_ij78h"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_30/weapon_30.gd" id="2_jrky7"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_s4x6i"]
-[ext_resource type="Texture2D" uid="uid://di1r0pp2gdwo8" path="res://src/main/scene/role/standard_weapons/weapon_30/icon.png" id="4_s4xm0"]
+[ext_resource type="Texture2D" uid="uid://tm1mqj7dfbox" path="res://assets/MyWeapon/Toxin/Toxin.png" id="4_6371q"]
 [ext_resource type="Texture2D" uid="uid://dncs7x2g1v45r" path="res://assets/MyVFX/ExplosionVFX/ExplosionVFXPack01/Explosion VFX 5/Explosion VFX 5(48x48).png" id="5_thad8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dwcro"]
@@ -11,6 +11,10 @@ resource_local_to_scene = true
 shader = ExtResource("2_s4x6i")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qch33"]
+atlas = ExtResource("4_6371q")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="Animation" id="Animation_rqgdn"]
 length = 0.001
@@ -130,7 +134,7 @@ random_enemy = true
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_dwcro")
 rotation = 0.785398
-texture = ExtResource("4_s4xm0")
+texture = SubResource("AtlasTexture_qch33")
 
 [node name="MuzzleFlash" type="Sprite2D" parent="Graphics" index="1"]
 visible = false

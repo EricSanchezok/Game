@@ -1,17 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8ecphuclng4y"]
+[gd_scene load_steps=13 format=3 uid="uid://c8ecphuclng4y"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_cjbu8"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_11/weapon_11.gd" id="2_xkuu3"]
 [ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_5w3jq"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_y0yvj"]
-[ext_resource type="Texture2D" uid="uid://c2f30cdwbd73x" path="res://src/main/scene/role/standard_weapons/weapon_11/icon.png" id="4_bor11"]
 [ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_dppsg"]
+[ext_resource type="Texture2D" uid="uid://c265qoou2d34g" path="res://assets/MyWeapon/Frost/Frost.png" id="6_8uckm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3d5or"]
 resource_local_to_scene = true
 shader = ExtResource("3_y0yvj")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk076"]
+atlas = ExtResource("6_8uckm")
+region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljpq4"]
 radius = 7.0
@@ -88,7 +92,7 @@ attack_speed_curve = ExtResource("4_dppsg")
 material = SubResource("ShaderMaterial_3d5or")
 position = Vector2(6, 0)
 rotation = 0.785398
-texture = ExtResource("4_bor11")
+texture = SubResource("AtlasTexture_rk076")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 position = Vector2(6, 0)

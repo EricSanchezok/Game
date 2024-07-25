@@ -1,15 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxmqtrhhd7gl7"]
+[gd_scene load_steps=7 format=3 uid="uid://cxmqtrhhd7gl7"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_vk0hc"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_26/weapon_26.gd" id="2_dby5f"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_sw2cm"]
-[ext_resource type="Texture2D" uid="uid://chl7d22y2fecn" path="res://src/main/scene/role/standard_weapons/weapon_26/icon.png" id="4_2uq46"]
+[ext_resource type="Texture2D" uid="uid://crdk1ytlhv1iu" path="res://assets/MyWeapon/Earth/Earth.png" id="4_kblpt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_thmsn"]
 resource_local_to_scene = true
 shader = ExtResource("2_sw2cm")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3m00"]
+atlas = ExtResource("4_kblpt")
+region = Rect2(32, 160, 32, 32)
 
 [node name="TerraquakeArbalest" instance=ExtResource("1_vk0hc")]
 script = ExtResource("2_dby5f")
@@ -18,7 +22,7 @@ script = ExtResource("2_dby5f")
 material = SubResource("ShaderMaterial_thmsn")
 position = Vector2(6, 0)
 rotation = 0.785398
-texture = ExtResource("4_2uq46")
+texture = SubResource("AtlasTexture_s3m00")
 
 [node name="CenterMarker2D" parent="Graphics" index="4"]
 position = Vector2(8, 0)

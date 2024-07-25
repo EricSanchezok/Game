@@ -298,7 +298,8 @@ func recalculate(attr: String) -> void:
 	match attr:
 		"HP":
 			attributes[attr] = clampf(value, 0, attributes["MAX_HP"])
-				
+			attributes_source[attr].clear()
+			
 		"SHIELD":
 			pass
 			
@@ -312,7 +313,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shop"):
 		if not Game.is_game_start():
 			return
-		print("1")
 		cards_screen.switch()
 
 	if event.is_action_pressed("interact") and interacting_with:

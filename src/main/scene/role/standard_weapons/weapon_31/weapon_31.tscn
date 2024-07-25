@@ -1,17 +1,21 @@
-[gd_scene load_steps=9 format=3 uid="uid://0caqtggwqiji"]
+[gd_scene load_steps=10 format=3 uid="uid://ccl6m0haoce1c"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_of5o5"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_31/weapon_31.gd" id="2_o2j4x"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_qk2jn"]
-[ext_resource type="Texture2D" uid="uid://cgaqghep3rcyj" path="res://src/main/scene/role/standard_weapons/weapon_31/icon.png" id="3_h0pui"]
 [ext_resource type="Curve" uid="uid://dr2hrf87d1to4" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/charge_speed_curve.tres" id="3_o3vdo"]
 [ext_resource type="Curve" uid="uid://88cgo8te66x" path="res://src/main/scene/role/standard_weapons/CommonRes/Spear/attack_speed_curve.tres" id="4_0oevm"]
+[ext_resource type="Texture2D" uid="uid://tm1mqj7dfbox" path="res://assets/MyWeapon/Toxin/Toxin.png" id="6_8hx3w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ot3ld"]
 resource_local_to_scene = true
 shader = ExtResource("2_qk2jn")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjo6g"]
+atlas = ExtResource("6_8hx3w")
+region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_loo0l"]
 radius = 4.0
@@ -25,7 +29,7 @@ attack_speed_curve = ExtResource("4_0oevm")
 [node name="Sprite2D" parent="Graphics" index="0"]
 material = SubResource("ShaderMaterial_ot3ld")
 rotation = 0.785398
-texture = ExtResource("3_h0pui")
+texture = SubResource("AtlasTexture_wjo6g")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 rotation = 1.5708
