@@ -208,20 +208,14 @@ shape = SubResource("CircleShape2D_mfsxf")
 [node name="AppearMarker" parent="Graphics" index="6"]
 scale = Vector2(0.5, 0.5)
 
-[node name="FreezeAnimatedSprite2D" parent="Graphics/VFX" index="2"]
-visible = false
-position = Vector2(2, -3)
-frame = 0
-frame_progress = 0.0
-
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="4"]
 shape = SubResource("CircleShape2D_b0vq7")
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="6"]
 libraries = {
 "": SubResource("AnimationLibrary_daq5g")
 }
 
-[node name="TextureProgressBar" parent="." index="6"]
+[node name="TextureProgressBar" parent="." index="7"]
 offset_top = -26.0
 offset_bottom = 14.0

@@ -6,7 +6,6 @@ var critical_damage_increment: float = 1.0 ## （调整参数）成功冻结敌�
 var increment_time: float = 1.5 ## （调整参数）成功冻结敌人后增加伤害的持续时间
 
 
-
 var increment_time_left: float = 0.0
 
 func _ready() -> void:

@@ -4,6 +4,7 @@ extends WeaponBase
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var aim: bool = false
+@export var random_enemy:bool = false
 
 func _ready() -> void:
 	super()
@@ -45,7 +46,10 @@ func get_next_state(state: State) -> int:
 		State.WAIT:
 			if has_enemy():
 				if (shoot_count > 0 and shoot_count < attributes["PROJ_COUNT"]) or cooling_complete():
-					target = get_enemy()
+					if random_enemy:
+						target = get_random_enemy()
+					else:
+						target = get_enemy()
 					target_dir = (target.global_position - global_position).normalized()
 					if aim and aim_success():
 						return State.ATTACK
@@ -58,7 +62,7 @@ func get_next_state(state: State) -> int:
 				
 	return StateMachine.KEEP_CURRENT
 	
-func transition_state(from: State, to: State) -> void:	
+func transition_state(from: State, to: State) -> void:
 	# print("[%s] %s => %s" % [Engine.get_physics_frames(),State.keys()[from] if from != -1 else "<START>",State.keys()[to],]) 
 	match from:
 		State.WAIT:
@@ -95,7 +99,7 @@ func shoot() -> void:
 		if target:
 			add_bullet.rpc()
 
-@rpc("authority", "call_local")			
+@rpc("authority", "call_local")
 func add_bullet() -> void:
 	pass
 	

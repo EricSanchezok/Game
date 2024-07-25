@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://8ia4ntlf5jr7"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_fedam"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_33/weapon_33.gd" id="2_lfnkt"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_wqpmx"]
+[ext_resource type="Texture2D" uid="uid://comjgyv725203" path="res://src/main/scene/role/standard_weapons/weapon_33/icon.png" id="4_n02gj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pnbhm"]
+resource_local_to_scene = true
+shader = ExtResource("2_wqpmx")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_width = 0.6
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4v70f"]
+radius = 16.4012
+
+[node name="Weapon33" instance=ExtResource("1_fedam")]
+script = ExtResource("2_lfnkt")
+
+[node name="Sprite2D" parent="Graphics" index="0"]
+material = SubResource("ShaderMaterial_pnbhm")
+rotation = 0.785398
+texture = ExtResource("4_n02gj")
+
+[node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
+shape = SubResource("CircleShape2D_4v70f")
+
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 23)

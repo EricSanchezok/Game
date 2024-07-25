@@ -132,13 +132,13 @@ in_front = true
 [node name="Sprite2D" parent="Graphics" index="0"]
 texture = ExtResource("3_4q3xx")
 hframes = 4
+frame = 3
 region_rect = Rect2(0, 0, 128, 32)
 
 [node name="ExplodeSprite2D" type="Sprite2D" parent="Graphics" index="1"]
 visible = false
 texture = ExtResource("4_74d7r")
 hframes = 4
-frame = 3
 region_enabled = true
 region_rect = Rect2(0, 0, 256, 64)
 

@@ -60,7 +60,7 @@ func do_enter_trigger() -> void:
 	weapons.append(instance)
 	links.append(link_instance)
 	
-	Game.add_object(instance)
+	Game.add_object(link_instance)
 	
 	spawn_finish = true
 

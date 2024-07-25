@@ -25,7 +25,7 @@ const DAMAGE_NUMBER = preload("res://src/main/scene/ui/Common/DamageNumber/damag
 
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 常规变量定义 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-var POISON_DAMAGE_INTERVAL = 0.5
+var POISON_DAMAGE_INTERVAL = 1
 
 enum AttrType {
 	FIXED, MULT
@@ -142,6 +142,12 @@ var _apply_slow: bool = false
 		elif Tools.switch_off(v, is_fragile):
 			fragile_animated_sprite_2d.play("off")
 		is_fragile = v
+
+@export var is_posion_life_steal: bool = false:
+	set(v):
+		if is_posion_life_steal == v:
+			return
+		is_posion_life_steal = v 
 
 @export var direction := Direction.RIGHT:
 	set(v):
@@ -271,17 +277,19 @@ func apply_effects(delta: float) -> void:
 			damage.phy_amount = 0.0
 			damage.mag_amount = damage.source_weapon.attributes["POISON_DAMAGE"] * effect_queue[Effect.POISION][0].value
 			damage.knockback = 0.0
+			damage.other = "poision"
 			
 			pending_damages.append(damage)
-		
+			
+			if is_posion_life_steal:
+				damage.source_weapon.player.update_attributes.emit("HP", "POISON_LIFE_STEAL", AttrType.FIXED, damage.mag_amount)
+				is_posion_life_steal = false
 	else:
 		pass
-
 	if is_freeze:
 		pass
 	else:
 		pass
-		
 	if is_fragile:
 		pass
 	else:
@@ -425,10 +433,27 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 			effect_queue[Effect.POISION].append(_effect)
 
 			is_poision = true
+			
+			var damage = Damage.new()
+			damage.source_weapon = effect_queue[Effect.POISION][0].source_weapon
+			damage.direct_object = damage.source_weapon
+			
+			damage.is_critical = false
+			damage.phy_amount = 0.0
+			damage.mag_amount = damage.source_weapon.attributes["POISON_DAMAGE"] * effect_queue[Effect.POISION][0].value
+			damage.knockback = 0.0
+			damage.other = "poision"
+			
+			pending_damages.append(damage)
+			
+			if is_posion_life_steal:
+				damage.source_weapon.player.update_attributes.emit("HP", "POISON_LIFE_STEAL", AttrType.FIXED, damage.mag_amount)
+				is_posion_life_steal = false
 		else :
 			effect_queue[Effect.POISION][0].value = min(effect_queue[Effect.POISION][0].value + new_poison_layers, max_poison_layers)
 			effect_queue[Effect.POISION][0].duration = 5
 
+	## >>>>>>>>>>>>>>>>>>>> 处理易碎 >>>>>>>>>>>>>>>>>>>>
 	if not is_fragile and not fragile_animated_sprite_2d.is_playing():
 		if "fragile_ratio" in source_weapon:
 			var _effect = effect.new()
@@ -439,6 +464,8 @@ func create_effets(source_weapon: WeaponBase, direct_object: Variant) -> void:
 			
 			effect_queue[Effect.FRAGILE].append(_effect)
 			is_fragile = true
+
+	
 
 func create_damage_numbers(current_damage: Damage) -> void:
 	if current_damage.phy_amount != 0:
@@ -451,6 +478,7 @@ func create_damage_numbers(current_damage: Damage) -> void:
 		damage_number.type = "phy"
 		damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
+		#print(damage_number.type,damage_number.text)
 	if current_damage.mag_amount != 0:
 		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
@@ -461,6 +489,8 @@ func create_damage_numbers(current_damage: Damage) -> void:
 		damage_number.type = "mag"
 		damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
+		#print(damage_number.type,damage_number.text)
+	
 
 func init_attributes() -> void:
 	for key in base_attributes.keys():

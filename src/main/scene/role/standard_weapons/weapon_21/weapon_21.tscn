@@ -36,9 +36,8 @@ height = 46.0
 script = ExtResource("2_vbnhx")
 charge_speed_curve = ExtResource("3_hknqm")
 attack_speed_curve = ExtResource("4_28trd")
-stop_bullets = true
 
-[node name="Graphics" parent="." index="3"]
+[node name="Graphics" parent="." index="2"]
 material = SubResource("ShaderMaterial_kgcdm")
 
 [node name="Sprite2D" parent="Graphics" index="0"]
@@ -47,14 +46,11 @@ use_parent_material = true
 rotation = 0.785398
 texture = ExtResource("4_ojc1b")
 
-[node name="HitBox" parent="Graphics" index="1"]
-visible = false
-
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_5c1wg")
 
-[node name="ReloadProgressBar" parent="." index="5"]
+[node name="ReloadProgressBar" parent="." index="4"]
 position = Vector2(0, 13)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]

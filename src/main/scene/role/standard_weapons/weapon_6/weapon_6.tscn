@@ -125,6 +125,7 @@ _data = {
 [node name="Weapon6" instance=ExtResource("1_5gswo")]
 script = ExtResource("2_sdi01")
 aim = false
+random_enemy = false
 
 [node name="Graphics" parent="." index="2"]
 rotation = -1.5708

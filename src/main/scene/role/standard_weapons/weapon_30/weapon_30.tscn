@@ -1,18 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://70rtwn0iudpn"]
+[gd_scene load_steps=10 format=3 uid="uid://dpcalevstynyf"]
 
-[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_05ybr"]
-[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_14/weapon_14.gd" id="2_kn4m1"]
-[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_l1r18"]
-[ext_resource type="Texture2D" uid="uid://cbeffqi1bsg03" path="res://src/main/scene/role/standard_weapons/weapon_14/icon.png" id="4_2riuh"]
-[ext_resource type="Texture2D" uid="uid://2523a3i8er3d" path="res://assets/MyVFX/BattleVFX/BulletVFXPack01/Bullets 12/Spritesheets/Bullet Muzzle 12.png" id="5_723sr"]
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_ij78h"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_30/weapon_30.gd" id="2_jrky7"]
+[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="2_s4x6i"]
+[ext_resource type="Texture2D" uid="uid://di1r0pp2gdwo8" path="res://src/main/scene/role/standard_weapons/weapon_30/icon.png" id="4_s4xm0"]
+[ext_resource type="Texture2D" uid="uid://dncs7x2g1v45r" path="res://assets/MyVFX/ExplosionVFX/ExplosionVFXPack01/Explosion VFX 5/Explosion VFX 5(48x48).png" id="5_thad8"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p7jw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwcro"]
 resource_local_to_scene = true
-shader = ExtResource("3_l1r18")
+shader = ExtResource("2_s4x6i")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
 
-[sub_resource type="Animation" id="Animation_eetch"]
+[sub_resource type="Animation" id="Animation_rqgdn"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -29,19 +29,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:shoot_flag")
+tracks/1/path = NodePath("Graphics/MuzzleFlash:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Graphics/MuzzleFlash:visible")
+tracks/2/path = NodePath(".:shoot_flag")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -63,10 +63,10 @@ tracks/3/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_o3n0i"]
+[sub_resource type="Animation" id="Animation_2kcqj"]
 resource_name = "shoot"
 length = 0.2
-step = 0.02
+step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -74,15 +74,15 @@ tracks/0/path = NodePath("Graphics/MuzzleFlash:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.04, 0.08, 0.1, 0.12, 0.14, 0.16),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 12, 12, 12, 12, 12, 12]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:shoot_flag")
+tracks/1/path = NodePath("Graphics/MuzzleFlash:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -94,7 +94,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Graphics/MuzzleFlash:visible")
+tracks/2/path = NodePath(".:shoot_flag")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -107,7 +107,7 @@ tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/path = NodePath("Graphics/Sprite2D:position")
-tracks/3/interp = 2
+tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.2),
@@ -116,37 +116,35 @@ tracks/3/keys = {
 "values": [Vector2(0, 0), Vector2(-5, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2rac2"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4cbw7"]
 _data = {
-"RESET": SubResource("Animation_eetch"),
-"shoot": SubResource("Animation_o3n0i")
+"RESET": SubResource("Animation_rqgdn"),
+"shoot": SubResource("Animation_2kcqj")
 }
 
-[node name="Weapon14" instance=ExtResource("1_05ybr")]
-script = ExtResource("2_kn4m1")
-kill_rate = 0.01
+[node name="Weapon30" instance=ExtResource("1_ij78h")]
+script = ExtResource("2_jrky7")
 aim = true
-random_enemy = false
-shoot_flag = true
+random_enemy = true
 
 [node name="Sprite2D" parent="Graphics" index="0"]
-material = SubResource("ShaderMaterial_8p7jw")
+material = SubResource("ShaderMaterial_dwcro")
 rotation = 0.785398
-texture = ExtResource("4_2riuh")
+texture = ExtResource("4_s4xm0")
 
 [node name="MuzzleFlash" type="Sprite2D" parent="Graphics" index="1"]
 visible = false
-position = Vector2(29.136, 0)
-texture = ExtResource("5_723sr")
-hframes = 7
+position = Vector2(34, 0)
+texture = ExtResource("5_thad8")
+hframes = 13
 
 [node name="ShootMarker2D" parent="Graphics" index="6"]
-position = Vector2(22, 0)
+position = Vector2(19, 0)
 
 [node name="ReloadProgressBar" parent="." index="4"]
-position = Vector2(0, 12)
+position = Vector2(0, 10)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 libraries = {
-"": SubResource("AnimationLibrary_2rac2")
+"": SubResource("AnimationLibrary_4cbw7")
 }

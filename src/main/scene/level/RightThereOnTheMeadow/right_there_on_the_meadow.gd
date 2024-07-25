@@ -27,11 +27,11 @@ func _on_test_timer_1_timeout() -> void:
 
 func _on_test_timer_2_timeout() -> void:
 	pass
-	Game.players[1].register_weapon.emit(1, 28, 0)
-	#Game.players[1].register_weapon.emit(1, 21, 1)
-	#Game.players[1].register_weapon.emit(1, 22, 2)
-	#Game.players[1].register_weapon.emit(1, 23, 3)
-	#Game.players[1].register_weapon.emit(1, 24, 4)
+	Game.players[1].register_weapon.emit(1, 27, 0)
+	#Game.players[1].register_weapon.emit(1, 12, 1)
+	#Game.players[1].register_weapon.emit(1, 12, 2)
+	#Game.players[1].register_weapon.emit(1, 17, 3)
+	#Game.players[1].register_weapon.emit(1, 33, 4)
 	#Game.players[1].register_weapon.emit(1, 25, 5)
 	#Game.players[1].register_weapon.emit(1, 26, 6)
 	#Game.players[1].register_weapon.emit(1, 27, 7)
@@ -41,7 +41,7 @@ func level_up(level: int) -> void:
 	match level:
 		1: #第一关应该很简单，只有一种初始怪
 			#EnemiesManager.register_enemy("Shade", "A", 1, 1, 5)  #Shade
-			EnemiesManager.register_enemy("Slime", "D", 1, 3, 3)  #Slime
+			EnemiesManager.register_enemy("Slime", "D", 1, 1, 1)  #Slime
 		2: #第二关多一个碰撞怪
 			EnemiesManager.register_enemy("Slime", "D", 2, 2, 4)  #Slime
 			EnemiesManager.register_enemy("Shade", "A", 2, 4, 3)  #Shade

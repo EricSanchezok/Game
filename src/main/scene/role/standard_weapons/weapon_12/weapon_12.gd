@@ -38,6 +38,6 @@ func _on_hit_box_hit(hurtbox: Variant) -> void:
 			wam.update_attributes.emit(EffectScope.SELF, "ROT_SPD", self, AttrType.MULT, scale_increment)
 			wam.update_attributes.emit(EffectScope.SELF, "WEAPON_SIZE", self, AttrType.FIXED, scale_increment)
 			total_scale_increment += scale_increment
-		
-		
-		
+
+
+

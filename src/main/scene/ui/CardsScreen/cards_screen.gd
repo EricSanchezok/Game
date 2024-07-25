@@ -43,6 +43,7 @@ func _ready() -> void:
 	hide()
 	my_player = owner
 	my_player.player_level_changed.connect(_on_player_level_changed)
+	
 
 	inventory_areas = $InventoryPanel/HBoxContainer.get_children()
 	var e1 = $EquipmentPanel/HBoxContainer.get_children()
@@ -218,11 +219,13 @@ func do_merge(merge_target: Card, new_purchased_card: Card=null) -> void:
 func show_screen() -> void:
 	show()
 	animation_player.play("show_screen")
+	request_draw_weapon(draw_amount)
 	
 func hide_screen() -> void:
 	animation_player.play_backwards("show_screen")
 	await animation_player.animation_finished
 	hide()
+	destroy_all_inshop_cards()
 	
 func switch() -> void:
 	if animation_player.is_playing():

@@ -17,9 +17,10 @@ func do_enter_lock() -> void:
 func update_state() -> void:
 	if Tools.check_target_weapon_exist(16):
 		var target_weapon = Tools.get_logic_general_weapon(weapon_id)
-		is_lock = true if target_weapon == self else false
+		state_machine.is_lock = true if target_weapon == self else false
+		hide()
 	else:
-		is_lock = false
+		state_machine.is_lock = false
 
 func _on_hit_box_hit(hurtbox: Variant) -> void:
 	super(hurtbox)

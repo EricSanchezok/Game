@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://bb5wcg43p8dpj"]
+[gd_scene load_steps=23 format=3 uid="uid://bb5wcg43p8dpj"]
 
 [ext_resource type="Script" path="res://src/main/scene/role/effect/BurningSummons/burning_summons.gd" id="1_bcpay"]
 [ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="2_1kpd1"]
-[ext_resource type="Texture2D" uid="uid://ddchj26i5nk3r" path="res://assets/texture/vfx/fire/SparkSprite-Sheet.png" id="3_cgdht"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="4_88mcy"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_boyvg"]
@@ -186,7 +185,6 @@ randomness = 0.27
 material = SubResource("CanvasItemMaterial_kfmcf")
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_1i4iq")
-texture = ExtResource("3_cgdht")
 lifetime = 0.7
 explosiveness = 0.13
 randomness = 0.26
@@ -205,7 +203,6 @@ randomness = 0.27
 material = SubResource("CanvasItemMaterial_kfmcf")
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_1i4iq")
-texture = ExtResource("3_cgdht")
 lifetime = 0.7
 explosiveness = 0.13
 randomness = 0.26

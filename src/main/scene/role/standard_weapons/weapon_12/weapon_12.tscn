@@ -1,18 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvy2tmio6u6x5"]
+[gd_scene load_steps=7 format=3 uid="uid://hvavnkoa7xt8"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_ulnax"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_12/weapon_12.gd" id="2_gal7b"]
 [ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_y8htx"]
 [ext_resource type="Texture2D" uid="uid://b15tlwg1rgp7k" path="res://src/main/scene/role/standard_weapons/weapon_12/icon.png" id="4_3l7u3"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_45626"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qutlt"]
 resource_local_to_scene = true
 shader = ExtResource("3_y8htx")
 shader_parameter/line_color = Color(1, 1, 1, 1)
 shader_parameter/line_width = 0.6
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fpiru"]
-radius = 16.7631
+[sub_resource type="CircleShape2D" id="CircleShape2D_gpgl4"]
+radius = 16.1245
 
 [node name="Weapon12" instance=ExtResource("1_ulnax")]
 script = ExtResource("2_gal7b")
@@ -22,11 +22,14 @@ damage_increment = 0.1
 scale_increment = 0.1
 
 [node name="Sprite2D" parent="Graphics" index="0"]
-material = SubResource("ShaderMaterial_45626")
+material = SubResource("ShaderMaterial_qutlt")
 rotation = 0.785398
 texture = ExtResource("4_3l7u3")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
-shape = SubResource("CircleShape2D_fpiru")
+shape = SubResource("CircleShape2D_gpgl4")
 
-[connection signal="body_entered" from="Graphics/HitBox" to="." method="_on_hit_box_body_entered"]
+[node name="ReloadProgressBar" parent="." index="4"]
+position = Vector2(0, 22)
+
+[connection signal="freeze_success" from="." to="." method="_on_freeze_success"]
