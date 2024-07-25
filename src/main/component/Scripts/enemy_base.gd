@@ -471,23 +471,25 @@ func create_damage_numbers(current_damage: Damage) -> void:
 	if current_damage.phy_amount != 0:
 		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
-		damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
-		damage_number.gravity = Vector2(0, 2.0)
-		damage_number.mass = 200
-		damage_number.text = current_damage.phy_amount
+		damage_number.damage = current_damage
+		#damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
+		#damage_number.gravity = Vector2(0, 2.0)
+		#damage_number.mass = 200
+		#damage_number.text = current_damage.phy_amount
 		damage_number.type = "phy"
-		damage_number.is_critical = current_damage.is_critical
+		#damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
 		#print(damage_number.type,damage_number.text)
 	if current_damage.mag_amount != 0:
 		var damage_number = DAMAGE_NUMBER.instantiate()
 		damage_number.global_position = damage_number_marker_2d.global_position
-		damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
-		damage_number.gravity = Vector2(0, 2.0)
-		damage_number.mass = 200
-		damage_number.text = current_damage.mag_amount
+		damage_number.damage = current_damage
+		#damage_number.velocity = Vector2(randf_range(-50, 50), randf_range(-200, -120))
+		#damage_number.gravity = Vector2(0, 2.0)
+		#damage_number.mass = 200
+		#damage_number.text = current_damage.mag_amount
 		damage_number.type = "mag"
-		damage_number.is_critical = current_damage.is_critical
+		#damage_number.is_critical = current_damage.is_critical
 		Game.add_object(damage_number)
 		#print(damage_number.type,damage_number.text)
 	

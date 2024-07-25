@@ -1,11 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://dxbx87pyiecvj"]
+[gd_scene load_steps=20 format=3 uid="uid://dxbx87pyiecvj"]
 
 [ext_resource type="PackedScene" uid="uid://x8q617q250qp" path="res://src/main/component/projectile_base.tscn" id="1_t3d8f"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_5/flame_spark.gd" id="2_2ipr1"]
-[ext_resource type="Texture2D" uid="uid://d1jj1h0gnx2bp" path="res://src/main/scene/role/standard_weapons/weapon_5/arrow.png" id="3_w2pvu"]
+[ext_resource type="Texture2D" uid="uid://da2i5m6aarqb6" path="res://assets/MyWeapon/Fire/Fire.png" id="3_mvvts"]
 [ext_resource type="Texture2D" uid="uid://w646v5e1omg4" path="res://assets/MyVFX/ExplosionVFX/explosion_02.png" id="4_5rc27"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/hit_box.gd" id="5_w3ep4"]
 [ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="6_a1q8c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cy12"]
+atlas = ExtResource("3_mvvts")
+region = Rect2(32, 192, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s7ktu"]
 radius = 8.0
@@ -208,7 +212,7 @@ acceleration = 300.0
 [node name="Sprite2D" parent="Graphics" index="0"]
 position = Vector2(0, 4.76837e-07)
 rotation = 0.785398
-texture = ExtResource("3_w2pvu")
+texture = SubResource("AtlasTexture_7cy12")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 position = Vector2(3, 0)

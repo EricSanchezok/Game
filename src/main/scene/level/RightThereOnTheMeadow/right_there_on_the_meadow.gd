@@ -3,7 +3,6 @@ extends Node2D
 @onready var level_wait_timer: Timer = $LevelWaitTimer
 @onready var fight_timer: Timer = $FightTimer
 
-
 var current_level: int = 0:
 	set(v):
 		current_level = v
@@ -21,7 +20,6 @@ var current_level: int = 0:
 func _ready() -> void:
 	Game.respawn_all_players_finished.connect(_on_respawn_all_players_finished)
 	
-
 func _on_test_timer_1_timeout() -> void:
 	pass
 

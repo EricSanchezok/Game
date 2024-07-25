@@ -1,16 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw3qklsdnt7bj"]
+[gd_scene load_steps=9 format=3 uid="uid://dw3qklsdnt7bj"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_5gswo"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_6/weapon_6.gd" id="2_sdi01"]
-[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="3_uvsrj"]
-[ext_resource type="Texture2D" uid="uid://cs20wa12cm7xu" path="res://src/main/scene/role/standard_weapons/weapon_6/icon.png" id="4_nms4i"]
+[ext_resource type="Texture2D" uid="uid://da2i5m6aarqb6" path="res://assets/MyWeapon/Fire/Fire.png" id="4_ise5q"]
 [ext_resource type="Texture2D" uid="uid://cqxtgyn0lfhvi" path="res://assets/MyVFX/ExplosionVFX/ExplosionVFXPack01/Explosion VFX 2/Explosion VFX 2(32x32).png" id="5_2ds44"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ml278"]
-resource_local_to_scene = true
-shader = ExtResource("3_uvsrj")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_width = 0.6
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne3yd"]
+atlas = ExtResource("4_ise5q")
+region = Rect2(32, 224, 32, 32)
 
 [sub_resource type="Animation" id="Animation_r8pm0"]
 length = 0.001
@@ -131,10 +128,9 @@ random_enemy = false
 rotation = -1.5708
 
 [node name="Sprite2D" parent="Graphics" index="0"]
-material = SubResource("ShaderMaterial_ml278")
 position = Vector2(9, 0)
 rotation = 0.785398
-texture = ExtResource("4_nms4i")
+texture = SubResource("AtlasTexture_ne3yd")
 
 [node name="ShootMarker2D" parent="Graphics" index="5"]
 position = Vector2(36, 0.00013032)

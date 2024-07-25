@@ -1,21 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://ce0qr603anefw"]
+[gd_scene load_steps=16 format=3 uid="uid://ce0qr603anefw"]
 
 [ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_bbi0y"]
 [ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_2/weapon_2.gd" id="2_a7g2b"]
 [ext_resource type="Texture2D" uid="uid://c8umenawm6qd8" path="res://assets/MyIcon/StationIcon/StationIcons.png" id="3_chmdu"]
-[ext_resource type="Shader" path="res://src/main/etc/shader/outline.gdshader" id="4_ib6pm"]
-[ext_resource type="Texture2D" uid="uid://wl6hkr3hae2e" path="res://src/main/scene/role/standard_weapons/weapon_2/icon.png" id="5_h74b6"]
+[ext_resource type="Texture2D" uid="uid://da2i5m6aarqb6" path="res://assets/MyWeapon/Fire/Fire.png" id="5_xnqex"]
 [ext_resource type="Texture2D" uid="uid://bvjck3irbivkt" path="res://assets/MyVFX/FireVFX/FireParticle.png" id="6_ov4cj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_syvr4"]
 atlas = ExtResource("3_chmdu")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmdbu"]
-resource_local_to_scene = true
-shader = ExtResource("4_ib6pm")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_width = 0.6
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrc3l"]
+atlas = ExtResource("5_xnqex")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qc4h0"]
 radius = 25.0
@@ -71,10 +68,9 @@ script = ExtResource("2_a7g2b")
 texture = SubResource("AtlasTexture_syvr4")
 
 [node name="Sprite2D" parent="Graphics" index="0"]
-material = SubResource("ShaderMaterial_lmdbu")
 position = Vector2(4, 0)
 rotation = 0.785398
-texture = ExtResource("5_h74b6")
+texture = SubResource("AtlasTexture_wrc3l")
 
 [node name="CollisionShape2D" parent="Graphics/HitBox" index="0"]
 position = Vector2(56, 0)
