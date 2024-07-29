@@ -1,6 +1,5 @@
 extends ProjectileBase
 
-
 const MIASMA = preload("res://src/main/scene/role/effect/miasma/miasma.tscn")
 
 func _ready() -> void:

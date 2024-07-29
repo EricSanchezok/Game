@@ -131,9 +131,12 @@ func _ready() -> void:
 	ready.connect(_on_ready)
 	deregistered.connect(_on_deregistered)
 	
+	
 func _on_ready() -> void:
 	attack_cooldown_time = attributes["ATK_CD"]
-		
+	
+	wam.update_attributes.emit(EffectScope.SELF, "WEAPON_SIZE", self, AttrType.FIXED, -0.3)
+	
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 功能函数 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ## [color=yellow]基类中每帧需要调用的函数，请务必在 tick_physics 函数的开始每帧调用
 func base_tick(delta: float) -> void:

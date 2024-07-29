@@ -17,7 +17,7 @@ var trait_attributes = {
 	"LIGHTING": ["LCH_DMG", "LCH_COUNT"],
 	"EARTH": [],
 	"TOXIN": ["POISON_LAY", "MAX_POISON", "POISON_DAMAGE"],
-	"NATURE": ["NAT_GROW"],
+	"NATURE": ["NAT_LAY", "NAT_SUM"],
 	"DIVINITY": ["DIV_STR"],
 	"DEMON": [],
 	"SWORD": [],
@@ -45,13 +45,19 @@ func get_base_attributes(weapon_id: int) -> Dictionary:
 	var weapon_data = WeaponsManager.get_weapon_data_base(weapon_id)
 	
 	for attr in general_attributes:
-		attributes[attr] = weapon_data[attr]
+		if weapon_data.has(attr):
+			attributes[attr] = weapon_data[attr]
+		else:
+			attributes[attr] = 0.0
 
 	var traits = WeaponsManager.get_traits(weapon_id)
 
 	for _trait in traits:
 		for attr in trait_attributes[_trait]:
-			attributes[attr] = weapon_data[attr]
+			if weapon_data.has(attr):
+				attributes[attr] = weapon_data[attr]
+			else:
+				attributes[attr] = 0.0
 
 	return attributes
 

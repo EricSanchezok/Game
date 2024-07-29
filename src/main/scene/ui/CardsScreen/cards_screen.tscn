@@ -12,16 +12,13 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igeek"]
 bg_color = Color(0, 0, 0, 0.501961)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_civcj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ep46w"]
 atlas = ExtResource("2_opnr2")
-region = Rect2(208, 112, 48, 17)
+region = Rect2(192, 240, 16, 16)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iraja"]
-texture = SubResource("AtlasTexture_civcj")
-texture_margin_left = 4.0
-texture_margin_top = 4.0
-texture_margin_right = 4.0
-texture_margin_bottom = 4.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayv8s"]
+atlas = ExtResource("2_opnr2")
+region = Rect2(208, 240, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6mdob"]
 atlas = ExtResource("2_opnr2")
@@ -33,14 +30,6 @@ texture_margin_left = 8.0
 texture_margin_top = 8.0
 texture_margin_right = 18.0
 texture_margin_bottom = 8.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ep46w"]
-atlas = ExtResource("2_opnr2")
-region = Rect2(192, 240, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ayv8s"]
-atlas = ExtResource("2_opnr2")
-region = Rect2(208, 240, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3o6jj"]
 atlas = ExtResource("6_ud1k7")
@@ -61,6 +50,17 @@ region = Rect2(64, 144, 6, 6)
 [sub_resource type="AtlasTexture" id="AtlasTexture_blih0"]
 atlas = ExtResource("6_ud1k7")
 region = Rect2(80, 144, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_civcj"]
+atlas = ExtResource("2_opnr2")
+region = Rect2(208, 112, 48, 17)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iraja"]
+texture = SubResource("AtlasTexture_civcj")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ko37"]
 atlas = ExtResource("2_opnr2")
@@ -86,58 +86,22 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("InventoryPanel:position")
+tracks/0/path = NodePath("BackGroundPanel:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(60, 290)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("EquipmentPanel:position")
+tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(16, 148)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EquipmentPanel2:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(624, 212)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BackGroundPanel:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -151,58 +115,22 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("InventoryPanel:position")
-tracks/0/interp = 2
+tracks/0/path = NodePath("BackGroundPanel:self_modulate")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(60, 400), Vector2(60, 260), Vector2(60, 290)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("EquipmentPanel:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.45),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-400, 148), Vector2(16, 148)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("EquipmentPanel2:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.45),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1000, 212), Vector2(624, 212)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("BackGroundPanel:self_modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.15),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -234,222 +162,223 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_igeek")
 
-[node name="InventoryPanel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(510, 64)
+[node name="CardSpawnMarker2D" type="Marker2D" parent="."]
+position = Vector2(258, -98)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 60.0
-offset_top = 290.0
-offset_right = 570.0
-offset_bottom = 354.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_iraja")
+grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InventoryPanel"]
+[node name="ShopArea" parent="VBoxContainer" instance=ExtResource("5_bsdcy")]
+custom_minimum_size = Vector2(270, 56)
 layout_mode = 2
 
-[node name="InventoryArea" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-
-[node name="InventoryArea2" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 1
-
-[node name="InventoryArea3" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 2
-
-[node name="InventoryArea4" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 3
-
-[node name="InventoryArea5" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 4
-
-[node name="InventoryArea6" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 5
-
-[node name="InventoryArea7" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 6
-
-[node name="InventoryArea8" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 7
-
-[node name="InventoryArea9" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 8
-
-[node name="InventoryArea10" parent="InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
-layout_mode = 2
-index = 9
-
-[node name="EquipmentPanel" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 148.0
-offset_right = 296.0
-offset_bottom = 212.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_g3yp4")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EquipmentPanel"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 0
-
-[node name="EquipmentArea" parent="EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-
-[node name="EquipmentArea2" parent="EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 1
-
-[node name="EquipmentArea3" parent="EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 2
-
-[node name="EquipmentArea4" parent="EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 3
-
-[node name="EquipmentArea5" parent="EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 4
-
-[node name="EquipmentPanel2" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 624.0
-offset_top = 212.0
-offset_right = 904.001
-offset_bottom = 276.0
-rotation = -3.14159
-theme_override_styles/panel = SubResource("StyleBoxTexture_g3yp4")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EquipmentPanel2"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 0
-
-[node name="EquipmentArea" parent="EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 9
-
-[node name="EquipmentArea2" parent="EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 8
-
-[node name="EquipmentArea3" parent="EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 7
-
-[node name="EquipmentArea4" parent="EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 6
-
-[node name="EquipmentArea5" parent="EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
-layout_mode = 2
-index = 5
-
-[node name="RefreshButton" type="TextureButton" parent="."]
+[node name="RefreshButton" type="TextureButton" parent="VBoxContainer/ShopArea"]
 custom_minimum_size = Vector2(32, 32)
-layout_mode = 0
-offset_left = 462.0
-offset_top = 103.0
-offset_right = 494.0
-offset_bottom = 135.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -32.0
+offset_right = 42.0
+grow_horizontal = 0
+grow_vertical = 0
 texture_normal = SubResource("AtlasTexture_ep46w")
 texture_pressed = SubResource("AtlasTexture_ayv8s")
 stretch_mode = 5
 
-[node name="CardSpawnMarker2D" type="Marker2D" parent="."]
-position = Vector2(592, -100)
+[node name="EquipmentPanel" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(280, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_g3yp4")
 
-[node name="StarProbs" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 60.0
-offset_top = 267.0
-offset_right = 310.0
-offset_bottom = 287.0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/EquipmentPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="EquipmentArea" parent="VBoxContainer/EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+
+[node name="EquipmentArea2" parent="VBoxContainer/EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 1
+
+[node name="EquipmentArea3" parent="VBoxContainer/EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 2
+
+[node name="EquipmentArea4" parent="VBoxContainer/EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 3
+
+[node name="EquipmentArea5" parent="VBoxContainer/EquipmentPanel/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 4
+
+[node name="EquipmentPanel2" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(280, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_g3yp4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/EquipmentPanel2"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="EquipmentArea" parent="VBoxContainer/EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 5
+
+[node name="EquipmentArea2" parent="VBoxContainer/EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 6
+
+[node name="EquipmentArea3" parent="VBoxContainer/EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 7
+
+[node name="EquipmentArea4" parent="VBoxContainer/EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 8
+
+[node name="EquipmentArea5" parent="VBoxContainer/EquipmentPanel2/HBoxContainer" instance=ExtResource("4_a2eyk")]
+layout_mode = 2
+index = 9
+
+[node name="StarProbs" type="HBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 theme = ExtResource("7_mck0y")
 theme_override_constants/separation = 7
 
-[node name="Star1" type="TextureRect" parent="StarProbs"]
+[node name="Star1" type="TextureRect" parent="VBoxContainer/StarProbs"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("AtlasTexture_3o6jj")
 stretch_mode = 5
 
-[node name="Prob1" type="Label" parent="StarProbs"]
+[node name="Prob1" type="Label" parent="VBoxContainer/StarProbs"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "0.0"
 vertical_alignment = 1
 
-[node name="Star2" type="TextureRect" parent="StarProbs"]
+[node name="Star2" type="TextureRect" parent="VBoxContainer/StarProbs"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("AtlasTexture_lm45x")
 stretch_mode = 5
 
-[node name="Prob2" type="Label" parent="StarProbs"]
+[node name="Prob2" type="Label" parent="VBoxContainer/StarProbs"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "0.0"
 vertical_alignment = 1
 
-[node name="Star3" type="TextureRect" parent="StarProbs"]
+[node name="Star3" type="TextureRect" parent="VBoxContainer/StarProbs"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("AtlasTexture_lpdur")
 stretch_mode = 5
 
-[node name="Prob3" type="Label" parent="StarProbs"]
+[node name="Prob3" type="Label" parent="VBoxContainer/StarProbs"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "0.0"
 vertical_alignment = 1
 
-[node name="Star4" type="TextureRect" parent="StarProbs"]
+[node name="Star4" type="TextureRect" parent="VBoxContainer/StarProbs"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("AtlasTexture_dxf6a")
 stretch_mode = 5
 
-[node name="Prob4" type="Label" parent="StarProbs"]
+[node name="Prob4" type="Label" parent="VBoxContainer/StarProbs"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "0.0"
 vertical_alignment = 1
 
-[node name="Star5" type="TextureRect" parent="StarProbs"]
+[node name="Star5" type="TextureRect" parent="VBoxContainer/StarProbs"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 texture = SubResource("AtlasTexture_blih0")
 stretch_mode = 5
 
-[node name="Prob5" type="Label" parent="StarProbs"]
+[node name="Prob5" type="Label" parent="VBoxContainer/StarProbs"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "0.0"
 vertical_alignment = 1
 
+[node name="InventoryPanel" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(510, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_iraja")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/InventoryPanel"]
+layout_mode = 2
+
+[node name="InventoryArea" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+
+[node name="InventoryArea2" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 1
+
+[node name="InventoryArea3" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 2
+
+[node name="InventoryArea4" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 3
+
+[node name="InventoryArea5" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 4
+
+[node name="InventoryArea6" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 5
+
+[node name="InventoryArea7" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 6
+
+[node name="InventoryArea8" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 7
+
+[node name="InventoryArea9" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 8
+
+[node name="InventoryArea10" parent="VBoxContainer/InventoryPanel/HBoxContainer" instance=ExtResource("3_w7rfe")]
+layout_mode = 2
+index = 9
+
 [node name="PlayerLevel" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 268.0
-offset_right = 54.0
-offset_bottom = 316.0
+offset_left = 7.0
+offset_top = 144.0
+offset_right = 55.0
+offset_bottom = 192.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_2t0tl")
 
-[node name="Label" type="Label" parent="PlayerLevel"]
+[node name="LevelLabel" type="Label" parent="PlayerLevel"]
 layout_mode = 2
 theme = ExtResource("7_mck0y")
 theme_override_font_sizes/font_size = 32
@@ -460,10 +389,10 @@ vertical_alignment = 1
 [node name="UpdateLevelButton" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 0
-offset_left = 14.0
-offset_top = 322.0
-offset_right = 46.0
-offset_bottom = 354.0
+offset_left = 61.0
+offset_top = 154.0
+offset_right = 93.0
+offset_bottom = 186.0
 texture_normal = SubResource("AtlasTexture_osnom")
 texture_pressed = SubResource("AtlasTexture_jpjfb")
 stretch_mode = 5
@@ -472,18 +401,6 @@ stretch_mode = 5
 libraries = {
 "": SubResource("AnimationLibrary_o8psm")
 }
-
-[node name="ShopArea" parent="." instance=ExtResource("5_bsdcy")]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.0
-offset_top = -120.0
-offset_right = 135.0
-offset_bottom = -56.0
 
 [node name="EndButton" parent="." instance=ExtResource("8_krcmo")]
 layout_mode = 1
@@ -497,6 +414,5 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "下一关"
 
-[connection signal="pressed" from="RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="UpdateLevelButton" to="." method="_on_update_level_button_pressed"]
 [connection signal="pressed" from="EndButton" to="." method="_on_end_button_pressed"]

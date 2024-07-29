@@ -46,6 +46,7 @@ position = Vector2(604, 320)
 script = ExtResource("5_6tr1y")
 
 [node name="EnemyAreas" parent="." instance=ExtResource("6_1jw5h")]
+visible = false
 
 [node name="SpawnShape2D" type="CollisionShape2D" parent="EnemyAreas"]
 position = Vector2(616.5, 391.5)
@@ -53,6 +54,7 @@ shape = SubResource("RectangleShape2D_qq6mk")
 script = ExtResource("7_ksa3s")
 
 [node name="StationAreas" parent="." instance=ExtResource("6_hxwvn")]
+visible = false
 
 [node name="SpawnShape2D" type="CollisionShape2D" parent="StationAreas"]
 position = Vector2(613, 392)
@@ -71,7 +73,7 @@ autostart = true
 one_shot = true
 
 [node name="FightTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="timeout" from="TestTimer1" to="." method="_on_test_timer_1_timeout"]

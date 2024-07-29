@@ -83,6 +83,9 @@ _data = {
 
 [node name="Card" type="Button"]
 z_index = 5
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_f1cdg")
@@ -103,6 +106,7 @@ offset_bottom = 146.0
 mouse_filter = 2
 
 [node name="CardTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = -32.0
 offset_top = -32.0
@@ -150,6 +154,7 @@ theme_override_constants/separation = -3
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 256
 collision_mask = 32
+input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_pwuc3")
@@ -164,8 +169,8 @@ libraries = {
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="CardTexture" to="." method="_on_card_texture_mouse_entered"]
+[connection signal="mouse_exited" from="CardTexture" to="." method="_on_card_texture_mouse_exited"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
 [connection signal="timeout" from="ShowDetailTimer" to="." method="_on_show_detail_timer_timeout"]

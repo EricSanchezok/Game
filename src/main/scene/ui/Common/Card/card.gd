@@ -217,16 +217,6 @@ func show_detail() -> void:
 func hide_detail() -> void:
 	card_detail.hide()
 
-func _on_mouse_entered() -> void:
-	animate_scale(true)
-	show_detail_timer.start()
-	
-func _on_mouse_exited() -> void:
-	if not following_mouse:
-		animate_scale(false)
-	show_detail_timer.stop()
-	hide_detail()
-
 func _on_gui_input(event: InputEvent) -> void:
 	if not purchased or not can_move: return
 	if not event is InputEventMouseButton: return
@@ -256,9 +246,25 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.owner is CardArea:
 		target_areas.append(area.owner)
 	
+	
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.owner is CardArea:
 		target_areas.erase(area.owner)
+	
 
 func _on_show_detail_timer_timeout() -> void:
 	show_detail()
+
+
+func _on_card_texture_mouse_entered() -> void:
+	animate_scale(true)
+	show_detail_timer.start()
+	print("鼠标进入")
+
+
+func _on_card_texture_mouse_exited() -> void:
+	if not following_mouse:
+		animate_scale(false)
+	show_detail_timer.stop()
+	hide_detail()
+	print("鼠标退出")

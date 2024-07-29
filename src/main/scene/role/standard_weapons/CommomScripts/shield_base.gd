@@ -143,6 +143,6 @@ func _on_hit_box_hit(hurtbox: Variant) -> void:
 		
 	var damage: Damage = Damage.new()
 	damage.direct_object = hurtbox.owner
-	damage.amount = damage.direct_object.enemy_stats.damage
+	damage.amount = damage.direct_object.attributes["DMG"]
 	
 	current_health -= damage.amount

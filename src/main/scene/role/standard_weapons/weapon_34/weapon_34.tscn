@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://r53ecmvcxs5t"]
+
+[ext_resource type="PackedScene" uid="uid://dn23km7rk18nk" path="res://src/main/component/weapon_base.tscn" id="1_tbrjl"]
+[ext_resource type="Script" path="res://src/main/scene/role/standard_weapons/weapon_34/weapon_34.gd" id="2_wqgtm"]
+
+[node name="Weapon34" instance=ExtResource("1_tbrjl")]
+script = ExtResource("2_wqgtm")
+charge_speed_curve = null
+attack_speed_curve = null
+back_speed_curve = null

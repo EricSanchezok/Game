@@ -4,23 +4,24 @@ const CARD = preload("res://src/main/scene/ui/Common/Card/card.tscn")
 const INVENTORY_AREA = preload("res://src/main/scene/ui/Common/InventoryArea/inventory_area.tscn")
 const EQUIPMENT_AREA = preload("res://src/main/scene/ui/Common/EquipmentArea/equipment_area.tscn")
 
-@onready var inventory_panel: PanelContainer = $InventoryPanel
-@onready var equipment_panel: PanelContainer = $EquipmentPanel
-@onready var equipment_panel_2: PanelContainer = $EquipmentPanel2
-@onready var shop_area: Control = $ShopArea
+@onready var level_label: Label = $PlayerLevel/LevelLabel
+@onready var refresh_button: TextureButton = $VBoxContainer/ShopArea/RefreshButton
+@onready var shop_area: Control = $VBoxContainer/ShopArea
+@onready var equipment_panel: PanelContainer = $VBoxContainer/EquipmentPanel
+@onready var equipment_panel_2: PanelContainer = $VBoxContainer/EquipmentPanel2
+@onready var inventory_panel: PanelContainer = $VBoxContainer/InventoryPanel
 
-@onready var star_1: TextureRect = $StarProbs/Star1
-@onready var prob_1: Label = $StarProbs/Prob1
-@onready var star_2: TextureRect = $StarProbs/Star2
-@onready var prob_2: Label = $StarProbs/Prob2
-@onready var star_3: TextureRect = $StarProbs/Star3
-@onready var prob_3: Label = $StarProbs/Prob3
-@onready var star_4: TextureRect = $StarProbs/Star4
-@onready var prob_4: Label = $StarProbs/Prob4
-@onready var star_5: TextureRect = $StarProbs/Star5
-@onready var prob_5: Label = $StarProbs/Prob5
 
-@onready var player_level_label: Label = $PlayerLevel/Label
+@onready var star_1: TextureRect = $VBoxContainer/StarProbs/Star1
+@onready var prob_1: Label = $VBoxContainer/StarProbs/Prob1
+@onready var star_2: TextureRect = $VBoxContainer/StarProbs/Star2
+@onready var prob_2: Label = $VBoxContainer/StarProbs/Prob2
+@onready var star_3: TextureRect = $VBoxContainer/StarProbs/Star3
+@onready var prob_3: Label = $VBoxContainer/StarProbs/Prob3
+@onready var star_4: TextureRect = $VBoxContainer/StarProbs/Star4
+@onready var prob_4: Label = $VBoxContainer/StarProbs/Prob4
+@onready var star_5: TextureRect = $VBoxContainer/StarProbs/Star5
+@onready var prob_5: Label = $VBoxContainer/StarProbs/Prob5
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var card_spawn_marker_2d: Marker2D = $CardSpawnMarker2D
@@ -43,20 +44,22 @@ func _ready() -> void:
 	hide()
 	my_player = owner
 	my_player.player_level_changed.connect(_on_player_level_changed)
+	update_star_probs(my_player.player_level)
 	
-
-	inventory_areas = $InventoryPanel/HBoxContainer.get_children()
-	var e1 = $EquipmentPanel/HBoxContainer.get_children()
-	var e2 = $EquipmentPanel2/HBoxContainer.get_children()
+	inventory_areas = $VBoxContainer/InventoryPanel/HBoxContainer.get_children()
+	var e1 = $VBoxContainer/EquipmentPanel/HBoxContainer.get_children()
+	var e2 = $VBoxContainer/EquipmentPanel2/HBoxContainer.get_children()
 	e2.reverse()
 	equipment_areas = e1 + e2
+	
+	refresh_button.pressed.connect(_on_refresh_button_pressed)
 	
 func _process(_delta: float) -> void:
 	if my_player.draw_result_queue.size() == draw_amount:
 		spawn_cards(my_player.draw_result_queue, draw_amount)
 
 func update_star_probs(player_level: int) -> void:
-	player_level_label.text = str(player_level)
+	level_label.text = str(player_level)
 	
 	var star_probs = WeaponsManager.map_level_to_star_probs(player_level)
 
@@ -100,6 +103,25 @@ func update_star_probs(player_level: int) -> void:
 				5:
 					star_5.hide()
 					prob_5.hide()
+					
+func get_target_card(weapon_id: int) -> Card:
+	var weapon_pool_item: Dictionary = WeaponsManager.get_weapon_pool_item(weapon_id)
+	var instance: Card = CARD.instantiate()
+	instance.global_position = card_spawn_marker_2d.global_position
+	instance.card_screen = self
+	instance.my_player = my_player
+	instance.weapon_id = weapon_pool_item["weapon_id"]
+	instance.my_icon_path = weapon_pool_item["icon_path"]
+	instance.my_star_rating = weapon_pool_item["star_rating"]
+	instance.my_price = weapon_pool_item["price"]
+	
+	instance.be_purchased.connect(_on_card_be_purchased)
+	instance.be_sold.connect(_on_card_be_sold)
+	inshop_cards.append(instance)
+		
+	add_child(instance)
+	
+	return instance
 
 func spawn_cards(result: Array, amount: int) -> void:
 	var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -114,10 +136,11 @@ func spawn_cards(result: Array, amount: int) -> void:
 		instance.my_star_rating = weapon_pool_item["star_rating"]
 		instance.my_price = weapon_pool_item["price"]
 		
-		add_child(instance)
 		instance.be_purchased.connect(_on_card_be_purchased)
 		instance.be_sold.connect(_on_card_be_sold)
 		inshop_cards.append(instance)
+		
+		add_child(instance)
 
 		var final_pos = get_final_pos(i)
 		tween.parallel().tween_property(instance, "global_position", final_pos, 0.2*(i+1))
@@ -137,6 +160,7 @@ func get_final_pos(index: int) -> Vector2:
 	var y = shop_area.position.y + shop_area.size.y / 2
 	var width = shop_area.size.x / draw_amount
 	var x = shop_area.position.x + (index + 0.5) * width
+	
 	return Vector2(x, y)
 
 func get_free_inventory_area() -> CardArea:
@@ -146,7 +170,6 @@ func get_free_inventory_area() -> CardArea:
 	return null
 	
 func merge_check(card: Card) -> bool:
-	# print("执行合成检查, card_id:", card.weapon_id, " card_level: ", card.my_level)
 	var count: int = 1
 	for _card in outshop_cards:
 		if _card.is_equal(card) and _card != card:

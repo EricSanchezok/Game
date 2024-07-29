@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2um0kcmm08t1" path="res://src/main/scene/ui/Common/CardArea/card_area.tscn" id="1_yuk58"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rsbc"]
-size = Vector2(270, 64)
+size = Vector2(270, 56)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2781"]
 bg_color = Color(0.75, 0.2625, 0.2625, 0.592157)
@@ -14,10 +14,14 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="ShopArea" instance=ExtResource("1_yuk58")]
+mouse_filter = 2
 script = ExtResource("1_gktkw")
 
+[node name="Area2D" parent="." index="0"]
+input_pickable = false
+
 [node name="CollisionShape2D" parent="Area2D" index="0"]
-position = Vector2(135, 32)
+position = Vector2(135, 28)
 shape = SubResource("RectangleShape2D_3rsbc")
 
 [node name="Panel" type="Panel" parent="." index="1"]
@@ -27,4 +31,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u2781")
