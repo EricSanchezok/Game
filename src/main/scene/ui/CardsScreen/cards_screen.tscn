@@ -414,5 +414,10 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 16
 text = "下一关"
 
+[node name="TestButton" parent="." instance=ExtResource("8_krcmo")]
+layout_mode = 0
+text = "test"
+
 [connection signal="pressed" from="UpdateLevelButton" to="." method="_on_update_level_button_pressed"]
 [connection signal="pressed" from="EndButton" to="." method="_on_end_button_pressed"]
+[connection signal="pressed" from="TestButton" to="." method="_on_test_button_pressed"]

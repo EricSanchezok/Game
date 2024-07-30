@@ -45,6 +45,7 @@ var any_following_mouse: bool = false
 
 var inshop_cards: Array[Card]
 var outshop_cards: Array[Card]
+var reserve_cards: Array[Card] ## 保留卡，当库存满时就会添加到这个数组中，在 _process 中检测到有库存时自动添加到库存中
 
 func _ready() -> void:
 	hide()
@@ -55,7 +56,6 @@ func _ready() -> void:
 	inventory_areas = inventorys.get_children()
 	var e1 = equipments_1.get_children()
 	var e2 = equipments_2.get_children()
-	#e2.reverse()
 	equipment_areas = e1 + e2
 	
 	refresh_button.pressed.connect(_on_refresh_button_pressed)
@@ -63,6 +63,17 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if my_player.draw_result_queue.size() == draw_amount:
 		spawn_cards(my_player.draw_result_queue, draw_amount)
+	
+	if reserve_cards.size() > 0:
+		for card in reserve_cards:
+			var free_inventory_area = get_free_inventory_area()
+			if free_inventory_area:
+				free_inventory_area.is_free = false
+				card.animate_to_area(free_inventory_area, 0.5)
+				card.animate_scale(false)
+
+				outshop_cards.append(card)
+				reserve_cards.erase(card)
 
 func update_star_probs(player_level: int) -> void:
 	level_label.text = str(player_level)
@@ -77,7 +88,7 @@ func update_star_probs(player_level: int) -> void:
 			stars[i].hide()
 			probs[i].hide()
 					
-func get_target_card(weapon_id: int) -> Card:
+func add_target_card(weapon_id: int) -> Card:
 	var weapon_pool_item: Dictionary = WeaponsManager.get_weapon_pool_item(weapon_id)
 	var instance: Card = CARD.instantiate()
 	instance.global_position = card_spawn_marker_2d.global_position
@@ -90,9 +101,10 @@ func get_target_card(weapon_id: int) -> Card:
 	
 	instance.be_purchased.connect(_on_card_be_purchased)
 	instance.be_sold.connect(_on_card_be_sold)
-	inshop_cards.append(instance)
 		
 	add_child(instance)
+	
+	reserve_cards.append(instance)
 	
 	return instance
 
@@ -239,13 +251,15 @@ func _on_refresh_button_pressed() -> void:
 func _on_update_level_button_pressed() -> void:
 	my_player.player_level += 1
 
-func _on_card_be_sold(card: Card) -> void:
-	my_player.coin_count += card.my_price
+func _on_card_be_sold(card: Card, return_coin: bool) -> void:
+	if return_coin:
+		my_player.coin_count += card.my_price
 	if card in outshop_cards:
 		outshop_cards.erase(card)
 
-func _on_card_be_purchased(card: Card) -> void:
-	my_player.coin_count -= card.my_price
+func _on_card_be_purchased(card: Card, need_coin: bool) -> void:
+	if need_coin:
+		my_player.coin_count -= card.my_price
 
 	if card in inshop_cards:
 		inshop_cards.erase(card)
@@ -253,7 +267,6 @@ func _on_card_be_purchased(card: Card) -> void:
 	if merge_check(card):
 		var merge_target = get_merge_target(card)
 		do_merge(merge_target, card)
-		card.is_purchased()
 		
 	else:
 		var free_inventory_area = get_free_inventory_area()
@@ -261,10 +274,12 @@ func _on_card_be_purchased(card: Card) -> void:
 			free_inventory_area.is_free = false
 			card.animate_to_area(free_inventory_area, 0.5)
 			card.animate_scale(false)
-			card.is_purchased()
 
 			outshop_cards.append(card)
 
-
 func _on_end_button_pressed():
 	hide_screen()
+
+func _on_test_button_pressed() -> void:
+	add_target_card(randi_range(0, 20))
+	print(reserve_cards)

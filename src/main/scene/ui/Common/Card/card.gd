@@ -19,8 +19,8 @@ var my_icon_path: String
 var my_price: int
 var my_star_rating: int
 
-signal be_purchased(card: Card)
-signal be_sold(card: Card)
+signal be_purchased(card: Card, need_coin: bool)
+signal be_sold(card: Card, return_coin: bool)
 
 var my_level: int = 1
 var total_level: int = 1
@@ -61,6 +61,8 @@ func _ready() -> void:
 	price.text = str(my_price)
 	var rect2 = Rect2(64*(my_star_rating-1), 64, 64, 64)
 	card_texture.texture.region = rect2
+	
+	be_purchased.connect(_on_self_be_purchased)
 	
 func _process(_delta: float) -> void:
 	if no_tween_running() and purchased and not following_mouse and current_area:
@@ -183,16 +185,7 @@ func handle_area(area: CardArea) -> void:
 				area.change_card_area(current_area)
 			animate_to_area(area)
 		AreaType.SHOP:
-			is_sold()
-
-func is_sold() -> void:
-	be_sold.emit(self)
-	hide_detail()
-	to_free()
-	
-func is_purchased() -> void:
-	purchased = true
-	hide_detail()
+			be_sold.emit(self, true)
 
 func is_equal(card: Card) -> bool:
 	return weapon_id == card.weapon_id and my_level == card.my_level
@@ -236,7 +229,19 @@ func _on_gui_input(event: InputEvent) -> void:
 func _on_button_down() -> void:
 	if purchased:
 		return
-	be_purchased.emit(self)
+	be_purchased.emit(self, true)
+	
+func _on_self_be_purchased(card: Card, need_coin: bool) -> void:
+	if card != self:
+		return
+	purchased = true
+	hide_detail()
+	
+func _on_self_be_sold(card: Card, return_coin: bool) -> void:
+	if card != self:
+		return
+	hide_detail()
+	to_free()
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.owner is CardArea:
