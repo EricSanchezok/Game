@@ -83,9 +83,6 @@ _data = {
 
 [node name="Card" type="Button"]
 z_index = 5
-custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 64.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxEmpty_f1cdg")
@@ -106,7 +103,7 @@ offset_bottom = 146.0
 mouse_filter = 2
 
 [node name="CardTexture" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(48, 52)
 layout_mode = 0
 offset_left = -32.0
 offset_top = -32.0

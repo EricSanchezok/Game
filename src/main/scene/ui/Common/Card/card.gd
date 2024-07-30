@@ -124,7 +124,6 @@ func animate_to_area(area: CardArea, time: float = 0.2) -> void:
 		AreaType.EQUIPMENT:
 			my_player.register_weapon.emit(my_player.multiplayer_id, weapon_id, area.index)
 			
-	
 	if current_area:
 		current_area.remove_card(self)
 	current_area = area
@@ -171,10 +170,7 @@ func upgrade_weapon_level() -> void:
 	my_level += 1
 
 func get_area_position(area: CardArea) -> Vector2:
-	if area.area_type == AreaType.EQUIPMENT and area.index >= 5:
-		return area.global_position - area.size/2
-	else:
-		return area.global_position + area.size/2
+	return area.global_position + area.size/2
 	
 func handle_area(area: CardArea) -> void:
 	match area.area_type:
@@ -246,25 +242,19 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if area.owner is CardArea:
 		target_areas.append(area.owner)
 	
-	
 func _on_area_2d_area_exited(area: Area2D) -> void:
 	if area.owner is CardArea:
 		target_areas.erase(area.owner)
 	
-
 func _on_show_detail_timer_timeout() -> void:
 	show_detail()
-
 
 func _on_card_texture_mouse_entered() -> void:
 	animate_scale(true)
 	show_detail_timer.start()
-	print("鼠标进入")
-
 
 func _on_card_texture_mouse_exited() -> void:
 	if not following_mouse:
 		animate_scale(false)
 	show_detail_timer.stop()
 	hide_detail()
-	print("鼠标退出")

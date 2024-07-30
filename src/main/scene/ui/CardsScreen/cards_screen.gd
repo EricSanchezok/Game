@@ -7,21 +7,27 @@ const EQUIPMENT_AREA = preload("res://src/main/scene/ui/Common/EquipmentArea/equ
 @onready var level_label: Label = $PlayerLevel/LevelLabel
 @onready var refresh_button: TextureButton = $VBoxContainer/ShopArea/RefreshButton
 @onready var shop_area: Control = $VBoxContainer/ShopArea
-@onready var equipment_panel: PanelContainer = $VBoxContainer/EquipmentPanel
-@onready var equipment_panel_2: PanelContainer = $VBoxContainer/EquipmentPanel2
-@onready var inventory_panel: PanelContainer = $VBoxContainer/InventoryPanel
+
+@onready var inventorys: HBoxContainer = $VBoxContainer/InventoryPanel/HBoxContainer
+@onready var equipments_1: HBoxContainer = $VBoxContainer/EquipmentPanel/HBoxContainer
+@onready var equipments_2: HBoxContainer = $VBoxContainer/EquipmentPanel2/HBoxContainer
 
 
-@onready var star_1: TextureRect = $VBoxContainer/StarProbs/Star1
-@onready var prob_1: Label = $VBoxContainer/StarProbs/Prob1
-@onready var star_2: TextureRect = $VBoxContainer/StarProbs/Star2
-@onready var prob_2: Label = $VBoxContainer/StarProbs/Prob2
-@onready var star_3: TextureRect = $VBoxContainer/StarProbs/Star3
-@onready var prob_3: Label = $VBoxContainer/StarProbs/Prob3
-@onready var star_4: TextureRect = $VBoxContainer/StarProbs/Star4
-@onready var prob_4: Label = $VBoxContainer/StarProbs/Prob4
-@onready var star_5: TextureRect = $VBoxContainer/StarProbs/Star5
-@onready var prob_5: Label = $VBoxContainer/StarProbs/Prob5
+@onready var stars = [
+	$VBoxContainer/StarProbs/Star1,
+	$VBoxContainer/StarProbs/Star2,
+	$VBoxContainer/StarProbs/Star3,
+	$VBoxContainer/StarProbs/Star4,
+	$VBoxContainer/StarProbs/Star5
+]
+
+@onready var probs = [
+	$VBoxContainer/StarProbs/Prob1,
+	$VBoxContainer/StarProbs/Prob2,
+	$VBoxContainer/StarProbs/Prob3,
+	$VBoxContainer/StarProbs/Prob4,
+	$VBoxContainer/StarProbs/Prob5
+]
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var card_spawn_marker_2d: Marker2D = $CardSpawnMarker2D
@@ -46,10 +52,10 @@ func _ready() -> void:
 	my_player.player_level_changed.connect(_on_player_level_changed)
 	update_star_probs(my_player.player_level)
 	
-	inventory_areas = $VBoxContainer/InventoryPanel/HBoxContainer.get_children()
-	var e1 = $VBoxContainer/EquipmentPanel/HBoxContainer.get_children()
-	var e2 = $VBoxContainer/EquipmentPanel2/HBoxContainer.get_children()
-	e2.reverse()
+	inventory_areas = inventorys.get_children()
+	var e1 = equipments_1.get_children()
+	var e2 = equipments_2.get_children()
+	#e2.reverse()
 	equipment_areas = e1 + e2
 	
 	refresh_button.pressed.connect(_on_refresh_button_pressed)
@@ -60,49 +66,16 @@ func _process(_delta: float) -> void:
 
 func update_star_probs(player_level: int) -> void:
 	level_label.text = str(player_level)
-	
 	var star_probs = WeaponsManager.map_level_to_star_probs(player_level)
 
-	for i in range(5):
-		if star_probs.has(i+1):
-			match i+1:
-				1:
-					star_1.show()
-					prob_1.show()
-					prob_1.text = str(star_probs[i+1])
-				2:
-					star_2.show()
-					prob_2.show()
-					prob_2.text = str(star_probs[i+1])
-				3:
-					star_3.show()
-					prob_3.show()
-					prob_3.text = str(star_probs[i+1])
-				4:
-					star_4.show()
-					prob_4.show()
-					prob_4.text = str(star_probs[i+1])
-				5:
-					star_5.show()
-					prob_5.show()
-					prob_5.text = str(star_probs[i+1])
+	for i in range(stars.size()):
+		if star_probs.has(i + 1):
+			stars[i].show()
+			probs[i].show()
+			probs[i].text = str(star_probs[i + 1])
 		else:
-			match i+1:
-				1:
-					star_1.hide()
-					prob_1.hide()
-				2:
-					star_2.hide()
-					prob_2.hide()
-				3:
-					star_3.hide()
-					prob_3.hide()
-				4:
-					star_4.hide()
-					prob_4.hide()
-				5:
-					star_5.hide()
-					prob_5.hide()
+			stars[i].hide()
+			probs[i].hide()
 					
 func get_target_card(weapon_id: int) -> Card:
 	var weapon_pool_item: Dictionary = WeaponsManager.get_weapon_pool_item(weapon_id)
