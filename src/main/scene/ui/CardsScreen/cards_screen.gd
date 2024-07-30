@@ -12,7 +12,6 @@ const EQUIPMENT_AREA = preload("res://src/main/scene/ui/Common/EquipmentArea/equ
 @onready var equipments_1: HBoxContainer = $VBoxContainer/EquipmentPanel/HBoxContainer
 @onready var equipments_2: HBoxContainer = $VBoxContainer/EquipmentPanel2/HBoxContainer
 
-
 @onready var stars = [
 	$VBoxContainer/StarProbs/Star1,
 	$VBoxContainer/StarProbs/Star2,
@@ -282,4 +281,3 @@ func _on_end_button_pressed():
 
 func _on_test_button_pressed() -> void:
 	add_target_card(randi_range(0, 20))
-	print(reserve_cards)

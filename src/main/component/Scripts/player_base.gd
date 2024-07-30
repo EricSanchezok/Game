@@ -3,6 +3,8 @@ extends CharacterBody2D
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 导入模块 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 @onready var wam: WeaponAttributeManager = $WeaponAttributeManager ## 属性管理器节点
+@onready var bam: BoostAttributeManager = $BoostAttributeManager ## 强化管理器节点
+
 @onready var animation_player: AnimationPlayer = $AnimationPlayer ## 动画播放器节点
 @onready var camera_2d: Camera2D = $Camera2D ## 2D 相机节点
 @onready var graphics: Node2D = $Graphics ## 角色图形节点
@@ -15,6 +17,7 @@ extends CharacterBody2D
 @onready var pause_screen: Control = $CanvasLayer/PauseScreen
 @onready var cards_screen: Control = $CanvasLayer/CardsScreen
 @onready var status_screen: Control = $CanvasLayer/StatusScreen
+@onready var boosts_screen: Control = $CanvasLayer/BoostsScreen
 
 
 enum AttrType {
@@ -347,3 +350,11 @@ func _on_update_attributes(attr: String, source: Variant, type: AttrType, value:
 	attributes_source[attr][source][type] = attributes_source[attr][source].get(type, 0) + value
 
 	recalculate(attr)
+
+
+func _on_show_boost_pressed() -> void:
+	if boosts_screen.visible:
+		boosts_screen.hide_screen()
+	else:
+		boosts_screen.redraw_boosts()
+		boosts_screen.show_screen()

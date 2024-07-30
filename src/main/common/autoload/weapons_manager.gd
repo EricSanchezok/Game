@@ -10,7 +10,7 @@ var draw_request_queue = [] # 抽取请求队列
 
 func _ready():
 	# 加载武器基础数据
-	load_weapon_data_base("res://src/main/WeaponDataBase.xlsx")
+	weapon_data_base = load_weapon_data_base("res://src/main/WeaponDataBase.xlsx")
 	Game.start_game.connect(_on_start_game)
 
 	set_process(is_multiplayer_authority())
@@ -175,13 +175,14 @@ func create_weapon_pool() -> void:
 
 		weapon_pool.append(weapon_pool_item)
 
-func load_weapon_data_base(path: String) -> void:
+func load_weapon_data_base(path: String) -> Array:
 	'''
 	加载武器基础数据
 
 	:param path: 武器基础数据表路径
 	:return: None
 	'''
+	var data_base: Array = []
 
 	var excel = ExcelFile.open_file(path)
 	var workbook = excel.get_workbook()
@@ -192,7 +193,9 @@ func load_weapon_data_base(path: String) -> void:
 		var data = {}
 		for j in range(table_data[1].size()):
 			data[table_data[1][j+1]] = table_data[row_index][j+1]
-		weapon_data_base.append(data)
+		data_base.append(data)
+		
+	return data_base
 		
 func get_weapon_pool_item(weapon_id: int) -> Dictionary:
 	'''

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://doj0nvhytxean"]
+[gd_scene load_steps=15 format=3 uid="uid://doj0nvhytxean"]
 
 [ext_resource type="Script" path="res://src/main/component/Scripts/player_base.gd" id="1_yob1g"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/hurt_box.gd" id="2_1gfhr"]
@@ -6,8 +6,11 @@
 [ext_resource type="Script" path="res://src/main/common/script_classes/state_machine.gd" id="3_2r57c"]
 [ext_resource type="PackedScene" uid="uid://dovpo3i0usorp" path="res://src/main/scene/ui/CardsScreen/cards_screen.tscn" id="3_3qbx4"]
 [ext_resource type="PackedScene" uid="uid://dfuqyia8xwx10" path="res://src/main/scene/ui/StatusScreen/status_screen.tscn" id="4_4ytyy"]
+[ext_resource type="PackedScene" uid="uid://cn2efo40lh764" path="res://src/main/scene/ui/BoostsScreen/boosts_screen.tscn" id="5_mgrhk"]
+[ext_resource type="PackedScene" uid="uid://ycvhu1aoyup2" path="res://src/main/scene/ui/Common/MyButton/my_button.tscn" id="6_7ddc7"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/weapon_attribute_manager.gd" id="6_kxnos"]
 [ext_resource type="Script" path="res://src/main/common/script_classes/trait_attribute_manager.gd" id="6_xno6v"]
+[ext_resource type="Script" path="res://src/main/common/script_classes/boost_attribute_manager.gd" id="11_ix2xx"]
 [ext_resource type="PackedScene" uid="uid://l6lc8laggmtw" path="res://src/main/scene/ui/Common/HealthBar/health_bar.tscn" id="26_6ndas"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qmr2h"]
@@ -49,6 +52,18 @@ script = ExtResource("1_yob1g")
 [node name="CardsScreen" parent="CanvasLayer" instance=ExtResource("3_3qbx4")]
 
 [node name="StatusScreen" parent="CanvasLayer" instance=ExtResource("4_4ytyy")]
+
+[node name="BoostsScreen" parent="CanvasLayer" instance=ExtResource("5_mgrhk")]
+
+[node name="show_boost" parent="CanvasLayer" instance=ExtResource("6_7ddc7")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -19.0
+offset_right = 83.0
+offset_bottom = 0.0
+grow_vertical = 0
+text = "ShowBoost"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qmr2h")
@@ -123,11 +138,15 @@ script = ExtResource("6_kxnos")
 [node name="TraitAttributeManager" type="Node" parent="."]
 script = ExtResource("6_xno6v")
 
+[node name="BoostAttributeManager" type="Node" parent="."]
+script = ExtResource("11_ix2xx")
+
 [node name="HealthBar" parent="." instance=ExtResource("26_6ndas")]
 offset_left = -16.1538
 offset_top = 11.5385
 offset_right = 13.8462
 offset_bottom = 13.5385
 
+[connection signal="pressed" from="CanvasLayer/show_boost" to="." method="_on_show_boost_pressed"]
 [connection signal="hurt" from="Graphics/HurtBox" to="." method="_on_hurt_box_hurt"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
