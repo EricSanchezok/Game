@@ -18,3 +18,5 @@ func check_boost(type: String, id: int) -> bool:
 	
 func _on_register_boost(boost_data) -> void:
 	current_boosts.append(boost_data)
+	
+	

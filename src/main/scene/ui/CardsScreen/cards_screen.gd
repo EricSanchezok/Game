@@ -67,12 +67,9 @@ func _process(_delta: float) -> void:
 		for card in reserve_cards:
 			var free_inventory_area = get_free_inventory_area()
 			if free_inventory_area:
-				free_inventory_area.is_free = false
-				card.animate_to_area(free_inventory_area, 0.5)
-				card.animate_scale(false)
-
-				outshop_cards.append(card)
+				card.be_purchased.emit(card, false)
 				reserve_cards.erase(card)
+				
 
 func update_star_probs(player_level: int) -> void:
 	level_label.text = str(player_level)
@@ -190,9 +187,6 @@ func get_merge_target(card: Card) -> Card:
 						target_area_type = area_type
 						target_index = index
 
-	# print("合成目标：", target_card)
-	# print("合成类型：", target_area_type)
-	# print("合成索引：", target_index)
 	return target_card
 
 func do_merge(merge_target: Card, new_purchased_card: Card=null) -> void:
@@ -280,4 +274,4 @@ func _on_end_button_pressed():
 	hide_screen()
 
 func _on_test_button_pressed() -> void:
-	add_target_card(randi_range(0, 20))
+	add_target_card(0)

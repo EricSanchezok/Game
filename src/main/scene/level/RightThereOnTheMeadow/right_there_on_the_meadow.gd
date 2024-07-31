@@ -16,7 +16,6 @@ var current_level: int = 0:
 				weapon.show()
 				weapon.state_machine.is_lock = false
 
-
 func _ready() -> void:
 	Game.respawn_all_players_finished.connect(_on_respawn_all_players_finished)
 	
@@ -25,20 +24,10 @@ func _on_test_timer_1_timeout() -> void:
 
 func _on_test_timer_2_timeout() -> void:
 	pass
-	#Game.players[1].register_weapon.emit(1, 0, 0)
-	#Game.players[1].register_weapon.emit(1, 1, 1)
-	#Game.players[1].register_weapon.emit(1, 2, 2)
-	#Game.players[1].register_weapon.emit(1, 3, 3)
-	#Game.players[1].register_weapon.emit(1, 4, 4)
-	#Game.players[1].register_weapon.emit(1, 5, 5)
-	#Game.players[1].register_weapon.emit(1, 6, 6)
-	#Game.players[1].register_weapon.emit(1, 7, 7)
 	
-
 func level_up(level: int) -> void:
 	match level:
 		1: #第一关应该很简单，只有一种初始怪
-			#EnemiesManager.register_enemy("Shade", "A", 1, 1, 5)  #Shade
 			EnemiesManager.register_enemy("Slime", "D", 1, 1, 1)  #Slime
 		2: #第二关多一个碰撞怪
 			EnemiesManager.register_enemy("Slime", "D", 2, 2, 4)  #Slime
@@ -193,7 +182,6 @@ func _on_respawn_all_players_finished() -> void:
 
 func _on_end_button_pressed() -> void:
 	current_level += 1
-
 
 func _on_level_wait_timer_timeout() -> void:
 	level_up(current_level)
