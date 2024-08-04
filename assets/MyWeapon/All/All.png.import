@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1lnu1thvbdpc"
-path="res://.godot/imported/C.png-661adf22eccf31ea1c68c584a2df9f01.ctex"
+uid="uid://dbqi6rq4wg0hc"
+path="res://.godot/imported/All.png-ce80784e45ef014b6ddcf98660be6495.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/main/scene/role/enemy/Slime/C.png"
-dest_files=["res://.godot/imported/C.png-661adf22eccf31ea1c68c584a2df9f01.ctex"]
+source_file="res://assets/MyWeapon/All/All.png"
+dest_files=["res://.godot/imported/All.png-ce80784e45ef014b6ddcf98660be6495.ctex"]
 
 [params]
 
